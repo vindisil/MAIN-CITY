@@ -9,7 +9,8 @@ const MAX_MESSAGES: int = 12
 const TEXT := Color("e9f3ff")
 const MUTED := Color("91a9c2")
 const ACCENT := Color("55e4bf")
-const SPAWN_CONFIG_PATH := "user://main_city_spawn.cfg"
+# v2 ignora o antigo spawn salvo dentro do prédio (0, ~0.05, 8).
+const SPAWN_CONFIG_PATH := "user://main_city_spawn_v2.cfg"
 const SPAWN_CONFIG_SECTION := "city1"
 const SPAWN_CONFIG_KEY := "position"
 
@@ -26,13 +27,11 @@ var collapsed: bool = false
 func setup(owner_player: Node) -> void:
     player = owner_player
     name = "ChatDeTexto"
-    # Ocupa o espaco util entre o minimapa (esquerda) e HUD de armas/dinheiro (direita).
     anchor_left = 0.0
     anchor_right = 1.0
     anchor_top = 0.0
     anchor_bottom = 0.0
     offset_left = 250.0
-    # Termina antes do botao da loja; a seta de recolher fica no limite direito do chat.
     offset_right = -446.0
     offset_top = 14.0
     offset_bottom = 218.0
@@ -122,8 +121,6 @@ func handle_key(event: InputEventKey) -> bool:
         if event.keycode == KEY_ESCAPE:
             close_input()
             return true
-        # As demais teclas precisam chegar ao LineEdit para virarem texto.
-        # Os sistemas de gameplay consultam br1_chat_typing e ficam bloqueados.
         return false
     if event.keycode == KEY_T and not event.ctrl_pressed and not event.alt_pressed and not event.meta_pressed:
         open_input()
@@ -175,7 +172,6 @@ func dismiss_if_outside(point: Vector2) -> void:
     set_collapsed(true)
 
 func hide_chat() -> void:
-    # Mantém o cabeçalho/setinha visível para o usuário poder abrir novamente.
     visible = true
     set_collapsed(true)
 
@@ -223,8 +219,6 @@ func _submit_command(raw_command: String) -> void:
     for i in range(1, parts.size()):
         args.append(String(parts[i]))
 
-    # Comandos locais essenciais: executados aqui no próprio chat para não
-    # depender de outro sinal, nó ou sistema externo.
     if command == "pos":
         _command_pos()
         return
