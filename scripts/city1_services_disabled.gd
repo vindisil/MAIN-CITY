@@ -9,15 +9,15 @@ extends Node3D
 @export var army_enabled: bool = false
 @export var hospital_enabled: bool = false
 
-const SPAWN_CONFIG_PATH := "user://main_city_spawn.cfg"
+# v2 ignora o arquivo antigo que continha o spawn preso em X=0 / Z=8.
+const SPAWN_CONFIG_PATH := "user://main_city_spawn_v2.cfg"
 const SPAWN_CONFIG_SECTION := "city1"
 const SPAWN_CONFIG_KEY := "position"
 
 func _ready() -> void:
-	# Precisa continuar recebendo ESC mesmo quando o menu pausa a árvore.
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	# Aplica somente o spawn que o jogador fixou manualmente com /setaspawn.
-	# Não existe mais busca automática, ponto aleatório ou fallback de rua.
+	# Aplica somente o spawn salvo manualmente na versão atual.
+	# Sem spawn salvo, não altera a posição fixa de main.tscn.
 	call_deferred("_apply_saved_spawn")
 
 func _apply_saved_spawn() -> void:
@@ -28,8 +28,6 @@ func _apply_saved_spawn() -> void:
 
 	var saved_spawn := _load_saved_spawn()
 	if saved_spawn == Vector3.INF:
-		# Sem /setaspawn salvo: não mexe no personagem.
-		# Ele permanece exatamente na posição definida em main.tscn.
 		return
 
 	player.velocity = Vector3.ZERO
@@ -62,6 +60,5 @@ func _unhandled_input(event: InputEvent) -> void:
 	if bool(menu.get("menu_open")):
 		menu.call("set_menu", false)
 	else:
-		# Aba 1 = mapa. ESC abre direto no mapa geográfico da City 1.
 		menu.call("open_page", 1)
 	get_viewport().set_input_as_handled()
