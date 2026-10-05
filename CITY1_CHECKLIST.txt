@@ -1,0 +1,22 @@
+MAIN CITY / CITY 1 - CHECKLIST DE MIGRACAO
+
+[OK] Branch nova-city1 baseada no commit completo do Main City v3.
+[OK] City 1 GLB mantida em escala 1.0.
+[OK] main.tscn nao instancia mais o mapa antigo.
+[OK] Player preservado pela mesma cena third_person_player.tscn.
+[OK] Armas preservadas sem alteracao.
+[OK] Veiculos civis BMW / GLS / Urus / Raptor instanciados para teste.
+[OK] Demais cenas de veiculos preservadas no projeto.
+[OK] Policia / Exercito / Hospital preservados, mas inativos.
+[OK] WorldStreamer / GPS / postes / editor do mapa antigo removidos da cena principal.
+[OK] Ciclo dia/noite mantido.
+[OK] VehicleEditStore mantido.
+[OK] Chao de seguranca invisivel adicionado para impedir queda.
+[OK] Pos-import da City 1 configurado para colisao seletiva de ruas/superficies.
+[OK] Referencias de arquivos conferidas no repositorio.
+
+TESTE LOCAL RECOMENDADO NO GODOT:
+1. Trocar para a branch nova-city1 no GitHub Desktop e fazer Pull.
+2. Abrir project.godot e aguardar a City 1 reimportar.
+3. Executar F6/F5 e validar spawn, movimentacao, armas e os quatro veiculos.
+4. Depois do primeiro teste, ajustar os pontos definitivos de spawn e bases.
