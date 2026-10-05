@@ -64,6 +64,8 @@ func _physics_process(delta: float) -> void:
 
         if vehicle.sleeping:
             vehicle.sleeping = false
+        # CCD fica ligado apenas no veiculo dirigido: mais seguranca em alta
+        # velocidade sem pagar o custo em toda a frota estacionada.
         vehicle.continuous_cd = true
         parked_time[id] = 0.0
         _set_audio_paused(id, false)
@@ -86,16 +88,22 @@ func _update_parked_vehicle(vehicle: VehicleBody3D, id: int, delta: float) -> vo
     var time_stopped: float = float(parked_time.get(id, 0.0)) + delta
     parked_time[id] = time_stopped
     if time_stopped >= parked_sleep_delay:
-        # Dormir reduz bastante o custo da frota parada. Colisao ou entrada do
-        # jogador acorda o corpo novamente; nenhuma cena/veiculo e removido.
+        # Dormir reduz o custo de fisica e audio da frota parada. Colisao ou
+        # entrada do jogador acorda o corpo; nenhum veiculo e removido/sumido.
         vehicle.sleeping = true
         _set_audio_paused(id, true)
 
 func _smooth_engine_force(vehicle: VehicleBody3D, id: int, delta: float) -> void:
     var target_force := vehicle.engine_force
     var previous_force: float = float(smoothed_engine.get(id, target_force))
-    # Ao frear, a forca do motor cai mais rapido. Na aceleracao, entra progressiva
-    # para reduzir trancos e a jogadinha lateral ao sair parado.
+
+    # Frenagem sempre vence de imediato: nunca deixa motor residual brigando
+    # com o freio. A suavizacao existe somente para a entrada da aceleracao.
+    if vehicle.brake > 5.0:
+        vehicle.engine_force = 0.0
+        smoothed_engine[id] = 0.0
+        return
+
     var response := engine_response * (1.65 if absf(target_force) < 0.01 else 1.0)
     var alpha := 1.0 - exp(-delta * response)
     var result := lerpf(previous_force, target_force, alpha)
@@ -125,13 +133,17 @@ func _apply_driving_assists(vehicle: VehicleBody3D, id: int) -> void:
         var steer_limit := max_steer_value * lerpf(1.0, high_speed_steer_ratio, steer_fade)
         vehicle.steering = clampf(vehicle.steering, -steer_limit, steer_limit)
 
+    var steer_usage := clampf(absf(vehicle.steering) / maxf(max_steer_value, 0.10), 0.0, 1.0)
+    var speed_factor := clampf((speed - 3.0) / 48.0, 0.0, 1.0)
     var horizontal_right := vehicle.global_transform.basis.x
     horizontal_right.y = 0.0
     if horizontal_right.length_squared() > 0.001:
         horizontal_right = horizontal_right.normalized()
         var lateral_speed := vehicle.linear_velocity.dot(horizontal_right)
-        var speed_factor := clampf((speed - 3.0) / 48.0, 0.0, 1.0)
-        var lateral_force := -horizontal_right * lateral_speed * vehicle.mass * lateral_stability * (0.30 + speed_factor * 0.70)
+        # Em reta a ajuda e completa; com volante esterçado ela recua para nao
+        # matar a curva nem deixar o carro pesado/robotico.
+        var turn_relief := lerpf(1.0, 0.35, steer_usage)
+        var lateral_force := -horizontal_right * lateral_speed * vehicle.mass * lateral_stability * (0.30 + speed_factor * 0.70) * turn_relief
         var lateral_cap := vehicle.mass * 5.5
         if lateral_force.length() > lateral_cap:
             lateral_force = lateral_force.normalized() * lateral_cap
@@ -139,7 +151,6 @@ func _apply_driving_assists(vehicle: VehicleBody3D, id: int) -> void:
 
         # Amortece guinada excessiva principalmente quando o volante esta perto
         # do centro; em curvas intencionais a assistencia diminui automaticamente.
-        var steer_usage := clampf(absf(vehicle.steering) / maxf(max_steer_value, 0.10), 0.0, 1.0)
         var yaw_speed := vehicle.angular_velocity.dot(Vector3.UP)
         var yaw_factor := 1.0 - steer_usage * 0.72
         var yaw_torque := -Vector3.UP * yaw_speed * vehicle.mass * yaw_stability * speed_factor * yaw_factor
