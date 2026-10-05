@@ -1,15 +1,11 @@
-[gd_scene format=3 uid="uid://7f158rtb5cn7"]
+[gd_scene load_steps=11 format=3 uid="uid://7f158rtb5cn7"]
 
 [ext_resource type="Script" uid="uid://ceynu5wwxg54p" path="res://scripts/brasilia_day_night.gd" id="brasilia_cycle"]
-[ext_resource type="PackedScene" path="res://scenes/city_chunks/global.tscn" id="city"]
-[ext_resource type="Script" uid="uid://cjfm4qq4x2pyg" path="res://scripts/editor_map_preview.gd" id="editor_preview"]
-[ext_resource type="Script" uid="uid://2748rto67d2x" path="res://scripts/gps_navigation.gd" id="gps_navigation"]
 [ext_resource type="PackedScene" path="res://scenes/third_person_player.tscn" id="third_person_player"]
-[ext_resource type="Script" uid="uid://xwsreg8mqwnl" path="res://scripts/city_services.gd" id="services"]
-[ext_resource type="Script" uid="uid://dly7kbeaoh7xe" path="res://scripts/street_lamps.gd" id="street_lamps"]
-[ext_resource type="Script" uid="uid://dq56685rkq4oh" path="res://scripts/world_streamer.gd" id="world_streamer"]
-[ext_resource type="Script" path="res://scripts/world_edit_store.gd" id="world_edit_store"]
+[ext_resource type="Script" path="res://scripts/city1_services_disabled.gd" id="services"]
 [ext_resource type="Script" path="res://scripts/vehicle_edit_store.gd" id="vehicle_edit_store"]
+[ext_resource type="PackedScene" path="res://assets/City1/City 1_MAIN_CITY_TEXTURED_MOBILE_GLB_FIX.glb" id="city1"]
+[ext_resource type="PackedScene" path="res://scenes/city1_vehicle_yard.tscn" id="vehicle_yard"]
 
 [sub_resource type="ProceduralSkyMaterial" id="city_sky_material"]
 sky_top_color = Color(0.2, 0.42, 0.66, 1)
@@ -31,8 +27,14 @@ fog_enabled = true
 fog_light_color = Color(0.67, 0.77, 0.82, 1)
 fog_density = 0.00055
 
-[node name="CidadeV15" type="Node3D" unique_id=160981243]
+[sub_resource type="BoxShape3D" id="city1_fallback_ground"]
+size = Vector3(4000, 0.6, 4000)
+
+[node name="MainCity_City1" type="Node3D" unique_id=160981243]
 script = ExtResource("services")
+police_enabled = false
+army_enabled = false
+hospital_enabled = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=687762479]
 environment = SubResource("S29")
@@ -43,26 +45,23 @@ light_energy = 0.6
 shadow_enabled = true
 directional_shadow_max_distance = 180.0
 
+[node name="NovaCidade_City1" parent="." instance=ExtResource("city1")]
+
+; Piso de segurança temporário abaixo da cidade. As ruas/prédios usam as
+; colisões geradas pelo import da City 1; este piso apenas evita queda infinita.
+[node name="FallbackGround" type="StaticBody3D" parent="."]
+position = Vector3(0, -0.35, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FallbackGround"]
+shape = SubResource("city1_fallback_ground")
+
 [node name="Player" parent="." instance=ExtResource("third_person_player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 8)
 
-[node name="Cidade" parent="." unique_id=2106832157 instance=ExtResource("city")]
-script = ExtResource("editor_preview")
-
-[node name="WorldStreamer" type="Node3D" parent="." unique_id=774909022]
-script = ExtResource("world_streamer")
-
-[node name="WorldEditStore" type="Node3D" parent="."]
-script = ExtResource("world_edit_store")
+[node name="Veiculos" parent="." instance=ExtResource("vehicle_yard")]
 
 [node name="VehicleEditStore" type="Node3D" parent="."]
 script = ExtResource("vehicle_edit_store")
 
-[node name="StreetLamps" type="Node3D" parent="." unique_id=1740206083]
-script = ExtResource("street_lamps")
-
 [node name="BrasiliaDayNight" type="Node3D" parent="." unique_id=2136659384]
 script = ExtResource("brasilia_cycle")
-
-[node name="GPSNavigation" type="Node" parent="." unique_id=1540606397]
-script = ExtResource("gps_navigation")

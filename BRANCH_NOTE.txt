@@ -1,0 +1,1 @@
+Use a branch nova-city1 para o primeiro teste local da nova cidade. A branch main permanece como backup intacto do Main City v3.
