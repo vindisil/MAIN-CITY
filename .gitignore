@@ -1,0 +1,23 @@
+# Godot generated/import cache
+.godot/
+.import/
+
+# Exported builds
+build/
+builds/
+export/
+exports/
+*.apk
+*.aab
+*.exe
+
+# Temporary/backup files
+*.tmp
+*.bak
+*~
+.DS_Store
+Thumbs.db
+
+# Editor/IDE
+.vscode/
+.idea/
