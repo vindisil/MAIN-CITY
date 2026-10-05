@@ -1,21 +1,54 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=12 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/v24_bmw.tscn" id="bmw"]
 [ext_resource type="PackedScene" path="res://scenes/v24_gls.tscn" id="gls"]
 [ext_resource type="PackedScene" path="res://scenes/v50_urus.tscn" id="urus"]
 [ext_resource type="PackedScene" path="res://scenes/v30_6_raptor_dirigivel.tscn" id="raptor"]
+[ext_resource type="PackedScene" path="res://scenes/v0_0_1_raptor_policial.tscn" id="raptor_policial"]
+[ext_resource type="PackedScene" path="res://scenes/v30_6_blindado_dirigivel.tscn" id="blindado"]
+[ext_resource type="PackedScene" path="res://scenes/v0_0_1_blindado_2.tscn" id="blindado_2"]
+[ext_resource type="PackedScene" path="res://scenes/v51_duster_policia_dirigivel.tscn" id="duster"]
+[ext_resource type="PackedScene" path="res://scenes/v60_ambulancia_hospital.tscn" id="ambulancia"]
+[ext_resource type="PackedScene" path="res://scenes/v70_caminhao_militar.tscn" id="caminhao"]
+[ext_resource type="PackedScene" path="res://scenes/v70_hammer_militar.tscn" id="hammer"]
 
-[node name="City1VehicleYard" type="Node3D"]
+[node name="City1VeiculosRua" type="Node3D"]
 
+; Todos os veículos dirigíveis preservam suas cenas/scripts originais.
+; Eles ficam em duas faixas próximas ao spawn da City 1, elevados o suficiente
+; para a física assentar sobre a colisão da rua na primeira simulação.
 [node name="BMW" parent="." instance=ExtResource("bmw")]
-position = Vector3(-10, 1.2, 22)
+position = Vector3(-3.4, 1.35, 20)
 
 [node name="MercedesGLS" parent="." instance=ExtResource("gls")]
-position = Vector3(-3.3, 1.2, 22)
+position = Vector3(3.4, 1.35, 20)
 
 [node name="Urus" parent="." instance=ExtResource("urus")]
-position = Vector3(3.3, 1.2, 22)
+position = Vector3(-3.4, 1.35, 31)
 
 [node name="FordRaptor" parent="." instance=ExtResource("raptor")]
-position = Vector3(10, 1.35, 22)
+position = Vector3(3.4, 1.55, 31)
 vehicle_name = "FORD RAPTOR"
+
+[node name="FordRaptorPolicial" parent="." instance=ExtResource("raptor_policial")]
+position = Vector3(-3.4, 1.55, 43)
+
+[node name="BlindadoPolicial1" parent="." instance=ExtResource("blindado")]
+position = Vector3(3.4, 1.65, 43)
+vehicle_name = "BLINDADO POLICIAL 1"
+
+[node name="BlindadoPolicial2" parent="." instance=ExtResource("blindado_2")]
+position = Vector3(-3.4, 1.65, 56)
+vehicle_name = "BLINDADO POLICIAL 2"
+
+[node name="DusterPolicial" parent="." instance=ExtResource("duster")]
+position = Vector3(3.4, 1.55, 56)
+
+[node name="AmbulanciaHospital" parent="." instance=ExtResource("ambulancia")]
+position = Vector3(-3.4, 1.85, 70)
+
+[node name="CaminhaoMilitar" parent="." instance=ExtResource("caminhao")]
+position = Vector3(3.4, 2.05, 70)
+
+[node name="HammerMilitar" parent="." instance=ExtResource("hammer")]
+position = Vector3(-3.4, 1.55, 84)
