@@ -2,7 +2,8 @@ extends Node3D
 ## Main City - migração para City 1.
 ## Polícia / Exército / Hospital ficam preservados, porém inativos até os
 ## novos pontos das bases serem definidos neste mapa.
-## Também centraliza ESC, spawn seguro e comandos locais da City 1.
+## O spawn NÃO é mais escolhido automaticamente: usa apenas o ponto salvo
+## pelo comando /setaspawn. Sem ponto salvo, mantém a posição definida em main.tscn.
 
 @export var police_enabled: bool = false
 @export var army_enabled: bool = false
@@ -12,51 +13,30 @@ const SPAWN_CONFIG_PATH := "user://main_city_spawn.cfg"
 const SPAWN_CONFIG_SECTION := "city1"
 const SPAWN_CONFIG_KEY := "position"
 
-const SAFE_SURFACE_WORDS := [
-	"road", "street", "tarmac", "highway", "sidewalk", "pavement", "parking",
-	"bridge", "ramp", "lane", "avenue", "rua", "asphalt", "asfalto",
-	"ground", "terrain", "land", "solo", "terreno"
-]
-
 func _ready() -> void:
 	# Precisa continuar recebendo ESC mesmo quando o menu pausa a árvore.
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	# Se o usuário já definiu /setaspawn, ele tem prioridade. Caso contrário,
-	# a City 1 procura automaticamente uma superfície livre.
-	call_deferred("_place_player_on_safe_spawn")
-	# O chat já é construído no _ready do Player (filho roda antes do pai), mas
-	# usamos deferred para manter a conexão robusta durante a entrada no mundo.
-	call_deferred("_connect_city1_chat_commands")
+	# Aplica somente o spawn que o jogador fixou manualmente com /setaspawn.
+	# Não existe mais busca automática, ponto aleatório ou fallback de rua.
+	call_deferred("_apply_saved_spawn")
 
-func _place_player_on_safe_spawn() -> void:
-	# Espera um frame para as colisões importadas da City 1 entrarem no espaço físico.
+func _apply_saved_spawn() -> void:
 	await get_tree().physics_frame
 	var player := get_node_or_null("Player") as CharacterBody3D
 	if player == null:
 		return
 
-	var custom_spawn := get_custom_spawn()
-	if custom_spawn != Vector3.INF:
-		player.velocity = Vector3.ZERO
-		player.global_position = custom_spawn
-		print("MAIN CITY / City 1: spawn personalizado em ", player.global_position)
+	var saved_spawn := _load_saved_spawn()
+	if saved_spawn == Vector3.INF:
+		# Sem /setaspawn salvo: não mexe no personagem.
+		# Ele permanece exatamente na posição definida em main.tscn.
 		return
 
-	var safe_position := _find_safe_spawn(player)
-	if safe_position == Vector3.INF:
-		# Último fallback: acima do piso global de segurança, longe do ponto antigo.
-		safe_position = Vector3(40.0, 0.35, 40.0)
-
 	player.velocity = Vector3.ZERO
-	player.global_position = safe_position + Vector3(0.0, 0.12, 0.0)
-	print("MAIN CITY / City 1: spawn seguro em ", player.global_position)
+	player.global_position = saved_spawn
+	print("MAIN CITY / City 1: spawn fixado aplicado em ", saved_spawn)
 
-func save_custom_spawn(position: Vector3) -> bool:
-	var config := ConfigFile.new()
-	config.set_value(SPAWN_CONFIG_SECTION, SPAWN_CONFIG_KEY, position)
-	return config.save(SPAWN_CONFIG_PATH) == OK
-
-func get_custom_spawn() -> Vector3:
+func _load_saved_spawn() -> Vector3:
 	var config := ConfigFile.new()
 	if config.load(SPAWN_CONFIG_PATH) != OK:
 		return Vector3.INF
@@ -64,118 +44,6 @@ func get_custom_spawn() -> Vector3:
 	if typeof(saved) != TYPE_VECTOR3:
 		return Vector3.INF
 	return saved
-
-func _connect_city1_chat_commands() -> void:
-	var chat := _get_text_chat()
-	if chat == null or not chat.has_signal("command_entered"):
-		return
-	var callback := Callable(self, "_on_chat_command")
-	if not chat.is_connected("command_entered", callback):
-		chat.connect("command_entered", callback)
-
-func _get_text_chat() -> Node:
-	var player := get_node_or_null("Player")
-	if player == null:
-		return null
-	var chat: Variant = player.get("text_chat")
-	if chat is Node and is_instance_valid(chat):
-		return chat as Node
-	return null
-
-func _on_chat_command(command: String, _args: PackedStringArray) -> void:
-	if command != "pos" and command != "setaspawn":
-		return
-
-	var player := get_node_or_null("Player") as Node3D
-	var chat := _get_text_chat()
-	if player == null or chat == null:
-		return
-
-	var position := player.global_position
-	if command == "pos":
-		chat.call("add_message", "SISTEMA", "Posição: " + _format_xyz(position))
-		return
-
-	if save_custom_spawn(position):
-		chat.call("add_message", "SISTEMA", "Spawn fixado: " + _format_xyz(position))
-	else:
-		chat.call("add_message", "SISTEMA", "Não foi possível salvar o spawn.")
-
-func _format_xyz(position: Vector3) -> String:
-	return "X=%.2f | Y=%.2f | Z=%.2f" % [position.x, position.y, position.z]
-
-func _find_safe_spawn(player: CharacterBody3D) -> Vector3:
-	var space := get_world_3d().direct_space_state
-	var excluded: Array[RID] = [player.get_rid()]
-	for vehicle in get_tree().get_nodes_in_group("vehicle"):
-		if vehicle is CollisionObject3D:
-			excluded.append((vehicle as CollisionObject3D).get_rid())
-
-	# Procura em anéis cada vez maiores. Assim não dependemos de coordenadas
-	# específicas do mapa antigo nem precisamos adivinhar onde existe uma rua.
-	var radii := [0.0, 12.0, 24.0, 40.0, 60.0, 85.0, 115.0, 150.0, 200.0, 260.0]
-	var directions := [
-		Vector2(0, 0), Vector2(1, 0), Vector2(-1, 0), Vector2(0, 1), Vector2(0, -1),
-		Vector2(1, 1), Vector2(1, -1), Vector2(-1, 1), Vector2(-1, -1),
-		Vector2(2, 1), Vector2(2, -1), Vector2(-2, 1), Vector2(-2, -1),
-		Vector2(1, 2), Vector2(-1, 2), Vector2(1, -2), Vector2(-1, -2)
-	]
-	var first_clear_fallback := Vector3.INF
-
-	for radius in radii:
-		for dir in directions:
-			var offset := Vector2.ZERO if radius == 0.0 else dir.normalized() * radius
-			var from := Vector3(offset.x, 14.0, offset.y)
-			var to := Vector3(offset.x, -4.0, offset.y)
-			var ray := PhysicsRayQueryParameters3D.create(from, to)
-			ray.exclude = excluded
-			ray.collide_with_bodies = true
-			ray.collide_with_areas = false
-			var hit := space.intersect_ray(ray)
-			if hit.is_empty():
-				continue
-
-			var point: Vector3 = hit.get("position", Vector3.INF)
-			if point == Vector3.INF or point.y < -1.0 or point.y > 4.5:
-				continue
-			if not _spawn_clear(space, point, excluded):
-				continue
-
-			var collider := hit.get("collider") as Node
-			if _is_safe_surface(collider):
-				return point
-			if first_clear_fallback == Vector3.INF:
-				first_clear_fallback = point
-
-	return first_clear_fallback
-
-func _spawn_clear(space: PhysicsDirectSpaceState3D, ground_point: Vector3, excluded: Array[RID]) -> bool:
-	var capsule := CapsuleShape3D.new()
-	capsule.radius = 0.48
-	capsule.height = 1.90
-	var query := PhysicsShapeQueryParameters3D.new()
-	query.shape = capsule
-	query.transform = Transform3D(Basis.IDENTITY, ground_point + Vector3(0.0, 1.08, 0.0))
-	query.exclude = excluded
-	query.collide_with_bodies = true
-	query.collide_with_areas = false
-	return space.intersect_shape(query, 1).is_empty()
-
-func _is_safe_surface(collider: Node) -> bool:
-	if collider == null:
-		return false
-	var names := ""
-	var current: Node = collider
-	var depth := 0
-	while current != null and depth < 5:
-		names += " " + str(current.name).to_lower()
-		current = current.get_parent()
-		depth += 1
-	for word in SAFE_SURFACE_WORDS:
-		if names.contains(word):
-			return true
-	# O piso de segurança é válido desde que o volume acima esteja livre.
-	return names.contains("fallbackground")
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not (event is InputEventKey):
