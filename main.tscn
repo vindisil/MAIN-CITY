@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://7f158rtb5cn7"]
+[gd_scene load_steps=10 format=3 uid="uid://7f158rtb5cn7"]
 
 [ext_resource type="Script" uid="uid://ceynu5wwxg54p" path="res://scripts/brasilia_day_night.gd" id="brasilia_cycle"]
 [ext_resource type="PackedScene" path="res://scenes/third_person_player.tscn" id="third_person_player"]
@@ -30,8 +30,11 @@ fog_density = 0.00055
 [sub_resource type="BoxShape3D" id="city1_fallback_ground"]
 size = Vector3(4000, 0.6, 4000)
 
-[node name="CidadeV15" type="Node3D" unique_id=160981243]
+[node name="MainCity_City1" type="Node3D" unique_id=160981243]
 script = ExtResource("services")
+police_enabled = false
+army_enabled = false
+hospital_enabled = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=687762479]
 environment = SubResource("S29")
@@ -44,6 +47,8 @@ directional_shadow_max_distance = 180.0
 
 [node name="NovaCidade_City1" parent="." instance=ExtResource("city1")]
 
+; Piso de segurança temporário abaixo da cidade. As ruas/prédios usam as
+; colisões geradas pelo import da City 1; este piso apenas evita queda infinita.
 [node name="FallbackGround" type="StaticBody3D" parent="."]
 position = Vector3(0, -0.35, 0)
 
