@@ -2,11 +2,15 @@ extends Node3D
 ## Main City - migração para City 1.
 ## Polícia / Exército / Hospital ficam preservados, porém inativos até os
 ## novos pontos das bases serem definidos neste mapa.
-## Também centraliza o atalho ESC e corrige o spawn inicial na City 1.
+## Também centraliza ESC, spawn seguro e comandos locais da City 1.
 
 @export var police_enabled: bool = false
 @export var army_enabled: bool = false
 @export var hospital_enabled: bool = false
+
+const SPAWN_CONFIG_PATH := "user://main_city_spawn.cfg"
+const SPAWN_CONFIG_SECTION := "city1"
+const SPAWN_CONFIG_KEY := "position"
 
 const SAFE_SURFACE_WORDS := [
 	"road", "street", "tarmac", "highway", "sidewalk", "pavement", "parking",
@@ -17,15 +21,25 @@ const SAFE_SURFACE_WORDS := [
 func _ready() -> void:
 	# Precisa continuar recebendo ESC mesmo quando o menu pausa a árvore.
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	# A City 1 não usa as coordenadas do mapa antigo. Procuramos automaticamente
-	# uma superfície livre perto do centro para o personagem nunca nascer preso.
+	# Se o usuário já definiu /setaspawn, ele tem prioridade. Caso contrário,
+	# a City 1 procura automaticamente uma superfície livre.
 	call_deferred("_place_player_on_safe_spawn")
+	# O chat já é construído no _ready do Player (filho roda antes do pai), mas
+	# usamos deferred para manter a conexão robusta durante a entrada no mundo.
+	call_deferred("_connect_city1_chat_commands")
 
 func _place_player_on_safe_spawn() -> void:
 	# Espera um frame para as colisões importadas da City 1 entrarem no espaço físico.
 	await get_tree().physics_frame
 	var player := get_node_or_null("Player") as CharacterBody3D
 	if player == null:
+		return
+
+	var custom_spawn := get_custom_spawn()
+	if custom_spawn != Vector3.INF:
+		player.velocity = Vector3.ZERO
+		player.global_position = custom_spawn
+		print("MAIN CITY / City 1: spawn personalizado em ", player.global_position)
 		return
 
 	var safe_position := _find_safe_spawn(player)
@@ -36,6 +50,59 @@ func _place_player_on_safe_spawn() -> void:
 	player.velocity = Vector3.ZERO
 	player.global_position = safe_position + Vector3(0.0, 0.12, 0.0)
 	print("MAIN CITY / City 1: spawn seguro em ", player.global_position)
+
+func save_custom_spawn(position: Vector3) -> bool:
+	var config := ConfigFile.new()
+	config.set_value(SPAWN_CONFIG_SECTION, SPAWN_CONFIG_KEY, position)
+	return config.save(SPAWN_CONFIG_PATH) == OK
+
+func get_custom_spawn() -> Vector3:
+	var config := ConfigFile.new()
+	if config.load(SPAWN_CONFIG_PATH) != OK:
+		return Vector3.INF
+	var saved: Variant = config.get_value(SPAWN_CONFIG_SECTION, SPAWN_CONFIG_KEY, null)
+	if typeof(saved) != TYPE_VECTOR3:
+		return Vector3.INF
+	return saved
+
+func _connect_city1_chat_commands() -> void:
+	var chat := _get_text_chat()
+	if chat == null or not chat.has_signal("command_entered"):
+		return
+	var callback := Callable(self, "_on_chat_command")
+	if not chat.is_connected("command_entered", callback):
+		chat.connect("command_entered", callback)
+
+func _get_text_chat() -> Node:
+	var player := get_node_or_null("Player")
+	if player == null:
+		return null
+	var chat: Variant = player.get("text_chat")
+	if chat is Node and is_instance_valid(chat):
+		return chat as Node
+	return null
+
+func _on_chat_command(command: String, _args: PackedStringArray) -> void:
+	if command != "pos" and command != "setaspawn":
+		return
+
+	var player := get_node_or_null("Player") as Node3D
+	var chat := _get_text_chat()
+	if player == null or chat == null:
+		return
+
+	var position := player.global_position
+	if command == "pos":
+		chat.call("add_message", "SISTEMA", "Posição: " + _format_xyz(position))
+		return
+
+	if save_custom_spawn(position):
+		chat.call("add_message", "SISTEMA", "Spawn fixado: " + _format_xyz(position))
+	else:
+		chat.call("add_message", "SISTEMA", "Não foi possível salvar o spawn.")
+
+func _format_xyz(position: Vector3) -> String:
+	return "X=%.2f | Y=%.2f | Z=%.2f" % [position.x, position.y, position.z]
 
 func _find_safe_spawn(player: CharacterBody3D) -> Vector3:
 	var space := get_world_3d().direct_space_state
