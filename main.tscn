@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://7f158rtb5cn7"]
+[gd_scene load_steps=11 format=3 uid="uid://7f158rtb5cn7"]
 
 [ext_resource type="Script" uid="uid://ceynu5wwxg54p" path="res://scripts/brasilia_day_night.gd" id="brasilia_cycle"]
 [ext_resource type="PackedScene" path="res://scenes/third_person_player.tscn" id="third_person_player"]
