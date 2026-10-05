@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/v24_bmw.tscn" id="bmw"]
+[ext_resource type="PackedScene" path="res://scenes/v24_gls.tscn" id="gls"]
+[ext_resource type="PackedScene" path="res://scenes/v50_urus.tscn" id="urus"]
+[ext_resource type="PackedScene" path="res://scenes/v30_6_raptor_dirigivel.tscn" id="raptor"]
+
+[node name="City1VehicleYard" type="Node3D"]
+
+[node name="BMW" parent="." instance=ExtResource("bmw")]
+position = Vector3(-10, 1.2, 22)
+
+[node name="MercedesGLS" parent="." instance=ExtResource("gls")]
+position = Vector3(-3.3, 1.2, 22)
+
+[node name="Urus" parent="." instance=ExtResource("urus")]
+position = Vector3(3.3, 1.2, 22)
+
+[node name="FordRaptor" parent="." instance=ExtResource("raptor")]
+position = Vector3(10, 1.35, 22)
+vehicle_name = "FORD RAPTOR"
