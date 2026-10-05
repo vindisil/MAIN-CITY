@@ -1,0 +1,131 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scripts/car.gd" id="drive"]
+[ext_resource type="Script" path="res://scripts/v30_5_fit_veiculo.gd" id="fit"]
+[ext_resource type="Script" path="res://scripts/v30_9_rodas_originais.gd" id="wheel_visuals"]
+[ext_resource type="Script" path="res://scripts/v30_9_blindado_camuflagem.gd" id="camo"]
+[ext_resource type="PackedScene" path="res://assets/models/v30_5_veiculos/blindado_policial/source/Armored Police Vehicle.fbx" id="model"]
+[ext_resource type="AudioStream" path="res://assets/audio/engine_v24.wav" id="engine"]
+[ext_resource type="Script" path="res://scripts/vehicle_night_lights.gd" id="vehicle_lights"]
+
+[sub_resource type="BoxShape3D" id="chassis"]
+size = Vector3(2.8600, 1.1500, 6.1200)
+
+[node name="BlindadoBase" type="VehicleBody3D" groups=["vehicle"]]
+script = ExtResource("drive")
+mass = 5100
+vehicle_name = "BLINDADO"
+overall_scale = 1.29
+engine_power = 14500
+reverse_power = 4800
+brake_power = 660
+max_steer = 0.37
+steer_speed = 2.9
+top_speed_mps = 40.0
+drive_sign = -1.0
+roll_spring = 56100.0
+roll_damping = 19890.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0.0000, 0.3150, 0.0000)
+shape = SubResource("chassis")
+
+[node name="Visual" type="Node3D" parent="."]
+position = Vector3(0.0000, -0.8950, 0.0000)
+rotation = Vector3(0, 3.141592653589793, 0)
+; FBX faced +Z. The wheel chassis and chase camera face -Z, as in BMW/GLS.
+script = ExtResource("fit")
+comprimento_m = 6.4
+ocultar_rodas_modelo = true
+
+[node name="Modelo" parent="Visual" instance=ExtResource("model")]
+
+[node name="PinturaCamuflada" type="Node3D" parent="Visual"]
+script = ExtResource("camo")
+
+[node name="WheelFL" type="VehicleWheel3D" parent="."]
+position = Vector3(-1.13500, -0.30000, -2.12000)
+wheel_radius = 0.55
+wheel_rest_length = 0.28
+suspension_travel = 0.26
+suspension_stiffness = 145.0
+suspension_max_force = 130000.0
+damping_compression = 4.1
+damping_relaxation = 5.0
+wheel_friction_slip = 4.3
+wheel_roll_influence = 0.045
+use_as_steering = true
+use_as_traction = false
+
+[node name="WheelFR" type="VehicleWheel3D" parent="."]
+position = Vector3(1.13500, -0.30000, -2.12000)
+wheel_radius = 0.55
+wheel_rest_length = 0.28
+suspension_travel = 0.26
+suspension_stiffness = 145.0
+suspension_max_force = 130000.0
+damping_compression = 4.1
+damping_relaxation = 5.0
+wheel_friction_slip = 4.3
+wheel_roll_influence = 0.045
+use_as_steering = true
+use_as_traction = false
+
+[node name="WheelRL" type="VehicleWheel3D" parent="."]
+position = Vector3(-1.13500, -0.30000, 1.98000)
+wheel_radius = 0.55
+wheel_rest_length = 0.28
+suspension_travel = 0.26
+suspension_stiffness = 145.0
+suspension_max_force = 130000.0
+damping_compression = 4.1
+damping_relaxation = 5.0
+wheel_friction_slip = 4.3
+wheel_roll_influence = 0.045
+use_as_steering = false
+use_as_traction = true
+
+[node name="WheelRR" type="VehicleWheel3D" parent="."]
+position = Vector3(1.13500, -0.30000, 1.98000)
+wheel_radius = 0.55
+wheel_rest_length = 0.28
+suspension_travel = 0.26
+suspension_stiffness = 145.0
+suspension_max_force = 130000.0
+damping_compression = 4.1
+damping_relaxation = 5.0
+wheel_friction_slip = 4.3
+wheel_roll_influence = 0.045
+use_as_steering = false
+use_as_traction = true
+
+[node name="WheelVisualSync" type="Node3D" parent="."]
+script = ExtResource("wheel_visuals")
+blindado = true
+
+[node name="CameraRig" type="Node3D" parent="."]
+position = Vector3(0, 1.68, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraRig"]
+spring_length = 8.7
+rotation = Vector3(-0.15, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig/SpringArm3D"]
+far = 1500.0
+current = false
+
+[node name="EngineAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("engine")
+max_distance = 65.0
+volume_db = -12.0
+
+[node name="VehicleNightLights" type="Node3D" parent="."]
+script = ExtResource("vehicle_lights")
+front_left_position = Vector3(-0.8000, 0.5900, -2.8200)
+front_right_position = Vector3(0.8000, 0.5900, -2.8200)
+rear_left_position = Vector3(-1.0300, 0.8200, 2.7600)
+rear_right_position = Vector3(1.0300, 0.8200, 2.7600)
+front_range = 31.0
+rear_range = 5.8
+front_energy = 2.0
+rear_energy = 0.82

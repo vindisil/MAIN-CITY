@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/urban_plot_fit.gd" id="fit"]
+[ext_resource type="PackedScene" path="res://assets/urban_imports/pretoria/pretoria.fbx" id="model_0"]
+
+[node name="Centro_Civico_Pretoria" type="Node3D"]
+
+[node name="Predio_01_pretoria" type="Node3D" parent="."]
+position = Vector3(0.000, 0.0, 0.000)
+script = ExtResource("fit")
+plot_width = 120.000
+plot_depth = 120.000
+max_building_height = 48.000
+collision_coverage = 0.660
+
+[node name="Model" parent="Predio_01_pretoria" instance=ExtResource("model_0")]

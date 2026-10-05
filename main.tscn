@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://7f158rtb5cn7"]
+
+[ext_resource type="Script" uid="uid://ceynu5wwxg54p" path="res://scripts/brasilia_day_night.gd" id="brasilia_cycle"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/global.tscn" id="city"]
+[ext_resource type="Script" uid="uid://cjfm4qq4x2pyg" path="res://scripts/editor_map_preview.gd" id="editor_preview"]
+[ext_resource type="Script" uid="uid://2748rto67d2x" path="res://scripts/gps_navigation.gd" id="gps_navigation"]
+[ext_resource type="PackedScene" path="res://scenes/third_person_player.tscn" id="third_person_player"]
+[ext_resource type="Script" uid="uid://xwsreg8mqwnl" path="res://scripts/city_services.gd" id="services"]
+[ext_resource type="Script" uid="uid://dly7kbeaoh7xe" path="res://scripts/street_lamps.gd" id="street_lamps"]
+[ext_resource type="Script" uid="uid://dq56685rkq4oh" path="res://scripts/world_streamer.gd" id="world_streamer"]
+[ext_resource type="Script" path="res://scripts/world_edit_store.gd" id="world_edit_store"]
+[ext_resource type="Script" path="res://scripts/vehicle_edit_store.gd" id="vehicle_edit_store"]
+
+[sub_resource type="ProceduralSkyMaterial" id="city_sky_material"]
+sky_top_color = Color(0.2, 0.42, 0.66, 1)
+sky_horizon_color = Color(0.75, 0.82, 0.84, 1)
+ground_bottom_color = Color(0.25, 0.28, 0.29, 1)
+ground_horizon_color = Color(0.75, 0.82, 0.84, 1)
+
+[sub_resource type="Sky" id="city_sky"]
+sky_material = SubResource("city_sky_material")
+
+[sub_resource type="Environment" id="S29"]
+background_mode = 2
+background_color = Color(0.43, 0.67, 0.9, 1)
+sky = SubResource("city_sky")
+ambient_light_source = 3
+ambient_light_color = Color(0.78, 0.82, 0.9, 1)
+ambient_light_energy = 0.28
+fog_enabled = true
+fog_light_color = Color(0.67, 0.77, 0.82, 1)
+fog_density = 0.00055
+
+[node name="CidadeV15" type="Node3D" unique_id=160981243]
+script = ExtResource("services")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=687762479]
+environment = SubResource("S29")
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=1238531488]
+transform = Transform3D(0.88294756, 0.37981048, -0.2759485, 0, 0.5877853, 0.809017, 0.46947157, -0.7143196, 0.5189836, 0, 0, 0)
+light_energy = 0.6
+shadow_enabled = true
+directional_shadow_max_distance = 180.0
+
+[node name="Player" parent="." instance=ExtResource("third_person_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 25)
+
+[node name="Cidade" parent="." unique_id=2106832157 instance=ExtResource("city")]
+script = ExtResource("editor_preview")
+
+[node name="WorldStreamer" type="Node3D" parent="." unique_id=774909022]
+script = ExtResource("world_streamer")
+
+[node name="WorldEditStore" type="Node3D" parent="."]
+script = ExtResource("world_edit_store")
+
+[node name="VehicleEditStore" type="Node3D" parent="."]
+script = ExtResource("vehicle_edit_store")
+
+[node name="StreetLamps" type="Node3D" parent="." unique_id=1740206083]
+script = ExtResource("street_lamps")
+
+[node name="BrasiliaDayNight" type="Node3D" parent="." unique_id=2136659384]
+script = ExtResource("brasilia_cycle")
+
+[node name="GPSNavigation" type="Node" parent="." unique_id=1540606397]
+script = ExtResource("gps_navigation")

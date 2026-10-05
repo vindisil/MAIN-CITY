@@ -1,0 +1,2725 @@
+[gd_scene load_steps=202 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/textures/v54_patio_asfalto.png" id="tex_asphalt"]
+
+[ext_resource type="Texture2D" path="res://assets/textures/sidewalk_tiles.png" id="tex_sidewalk"]
+
+[ext_resource type="Texture2D" path="res://assets/textures/v29_urban/muro_tijolo.jpg" id="tex_wall"]
+
+[ext_resource type="Texture2D" path="res://assets/textures/building_concrete.png" id="tex_concrete"]
+
+[ext_resource type="Texture2D" path="res://assets/textures/brushed_metal.png" id="tex_metal"]
+
+[ext_resource type="Texture2D" path="res://assets/textures/facade_windows.png" id="tex_glass"]
+
+[ext_resource type="Texture2D" path="res://assets/textures/plaster_light.png" id="tex_plaster"]
+
+[ext_resource type="Texture2D" path="res://assets/textures/wood.png" id="tex_wood"]
+
+[ext_resource type="Script" path="res://scripts/military_gate.gd" id="gate_script"]
+
+
+
+[sub_resource type="StandardMaterial3D" id="mat_asphalt"]
+albedo_texture = ExtResource("tex_asphalt")
+uv1_triplanar = true
+uv1_world_triplanar = true
+uv1_scale = Vector3(0.25,0.25,0.25)
+albedo_color = Color(0.480,0.500,0.460,1.000)
+roughness = 0.950
+metallic = 0.000
+
+[sub_resource type="StandardMaterial3D" id="mat_sidewalk"]
+albedo_texture = ExtResource("tex_sidewalk")
+uv1_triplanar = true
+uv1_world_triplanar = true
+uv1_scale = Vector3(0.25,0.25,0.25)
+albedo_color = Color(0.770,0.790,0.730,1.000)
+roughness = 0.920
+metallic = 0.000
+
+[sub_resource type="StandardMaterial3D" id="mat_wall"]
+albedo_texture = ExtResource("tex_wall")
+uv1_triplanar = true
+uv1_world_triplanar = true
+uv1_scale = Vector3(0.25,0.25,0.25)
+albedo_color = Color(0.430,0.490,0.390,1.000)
+roughness = 0.940
+metallic = 0.000
+
+[sub_resource type="StandardMaterial3D" id="mat_facade"]
+albedo_texture = ExtResource("tex_concrete")
+uv1_triplanar = true
+uv1_world_triplanar = true
+uv1_scale = Vector3(0.25,0.25,0.25)
+albedo_color = Color(0.550,0.600,0.520,1.000)
+roughness = 0.900
+metallic = 0.000
+
+[sub_resource type="StandardMaterial3D" id="mat_dark"]
+albedo_texture = ExtResource("tex_concrete")
+uv1_triplanar = true
+uv1_world_triplanar = true
+uv1_scale = Vector3(0.25,0.25,0.25)
+albedo_color = Color(0.170,0.210,0.160,1.000)
+roughness = 0.940
+metallic = 0.000
+
+[sub_resource type="StandardMaterial3D" id="mat_metal"]
+albedo_texture = ExtResource("tex_metal")
+uv1_triplanar = true
+uv1_world_triplanar = true
+uv1_scale = Vector3(0.25,0.25,0.25)
+albedo_color = Color(0.380,0.430,0.350,1.000)
+roughness = 0.720
+metallic = 0.160
+
+[sub_resource type="StandardMaterial3D" id="mat_glass"]
+albedo_texture = ExtResource("tex_glass")
+uv1_triplanar = true
+uv1_world_triplanar = true
+uv1_scale = Vector3(0.25,0.25,0.25)
+albedo_color = Color(0.320,0.450,0.380,0.840)
+roughness = 0.280
+metallic = 0.000
+transparency = 1
+
+[sub_resource type="StandardMaterial3D" id="mat_inside"]
+albedo_texture = ExtResource("tex_plaster")
+uv1_triplanar = true
+uv1_world_triplanar = true
+uv1_scale = Vector3(0.25,0.25,0.25)
+albedo_color = Color(0.820,0.840,0.770,1.000)
+roughness = 0.880
+metallic = 0.000
+
+[sub_resource type="StandardMaterial3D" id="mat_wood"]
+albedo_texture = ExtResource("tex_wood")
+uv1_triplanar = true
+uv1_world_triplanar = true
+uv1_scale = Vector3(0.25,0.25,0.25)
+albedo_color = Color(0.460,0.340,0.200,1.000)
+roughness = 0.780
+metallic = 0.000
+
+[sub_resource type="StandardMaterial3D" id="mat_green"]
+albedo_color = Color(0.130,0.310,0.110,1.000)
+roughness = 0.680
+metallic = 0.000
+
+[sub_resource type="StandardMaterial3D" id="mat_green2"]
+albedo_color = Color(0.250,0.480,0.200,1.000)
+roughness = 0.720
+metallic = 0.000
+
+[sub_resource type="StandardMaterial3D" id="mat_white"]
+albedo_color = Color(0.910,0.920,0.860,1.000)
+roughness = 0.860
+metallic = 0.000
+
+[sub_resource type="StandardMaterial3D" id="mat_yellow"]
+albedo_color = Color(0.910,0.700,0.100,1.000)
+roughness = 0.720
+metallic = 0.000
+
+[sub_resource type="StandardMaterial3D" id="mat_red"]
+albedo_color = Color(0.550,0.070,0.050,1.000)
+roughness = 0.720
+metallic = 0.000
+
+[sub_resource type="StandardMaterial3D" id="mat_black"]
+albedo_color = Color(0.040,0.050,0.040,1.000)
+roughness = 0.860
+metallic = 0.000
+
+[sub_resource type="StandardMaterial3D" id="mat_floor"]
+albedo_color = Color(0.560,0.580,0.530,1.000)
+roughness = 0.900
+metallic = 0.000
+
+[sub_resource type="StandardMaterial3D" id="mat_screen"]
+albedo_color = Color(0.040,0.220,0.180,1.000)
+roughness = 0.350
+metallic = 0.100
+
+[sub_resource type="BoxMesh" id="mesh_1"]
+size = Vector3(130.0, 0.08, 110.0)
+
+[sub_resource type="BoxShape3D" id="shape_1"]
+size = Vector3(130.0, 0.08, 110.0)
+
+[sub_resource type="BoxMesh" id="mesh_2"]
+size = Vector3(14.0, 0.12, 42.0)
+
+[sub_resource type="BoxMesh" id="mesh_3"]
+size = Vector3(48.0, 0.18, 2.2)
+
+[sub_resource type="BoxShape3D" id="shape_3"]
+size = Vector3(48.0, 0.18, 2.2)
+
+[sub_resource type="BoxMesh" id="mesh_4"]
+size = Vector3(0.18, 0.03, 4.0)
+
+[sub_resource type="BoxMesh" id="mesh_5"]
+size = Vector3(55.0, 4.3, 0.5)
+
+[sub_resource type="BoxShape3D" id="shape_5"]
+size = Vector3(55.0, 4.3, 0.5)
+
+[sub_resource type="BoxMesh" id="mesh_6"]
+size = Vector3(0.5, 4.3, 110.0)
+
+[sub_resource type="BoxShape3D" id="shape_6"]
+size = Vector3(0.5, 4.3, 110.0)
+
+[sub_resource type="BoxMesh" id="mesh_7"]
+size = Vector3(130.0, 4.3, 0.5)
+
+[sub_resource type="BoxShape3D" id="shape_7"]
+size = Vector3(130.0, 4.3, 0.5)
+
+[sub_resource type="BoxMesh" id="mesh_8"]
+size = Vector3(9.0, 4.0, 0.22)
+
+[sub_resource type="BoxShape3D" id="shape_8"]
+size = Vector3(9.0, 4.0, 0.22)
+
+[sub_resource type="BoxMesh" id="mesh_9"]
+size = Vector3(24.0, 4.0, 18.0)
+
+[sub_resource type="BoxShape3D" id="shape_9"]
+size = Vector3(24.0, 4.0, 18.0)
+
+[sub_resource type="BoxMesh" id="mesh_10"]
+size = Vector3(1.2, 5.6, 1.2)
+
+[sub_resource type="BoxShape3D" id="shape_10"]
+size = Vector3(1.2, 5.6, 1.2)
+
+[sub_resource type="BoxMesh" id="mesh_11"]
+size = Vector3(22.0, 1.0, 1.2)
+
+[sub_resource type="BoxShape3D" id="shape_11"]
+size = Vector3(22.0, 1.0, 1.2)
+
+[sub_resource type="BoxMesh" id="mesh_12"]
+size = Vector3(7.2, 0.2, 6.5)
+
+[sub_resource type="BoxShape3D" id="shape_12"]
+size = Vector3(7.2, 0.2, 6.5)
+
+[sub_resource type="BoxMesh" id="mesh_13"]
+size = Vector3(7.2, 3.0, 0.25)
+
+[sub_resource type="BoxShape3D" id="shape_13"]
+size = Vector3(7.2, 3.0, 0.25)
+
+[sub_resource type="BoxMesh" id="mesh_14"]
+size = Vector3(0.25, 3.0, 6.5)
+
+[sub_resource type="BoxShape3D" id="shape_14"]
+size = Vector3(0.25, 3.0, 6.5)
+
+[sub_resource type="BoxMesh" id="mesh_15"]
+size = Vector3(7.4, 0.3, 6.8)
+
+[sub_resource type="BoxShape3D" id="shape_15"]
+size = Vector3(7.4, 0.3, 6.8)
+
+[sub_resource type="BoxMesh" id="mesh_16"]
+size = Vector3(5.5, 1.4, 0.08)
+
+[sub_resource type="BoxMesh" id="mesh_17"]
+size = Vector3(3.0, 0.12, 1.0)
+
+[sub_resource type="BoxShape3D" id="shape_17"]
+size = Vector3(3.0, 0.12, 1.0)
+
+[sub_resource type="BoxMesh" id="mesh_18"]
+size = Vector3(44.0, 0.24, 28.0)
+
+[sub_resource type="BoxShape3D" id="shape_18"]
+size = Vector3(44.0, 0.24, 28.0)
+
+[sub_resource type="BoxMesh" id="mesh_19"]
+size = Vector3(20.0, 4.5, 0.35)
+
+[sub_resource type="BoxShape3D" id="shape_19"]
+size = Vector3(20.0, 4.5, 0.35)
+
+[sub_resource type="BoxMesh" id="mesh_20"]
+size = Vector3(0.35, 4.5, 28.0)
+
+[sub_resource type="BoxShape3D" id="shape_20"]
+size = Vector3(0.35, 4.5, 28.0)
+
+[sub_resource type="BoxMesh" id="mesh_21"]
+size = Vector3(44.0, 4.5, 0.35)
+
+[sub_resource type="BoxShape3D" id="shape_21"]
+size = Vector3(44.0, 4.5, 0.35)
+
+[sub_resource type="BoxMesh" id="mesh_22"]
+size = Vector3(10.0, 0.35, 3.2)
+
+[sub_resource type="BoxShape3D" id="shape_22"]
+size = Vector3(10.0, 0.35, 3.2)
+
+[sub_resource type="BoxMesh" id="mesh_23"]
+size = Vector3(3.0, 1.7, 0.06)
+
+[sub_resource type="BoxMesh" id="mesh_24"]
+size = Vector3(0.1, 2.7, 2.5)
+
+[sub_resource type="BoxMesh" id="mesh_25"]
+size = Vector3(0.22, 4.3, 8.0)
+
+[sub_resource type="BoxShape3D" id="shape_25"]
+size = Vector3(0.22, 4.3, 8.0)
+
+[sub_resource type="BoxMesh" id="mesh_26"]
+size = Vector3(0.22, 4.3, 5.0)
+
+[sub_resource type="BoxShape3D" id="shape_26"]
+size = Vector3(0.22, 4.3, 5.0)
+
+[sub_resource type="BoxMesh" id="mesh_27"]
+size = Vector3(17.8, 4.3, 0.22)
+
+[sub_resource type="BoxShape3D" id="shape_27"]
+size = Vector3(17.8, 4.3, 0.22)
+
+[sub_resource type="BoxMesh" id="mesh_28"]
+size = Vector3(7.5, 1.5, 1.2)
+
+[sub_resource type="BoxShape3D" id="shape_28"]
+size = Vector3(7.5, 1.5, 1.2)
+
+[sub_resource type="BoxMesh" id="mesh_29"]
+size = Vector3(7.2, 2.3, 0.15)
+
+[sub_resource type="BoxMesh" id="mesh_30"]
+size = Vector3(3.0, 0.12, 1.2)
+
+[sub_resource type="BoxShape3D" id="shape_30"]
+size = Vector3(3.0, 0.12, 1.2)
+
+[sub_resource type="BoxMesh" id="mesh_31"]
+size = Vector3(1.3, 0.8, 0.08)
+
+[sub_resource type="BoxMesh" id="mesh_32"]
+size = Vector3(1.2, 2.8, 2.4)
+
+[sub_resource type="BoxShape3D" id="shape_32"]
+size = Vector3(1.2, 2.8, 2.4)
+
+[sub_resource type="BoxMesh" id="mesh_33"]
+size = Vector3(10.0, 0.16, 3.2)
+
+[sub_resource type="BoxShape3D" id="shape_33"]
+size = Vector3(10.0, 0.16, 3.2)
+
+[sub_resource type="BoxMesh" id="mesh_34"]
+size = Vector3(2.0, 0.8, 0.6)
+
+[sub_resource type="BoxShape3D" id="shape_34"]
+size = Vector3(2.0, 0.8, 0.6)
+
+[sub_resource type="BoxMesh" id="mesh_35"]
+size = Vector3(3.2, 0.25, 9.7725)
+
+[sub_resource type="BoxShape3D" id="shape_35"]
+size = Vector3(3.2, 0.25, 9.7725)
+
+[sub_resource type="BoxMesh" id="mesh_36"]
+size = Vector3(3.2, 0.14, 0.5867)
+
+[sub_resource type="BoxMesh" id="mesh_37"]
+size = Vector3(0.12, 1.0, 9.7725)
+
+[sub_resource type="BoxMesh" id="mesh_38"]
+size = Vector3(34.0, 0.22, 28.0)
+
+[sub_resource type="BoxShape3D" id="shape_38"]
+size = Vector3(34.0, 0.22, 28.0)
+
+[sub_resource type="BoxMesh" id="mesh_39"]
+size = Vector3(9.0, 0.22, 14.4)
+
+[sub_resource type="BoxShape3D" id="shape_39"]
+size = Vector3(9.0, 0.22, 14.4)
+
+[sub_resource type="BoxMesh" id="mesh_40"]
+size = Vector3(20.0, 4.2, 0.35)
+
+[sub_resource type="BoxShape3D" id="shape_40"]
+size = Vector3(20.0, 4.2, 0.35)
+
+[sub_resource type="BoxMesh" id="mesh_41"]
+size = Vector3(0.35, 4.2, 28.0)
+
+[sub_resource type="BoxShape3D" id="shape_41"]
+size = Vector3(0.35, 4.2, 28.0)
+
+[sub_resource type="BoxMesh" id="mesh_42"]
+size = Vector3(44.0, 4.2, 0.35)
+
+[sub_resource type="BoxShape3D" id="shape_42"]
+size = Vector3(44.0, 4.2, 0.35)
+
+[sub_resource type="BoxMesh" id="mesh_43"]
+size = Vector3(44.0, 0.35, 28.0)
+
+[sub_resource type="BoxShape3D" id="shape_43"]
+size = Vector3(44.0, 0.35, 28.0)
+
+[sub_resource type="BoxMesh" id="mesh_44"]
+size = Vector3(43.5, 4.0, 0.2)
+
+[sub_resource type="BoxShape3D" id="shape_44"]
+size = Vector3(43.5, 4.0, 0.2)
+
+[sub_resource type="BoxMesh" id="mesh_45"]
+size = Vector3(1.2, 0.7, 0.08)
+
+[sub_resource type="BoxMesh" id="mesh_46"]
+size = Vector3(52.0, 0.2, 34.0)
+
+[sub_resource type="BoxShape3D" id="shape_46"]
+size = Vector3(52.0, 0.2, 34.0)
+
+[sub_resource type="BoxMesh" id="mesh_47"]
+size = Vector3(52.0, 6.8, 0.35)
+
+[sub_resource type="BoxShape3D" id="shape_47"]
+size = Vector3(52.0, 6.8, 0.35)
+
+[sub_resource type="BoxMesh" id="mesh_48"]
+size = Vector3(0.35, 6.8, 34.0)
+
+[sub_resource type="BoxShape3D" id="shape_48"]
+size = Vector3(0.35, 6.8, 34.0)
+
+[sub_resource type="BoxMesh" id="mesh_49"]
+size = Vector3(52.0, 0.4, 34.0)
+
+[sub_resource type="BoxShape3D" id="shape_49"]
+size = Vector3(52.0, 0.4, 34.0)
+
+[sub_resource type="BoxMesh" id="mesh_50"]
+size = Vector3(1.0, 6.8, 1.0)
+
+[sub_resource type="BoxShape3D" id="shape_50"]
+size = Vector3(1.0, 6.8, 1.0)
+
+[sub_resource type="BoxMesh" id="mesh_51"]
+size = Vector3(0.15, 0.03, 28.0)
+
+[sub_resource type="BoxMesh" id="mesh_52"]
+size = Vector3(2.2, 2.2, 0.8)
+
+[sub_resource type="BoxShape3D" id="shape_52"]
+size = Vector3(2.2, 2.2, 0.8)
+
+[sub_resource type="BoxMesh" id="mesh_53"]
+size = Vector3(38.0, 0.2, 18.0)
+
+[sub_resource type="BoxShape3D" id="shape_53"]
+size = Vector3(38.0, 0.2, 18.0)
+
+[sub_resource type="BoxMesh" id="mesh_54"]
+size = Vector3(38.0, 5.6, 0.35)
+
+[sub_resource type="BoxShape3D" id="shape_54"]
+size = Vector3(38.0, 5.6, 0.35)
+
+[sub_resource type="BoxMesh" id="mesh_55"]
+size = Vector3(0.35, 5.6, 18.0)
+
+[sub_resource type="BoxShape3D" id="shape_55"]
+size = Vector3(0.35, 5.6, 18.0)
+
+[sub_resource type="BoxMesh" id="mesh_56"]
+size = Vector3(38.0, 0.35, 18.0)
+
+[sub_resource type="BoxShape3D" id="shape_56"]
+size = Vector3(38.0, 0.35, 18.0)
+
+[sub_resource type="BoxMesh" id="mesh_57"]
+size = Vector3(1.0, 5.6, 1.0)
+
+[sub_resource type="BoxShape3D" id="shape_57"]
+size = Vector3(1.0, 5.6, 1.0)
+
+[sub_resource type="BoxMesh" id="mesh_58"]
+size = Vector3(24.0, 0.2, 32.0)
+
+[sub_resource type="BoxShape3D" id="shape_58"]
+size = Vector3(24.0, 0.2, 32.0)
+
+[sub_resource type="BoxMesh" id="mesh_59"]
+size = Vector3(24.0, 5.4, 0.35)
+
+[sub_resource type="BoxShape3D" id="shape_59"]
+size = Vector3(24.0, 5.4, 0.35)
+
+[sub_resource type="BoxMesh" id="mesh_60"]
+size = Vector3(0.35, 5.4, 32.0)
+
+[sub_resource type="BoxShape3D" id="shape_60"]
+size = Vector3(0.35, 5.4, 32.0)
+
+[sub_resource type="BoxMesh" id="mesh_61"]
+size = Vector3(11.0, 5.4, 0.35)
+
+[sub_resource type="BoxShape3D" id="shape_61"]
+size = Vector3(11.0, 5.4, 0.35)
+
+[sub_resource type="BoxMesh" id="mesh_62"]
+size = Vector3(24.0, 0.35, 32.0)
+
+[sub_resource type="BoxShape3D" id="shape_62"]
+size = Vector3(24.0, 0.35, 32.0)
+
+[sub_resource type="BoxMesh" id="mesh_63"]
+size = Vector3(2.2, 0.65, 0.85)
+
+[sub_resource type="BoxShape3D" id="shape_63"]
+size = Vector3(2.2, 0.65, 0.85)
+
+[sub_resource type="BoxMesh" id="mesh_64"]
+size = Vector3(1.0, 2.0, 0.75)
+
+[sub_resource type="BoxShape3D" id="shape_64"]
+size = Vector3(1.0, 2.0, 0.75)
+
+[sub_resource type="BoxMesh" id="mesh_65"]
+size = Vector3(26.0, 0.2, 22.0)
+
+[sub_resource type="BoxShape3D" id="shape_65"]
+size = Vector3(26.0, 0.2, 22.0)
+
+[sub_resource type="BoxMesh" id="mesh_66"]
+size = Vector3(26.0, 4.9, 0.35)
+
+[sub_resource type="BoxShape3D" id="shape_66"]
+size = Vector3(26.0, 4.9, 0.35)
+
+[sub_resource type="BoxMesh" id="mesh_67"]
+size = Vector3(0.35, 4.9, 22.0)
+
+[sub_resource type="BoxShape3D" id="shape_67"]
+size = Vector3(0.35, 4.9, 22.0)
+
+[sub_resource type="BoxMesh" id="mesh_68"]
+size = Vector3(10.0, 4.9, 0.35)
+
+[sub_resource type="BoxShape3D" id="shape_68"]
+size = Vector3(10.0, 4.9, 0.35)
+
+[sub_resource type="BoxMesh" id="mesh_69"]
+size = Vector3(26.0, 0.3, 22.0)
+
+[sub_resource type="BoxShape3D" id="shape_69"]
+size = Vector3(26.0, 0.3, 22.0)
+
+[sub_resource type="BoxMesh" id="mesh_70"]
+size = Vector3(8.0, 0.12, 1.4)
+
+[sub_resource type="BoxShape3D" id="shape_70"]
+size = Vector3(8.0, 0.12, 1.4)
+
+[sub_resource type="BoxMesh" id="mesh_71"]
+size = Vector3(22.0, 0.08, 24.0)
+
+[sub_resource type="BoxShape3D" id="shape_71"]
+size = Vector3(22.0, 0.08, 24.0)
+
+[sub_resource type="BoxMesh" id="mesh_72"]
+size = Vector3(18.0, 0.03, 0.15)
+
+[sub_resource type="BoxMesh" id="mesh_73"]
+size = Vector3(18.0, 0.12, 18.0)
+
+[sub_resource type="BoxShape3D" id="shape_73"]
+size = Vector3(18.0, 0.12, 18.0)
+
+[sub_resource type="BoxMesh" id="mesh_74"]
+size = Vector3(1.0, 0.03, 10.0)
+
+[sub_resource type="BoxMesh" id="mesh_75"]
+size = Vector3(8.0, 0.03, 1.0)
+
+[sub_resource type="BoxMesh" id="mesh_76"]
+size = Vector3(28.0, 0.16, 24.0)
+
+[sub_resource type="BoxShape3D" id="shape_76"]
+size = Vector3(28.0, 0.16, 24.0)
+
+[sub_resource type="BoxMesh" id="mesh_77"]
+size = Vector3(3.0, 1.3, 0.8)
+
+[sub_resource type="BoxShape3D" id="shape_77"]
+size = Vector3(3.0, 1.3, 0.8)
+
+[sub_resource type="BoxMesh" id="mesh_78"]
+size = Vector3(5.0, 0.2, 2.8)
+
+[sub_resource type="BoxShape3D" id="shape_78"]
+size = Vector3(5.0, 0.2, 2.8)
+
+[sub_resource type="BoxMesh" id="mesh_79"]
+size = Vector3(6.0, 2.5, 3.0)
+
+[sub_resource type="BoxShape3D" id="shape_79"]
+size = Vector3(6.0, 2.5, 3.0)
+
+[sub_resource type="BoxMesh" id="mesh_80"]
+size = Vector3(8.0, 3.0, 6.0)
+
+[sub_resource type="BoxShape3D" id="shape_80"]
+size = Vector3(8.0, 3.0, 6.0)
+
+[sub_resource type="BoxMesh" id="mesh_81"]
+size = Vector3(3.0, 3.2, 3.0)
+
+[sub_resource type="BoxShape3D" id="shape_81"]
+size = Vector3(3.0, 3.2, 3.0)
+
+[sub_resource type="BoxMesh" id="mesh_82"]
+size = Vector3(12.0, 1.4, 0.35)
+
+[sub_resource type="BoxShape3D" id="shape_82"]
+size = Vector3(12.0, 1.4, 0.35)
+
+[sub_resource type="BoxMesh" id="mesh_83"]
+size = Vector3(20.0, 0.12, 24.0)
+
+[sub_resource type="BoxShape3D" id="shape_83"]
+size = Vector3(20.0, 0.12, 24.0)
+
+[sub_resource type="BoxMesh" id="mesh_84"]
+size = Vector3(0.12, 0.03, 20.0)
+
+[sub_resource type="BoxMesh" id="mesh_85"]
+size = Vector3(1.6, 8.0, 1.6)
+
+[sub_resource type="BoxShape3D" id="shape_85"]
+size = Vector3(1.6, 8.0, 1.6)
+
+[sub_resource type="BoxMesh" id="mesh_86"]
+size = Vector3(5.2, 0.25, 5.2)
+
+[sub_resource type="BoxShape3D" id="shape_86"]
+size = Vector3(5.2, 0.25, 5.2)
+
+[sub_resource type="BoxMesh" id="mesh_87"]
+size = Vector3(5.5, 0.3, 5.5)
+
+[sub_resource type="BoxShape3D" id="shape_87"]
+size = Vector3(5.5, 0.3, 5.5)
+
+[sub_resource type="SphereMesh" id="sphere_88"]
+radius = 0.42
+height = 0.84
+
+[sub_resource type="CylinderMesh" id="cyl_89"]
+top_radius = 0.9
+bottom_radius = 0.9
+height = 0.045
+
+[sub_resource type="SphereMesh" id="sphere_90"]
+radius = 0.42
+height = 0.84
+
+[sub_resource type="CylinderMesh" id="cyl_91"]
+top_radius = 0.9
+bottom_radius = 0.9
+height = 0.045
+
+[sub_resource type="SphereMesh" id="sphere_92"]
+radius = 0.42
+height = 0.84
+
+[sub_resource type="CylinderMesh" id="cyl_93"]
+top_radius = 0.9
+bottom_radius = 0.9
+height = 0.045
+
+[sub_resource type="BoxMesh" id="mesh_94"]
+size = Vector3(18.5, 4.0, 0.2)
+
+[sub_resource type="BoxShape3D" id="shape_94"]
+size = Vector3(18.5, 4.0, 0.2)
+
+[sub_resource type="BoxMesh" id="mesh_access_external"]
+size = Vector3(14, 0.10, 10)
+
+[sub_resource type="BoxShape3D" id="shape_access_external"]
+size = Vector3(14, 0.10, 10)
+
+[sub_resource type="BoxMesh" id="mesh_divfundo_split"]
+size = Vector3(6.8, 4.3, 0.22)
+
+[sub_resource type="BoxShape3D" id="shape_divfundo_split"]
+size = Vector3(6.8, 4.3, 0.22)
+
+[sub_resource type="BoxMesh" id="mesh_stair_landing"]
+size = Vector3(10, 0.22, 2.6)
+
+[sub_resource type="BoxShape3D" id="shape_stair_landing"]
+size = Vector3(10, 0.22, 2.6)
+
+[sub_resource type="BoxMesh" id="mesh_hq_walk"]
+size = Vector3(30, 0.14, 4)
+
+[sub_resource type="BoxShape3D" id="shape_hq_walk"]
+size = Vector3(30, 0.14, 4)
+
+[node name="BaseExercitoEditavel" type="Node3D"]
+[node name="Terreno" type="Node3D" parent="."]
+[node name="Perimetro" type="Node3D" parent="."]
+[node name="Entrada" type="Node3D" parent="."]
+[node name="QuartelGeneral" type="Node3D" parent="."]
+[node name="GaragemOperacional" type="Node3D" parent="."]
+[node name="Oficina" type="Node3D" parent="."]
+[node name="Alojamento" type="Node3D" parent="."]
+[node name="Refeitorio" type="Node3D" parent="."]
+[node name="PatioFormatura" type="Node3D" parent="."]
+[node name="Heliponto" type="Node3D" parent="."]
+[node name="Treinamento" type="Node3D" parent="."]
+[node name="Depositos" type="Node3D" parent="."]
+[node name="Combustivel" type="Node3D" parent="."]
+[node name="Estacionamento" type="Node3D" parent="."]
+[node name="Torres" type="Node3D" parent="."]
+[node name="Iluminacao" type="Node3D" parent="."]
+[node name="Sinalizacao" type="Node3D" parent="."]
+[node name="Gameplay" type="Node3D" parent="."]
+[node name="Exposicao" type="Node3D" parent="."]
+[node name="AcessoExternoRua" type="Node3D" parent="Terreno"]
+position = Vector3(0, 0.105, -33)
+
+[node name="Visual" type="MeshInstance3D" parent="Terreno/AcessoExternoRua"]
+mesh = SubResource("mesh_access_external")
+material_override = SubResource("mat_dark")
+
+[node name="Corpo" type="StaticBody3D" parent="Terreno/AcessoExternoRua"]
+
+[node name="Colisao" type="CollisionShape3D" parent="Terreno/AcessoExternoRua/Corpo"]
+shape = SubResource("shape_access_external")
+
+[node name="PisoBase" type="Node3D" parent="Terreno"]
+position = Vector3(0, 0.04, 27)
+[node name="Visual" type="MeshInstance3D" parent="Terreno/PisoBase"]
+mesh = SubResource("mesh_1")
+material_override = SubResource("mat_asphalt")
+[node name="Corpo" type="StaticBody3D" parent="Terreno/PisoBase"]
+[node name="Colisao" type="CollisionShape3D" parent="Terreno/PisoBase/Corpo"]
+shape = SubResource("shape_1")
+[node name="FaixaAcesso" type="Node3D" parent="Terreno"]
+position = Vector3(0, 0.105, -7)
+[node name="Visual" type="MeshInstance3D" parent="Terreno/FaixaAcesso"]
+mesh = SubResource("mesh_2")
+material_override = SubResource("mat_dark")
+[node name="CalcadaNorteE" type="Node3D" parent="Terreno"]
+position = Vector3(-40, 0.12, -27.2)
+[node name="Visual" type="MeshInstance3D" parent="Terreno/CalcadaNorteE"]
+mesh = SubResource("mesh_3")
+material_override = SubResource("mat_sidewalk")
+[node name="Corpo" type="StaticBody3D" parent="Terreno/CalcadaNorteE"]
+[node name="Colisao" type="CollisionShape3D" parent="Terreno/CalcadaNorteE/Corpo"]
+shape = SubResource("shape_3")
+[node name="CalcadaNorteD" type="Node3D" parent="Terreno"]
+position = Vector3(40, 0.12, -27.2)
+[node name="Visual" type="MeshInstance3D" parent="Terreno/CalcadaNorteD"]
+mesh = SubResource("mesh_3")
+material_override = SubResource("mat_sidewalk")
+[node name="Corpo" type="StaticBody3D" parent="Terreno/CalcadaNorteD"]
+[node name="Colisao" type="CollisionShape3D" parent="Terreno/CalcadaNorteD/Corpo"]
+shape = SubResource("shape_3")
+[node name="LinhaAcesso1" type="Node3D" parent="Terreno"]
+position = Vector3(0, 0.18, -19)
+[node name="Visual" type="MeshInstance3D" parent="Terreno/LinhaAcesso1"]
+mesh = SubResource("mesh_4")
+material_override = SubResource("mat_white")
+[node name="LinhaAcesso9" type="Node3D" parent="Terreno"]
+position = Vector3(0, 0.18, -11)
+[node name="Visual" type="MeshInstance3D" parent="Terreno/LinhaAcesso9"]
+mesh = SubResource("mesh_4")
+material_override = SubResource("mat_white")
+[node name="LinhaAcesso17" type="Node3D" parent="Terreno"]
+position = Vector3(0, 0.18, -3)
+[node name="Visual" type="MeshInstance3D" parent="Terreno/LinhaAcesso17"]
+mesh = SubResource("mesh_4")
+material_override = SubResource("mat_white")
+[node name="LinhaAcesso25" type="Node3D" parent="Terreno"]
+position = Vector3(0, 0.18, 5)
+[node name="Visual" type="MeshInstance3D" parent="Terreno/LinhaAcesso25"]
+mesh = SubResource("mesh_4")
+material_override = SubResource("mat_white")
+[node name="LinhaAcesso33" type="Node3D" parent="Terreno"]
+position = Vector3(0, 0.18, 13)
+[node name="Visual" type="MeshInstance3D" parent="Terreno/LinhaAcesso33"]
+mesh = SubResource("mesh_4")
+material_override = SubResource("mat_white")
+[node name="CalcadaAcessoHQ" type="Node3D" parent="Terreno"]
+position = Vector3(-16, 0.13, -4)
+
+[node name="Visual" type="MeshInstance3D" parent="Terreno/CalcadaAcessoHQ"]
+mesh = SubResource("mesh_hq_walk")
+material_override = SubResource("mat_sidewalk")
+
+[node name="Corpo" type="StaticBody3D" parent="Terreno/CalcadaAcessoHQ"]
+
+[node name="Colisao" type="CollisionShape3D" parent="Terreno/CalcadaAcessoHQ/Corpo"]
+shape = SubResource("shape_hq_walk")
+
+[node name="MuroNorteE" type="Node3D" parent="Perimetro"]
+position = Vector3(-37.5, 2.15, -28)
+[node name="Visual" type="MeshInstance3D" parent="Perimetro/MuroNorteE"]
+mesh = SubResource("mesh_5")
+material_override = SubResource("mat_wall")
+[node name="Corpo" type="StaticBody3D" parent="Perimetro/MuroNorteE"]
+[node name="Colisao" type="CollisionShape3D" parent="Perimetro/MuroNorteE/Corpo"]
+shape = SubResource("shape_5")
+[node name="MuroNorteD" type="Node3D" parent="Perimetro"]
+position = Vector3(37.5, 2.15, -28)
+[node name="Visual" type="MeshInstance3D" parent="Perimetro/MuroNorteD"]
+mesh = SubResource("mesh_5")
+material_override = SubResource("mat_wall")
+[node name="Corpo" type="StaticBody3D" parent="Perimetro/MuroNorteD"]
+[node name="Colisao" type="CollisionShape3D" parent="Perimetro/MuroNorteD/Corpo"]
+shape = SubResource("shape_5")
+[node name="MuroOeste" type="Node3D" parent="Perimetro"]
+position = Vector3(-65, 2.15, 27)
+[node name="Visual" type="MeshInstance3D" parent="Perimetro/MuroOeste"]
+mesh = SubResource("mesh_6")
+material_override = SubResource("mat_wall")
+[node name="Corpo" type="StaticBody3D" parent="Perimetro/MuroOeste"]
+[node name="Colisao" type="CollisionShape3D" parent="Perimetro/MuroOeste/Corpo"]
+shape = SubResource("shape_6")
+[node name="MuroLeste" type="Node3D" parent="Perimetro"]
+position = Vector3(65, 2.15, 27)
+[node name="Visual" type="MeshInstance3D" parent="Perimetro/MuroLeste"]
+mesh = SubResource("mesh_6")
+material_override = SubResource("mat_wall")
+[node name="Corpo" type="StaticBody3D" parent="Perimetro/MuroLeste"]
+[node name="Colisao" type="CollisionShape3D" parent="Perimetro/MuroLeste/Corpo"]
+shape = SubResource("shape_6")
+[node name="MuroSul" type="Node3D" parent="Perimetro"]
+position = Vector3(0, 2.15, 82)
+[node name="Visual" type="MeshInstance3D" parent="Perimetro/MuroSul"]
+mesh = SubResource("mesh_7")
+material_override = SubResource("mat_wall")
+[node name="Corpo" type="StaticBody3D" parent="Perimetro/MuroSul"]
+[node name="Colisao" type="CollisionShape3D" parent="Perimetro/MuroSul/Corpo"]
+shape = SubResource("shape_7")
+[node name="PortaoAutomatico" type="Node3D" parent="Entrada"]
+position = Vector3(0, 0, -27.7)
+script = ExtResource("gate_script")
+[node name="FolhaEsquerda" type="AnimatableBody3D" parent="Entrada/PortaoAutomatico"]
+position = Vector3(-4.5, 2.1, 0)
+[node name="Visual" type="MeshInstance3D" parent="Entrada/PortaoAutomatico/FolhaEsquerda"]
+mesh = SubResource("mesh_8")
+material_override = SubResource("mat_metal")
+[node name="Colisao" type="CollisionShape3D" parent="Entrada/PortaoAutomatico/FolhaEsquerda"]
+shape = SubResource("shape_8")
+[node name="FolhaDireita" type="AnimatableBody3D" parent="Entrada/PortaoAutomatico"]
+position = Vector3(4.5, 2.1, 0)
+[node name="Visual" type="MeshInstance3D" parent="Entrada/PortaoAutomatico/FolhaDireita"]
+mesh = SubResource("mesh_8")
+material_override = SubResource("mat_metal")
+[node name="Colisao" type="CollisionShape3D" parent="Entrada/PortaoAutomatico/FolhaDireita"]
+shape = SubResource("shape_8")
+[node name="Trigger" type="Area3D" parent="Entrada/PortaoAutomatico"]
+position = Vector3(0, 2, -4)
+collision_layer = 0
+collision_mask = 1
+monitoring = true
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Entrada/PortaoAutomatico/Trigger"]
+shape = SubResource("shape_9")
+[node name="PilarE" type="Node3D" parent="Entrada"]
+position = Vector3(-10.4, 2.8, -27.7)
+[node name="Visual" type="MeshInstance3D" parent="Entrada/PilarE"]
+mesh = SubResource("mesh_10")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="Entrada/PilarE"]
+[node name="Colisao" type="CollisionShape3D" parent="Entrada/PilarE/Corpo"]
+shape = SubResource("shape_10")
+[node name="PilarD" type="Node3D" parent="Entrada"]
+position = Vector3(10.4, 2.8, -27.7)
+[node name="Visual" type="MeshInstance3D" parent="Entrada/PilarD"]
+mesh = SubResource("mesh_10")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="Entrada/PilarD"]
+[node name="Colisao" type="CollisionShape3D" parent="Entrada/PilarD/Corpo"]
+shape = SubResource("shape_10")
+[node name="Travessa" type="Node3D" parent="Entrada"]
+position = Vector3(0, 5.7, -27.7)
+[node name="Visual" type="MeshInstance3D" parent="Entrada/Travessa"]
+mesh = SubResource("mesh_11")
+material_override = SubResource("mat_dark")
+[node name="Corpo" type="StaticBody3D" parent="Entrada/Travessa"]
+[node name="Colisao" type="CollisionShape3D" parent="Entrada/Travessa/Corpo"]
+shape = SubResource("shape_11")
+[node name="PlacaEntrada" type="Label3D" parent="Entrada"]
+position = Vector3(0, 6.5, -27.45)
+text = "EXÉRCITO • BASE OPERACIONAL"
+font_size = 17
+pixel_size = 0.0105
+modulate = Color(0.86,0.92,0.82,1)
+outline_modulate = Color(0.02,0.03,0.02,1)
+visibility_range_end = 260.0
+[node name="GuaritaPiso" type="Node3D" parent="Entrada"]
+position = Vector3(-16, 0.12, -20)
+[node name="Visual" type="MeshInstance3D" parent="Entrada/GuaritaPiso"]
+mesh = SubResource("mesh_12")
+material_override = SubResource("mat_floor")
+[node name="Corpo" type="StaticBody3D" parent="Entrada/GuaritaPiso"]
+[node name="Colisao" type="CollisionShape3D" parent="Entrada/GuaritaPiso/Corpo"]
+shape = SubResource("shape_12")
+[node name="GuaritaFundo" type="Node3D" parent="Entrada"]
+position = Vector3(-16, 1.6, -23.1)
+[node name="Visual" type="MeshInstance3D" parent="Entrada/GuaritaFundo"]
+mesh = SubResource("mesh_13")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="Entrada/GuaritaFundo"]
+[node name="Colisao" type="CollisionShape3D" parent="Entrada/GuaritaFundo/Corpo"]
+shape = SubResource("shape_13")
+[node name="GuaritaE" type="Node3D" parent="Entrada"]
+position = Vector3(-19.45, 1.6, -20)
+[node name="Visual" type="MeshInstance3D" parent="Entrada/GuaritaE"]
+mesh = SubResource("mesh_14")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="Entrada/GuaritaE"]
+[node name="Colisao" type="CollisionShape3D" parent="Entrada/GuaritaE/Corpo"]
+shape = SubResource("shape_14")
+[node name="GuaritaD" type="Node3D" parent="Entrada"]
+position = Vector3(-12.55, 1.6, -20)
+[node name="Visual" type="MeshInstance3D" parent="Entrada/GuaritaD"]
+mesh = SubResource("mesh_14")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="Entrada/GuaritaD"]
+[node name="Colisao" type="CollisionShape3D" parent="Entrada/GuaritaD/Corpo"]
+shape = SubResource("shape_14")
+[node name="GuaritaTeto" type="Node3D" parent="Entrada"]
+position = Vector3(-16, 3.2, -20)
+[node name="Visual" type="MeshInstance3D" parent="Entrada/GuaritaTeto"]
+mesh = SubResource("mesh_15")
+material_override = SubResource("mat_dark")
+[node name="Corpo" type="StaticBody3D" parent="Entrada/GuaritaTeto"]
+[node name="Colisao" type="CollisionShape3D" parent="Entrada/GuaritaTeto/Corpo"]
+shape = SubResource("shape_15")
+[node name="GuaritaVidro" type="Node3D" parent="Entrada"]
+position = Vector3(-16, 1.8, -16.85)
+[node name="Visual" type="MeshInstance3D" parent="Entrada/GuaritaVidro"]
+mesh = SubResource("mesh_16")
+material_override = SubResource("mat_glass")
+[node name="MesaGuarda" type="Node3D" parent="Entrada"]
+position = Vector3(-16, 0.85, -20.5)
+[node name="Visual" type="MeshInstance3D" parent="Entrada/MesaGuarda"]
+mesh = SubResource("mesh_17")
+material_override = SubResource("mat_wood")
+[node name="Corpo" type="StaticBody3D" parent="Entrada/MesaGuarda"]
+[node name="Colisao" type="CollisionShape3D" parent="Entrada/MesaGuarda/Corpo"]
+shape = SubResource("shape_17")
+[node name="PlacaGuarda" type="Label3D" parent="Entrada"]
+position = Vector3(-16, 3.75, -19.7)
+text = "GUARDA"
+font_size = 12
+pixel_size = 0.008
+modulate = Color(0.86,0.92,0.82,1)
+outline_modulate = Color(0.02,0.03,0.02,1)
+visibility_range_end = 260.0
+[node name="PisoTerreo" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-31, 0.12, 12)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/PisoTerreo"]
+mesh = SubResource("mesh_18")
+material_override = SubResource("mat_floor")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/PisoTerreo"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/PisoTerreo/Corpo"]
+shape = SubResource("shape_18")
+[node name="FrenteE" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-43, 2.25, -2)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/FrenteE"]
+mesh = SubResource("mesh_19")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/FrenteE"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/FrenteE/Corpo"]
+shape = SubResource("shape_19")
+[node name="FrenteD" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-19, 2.25, -2)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/FrenteD"]
+mesh = SubResource("mesh_19")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/FrenteD"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/FrenteD/Corpo"]
+shape = SubResource("shape_19")
+[node name="LateralOeste" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-53, 2.25, 12)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/LateralOeste"]
+mesh = SubResource("mesh_20")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/LateralOeste"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/LateralOeste/Corpo"]
+shape = SubResource("shape_20")
+[node name="LateralLeste" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-9, 2.25, 12)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/LateralLeste"]
+mesh = SubResource("mesh_20")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/LateralLeste"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/LateralLeste/Corpo"]
+shape = SubResource("shape_20")
+[node name="Fundo" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-31, 2.25, 26)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Fundo"]
+mesh = SubResource("mesh_21")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/Fundo"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/Fundo/Corpo"]
+shape = SubResource("shape_21")
+[node name="Marquise" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-31, 4.5, -3.2)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Marquise"]
+mesh = SubResource("mesh_22")
+material_override = SubResource("mat_dark")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/Marquise"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/Marquise/Corpo"]
+shape = SubResource("shape_22")
+[node name="TituloHQ" type="Label3D" parent="QuartelGeneral"]
+position = Vector3(-31, 5.15, -2.2)
+text = "QUARTEL-GENERAL"
+font_size = 16
+pixel_size = 0.01
+modulate = Color(0.86,0.92,0.82,1)
+outline_modulate = Color(0.02,0.03,0.02,1)
+visibility_range_end = 260.0
+[node name="Janela-48" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-48, 2.3, -2.18)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Janela-48"]
+mesh = SubResource("mesh_23")
+material_override = SubResource("mat_glass")
+[node name="Janela-43" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-43, 2.3, -2.18)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Janela-43"]
+mesh = SubResource("mesh_23")
+material_override = SubResource("mat_glass")
+[node name="Janela-19" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-19, 2.3, -2.18)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Janela-19"]
+mesh = SubResource("mesh_23")
+material_override = SubResource("mat_glass")
+[node name="Janela-14" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-14, 2.3, -2.18)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Janela-14"]
+mesh = SubResource("mesh_23")
+material_override = SubResource("mat_glass")
+[node name="PortaEntradaE" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-34, 1.35, -1.82)
+rotation = Vector3(0, 1.5708, 0)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/PortaEntradaE"]
+mesh = SubResource("mesh_24")
+material_override = SubResource("mat_metal")
+[node name="PortaEntradaD" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-28, 1.35, -1.82)
+rotation = Vector3(0, -1.5708, 0)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/PortaEntradaD"]
+mesh = SubResource("mesh_24")
+material_override = SubResource("mat_metal")
+[node name="Part-40_A" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-40, 2.15, 3)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Part-40_A"]
+mesh = SubResource("mesh_25")
+material_override = SubResource("mat_inside")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/Part-40_A"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/Part-40_A/Corpo"]
+shape = SubResource("shape_25")
+[node name="Part-40_B" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-40, 2.15, 12)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Part-40_B"]
+mesh = SubResource("mesh_26")
+material_override = SubResource("mat_inside")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/Part-40_B"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/Part-40_B/Corpo"]
+shape = SubResource("shape_26")
+[node name="Part-40_C" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-40, 2.15, 22)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Part-40_C"]
+mesh = SubResource("mesh_25")
+material_override = SubResource("mat_inside")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/Part-40_C"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/Part-40_C/Corpo"]
+shape = SubResource("shape_25")
+[node name="Part-22_A" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-22, 2.15, 3)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Part-22_A"]
+mesh = SubResource("mesh_25")
+material_override = SubResource("mat_inside")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/Part-22_A"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/Part-22_A/Corpo"]
+shape = SubResource("shape_25")
+[node name="Part-22_B" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-22, 2.15, 12)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Part-22_B"]
+mesh = SubResource("mesh_26")
+material_override = SubResource("mat_inside")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/Part-22_B"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/Part-22_B/Corpo"]
+shape = SubResource("shape_26")
+[node name="Part-22_C" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-22, 2.15, 22)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Part-22_C"]
+mesh = SubResource("mesh_25")
+material_override = SubResource("mat_inside")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/Part-22_C"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/Part-22_C/Corpo"]
+shape = SubResource("shape_25")
+[node name="DivisoriaFundoE" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-36.5, 2.15, 15.5)
+
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/DivisoriaFundoE"]
+mesh = SubResource("mesh_divfundo_split")
+material_override = SubResource("mat_inside")
+
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/DivisoriaFundoE"]
+
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/DivisoriaFundoE/Corpo"]
+shape = SubResource("shape_divfundo_split")
+
+[node name="DivisoriaFundoD" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-25.5, 2.15, 15.5)
+
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/DivisoriaFundoD"]
+mesh = SubResource("mesh_divfundo_split")
+material_override = SubResource("mat_inside")
+
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/DivisoriaFundoD"]
+
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/DivisoriaFundoD/Corpo"]
+shape = SubResource("shape_divfundo_split")
+
+[node name="BalcaoRecepcao" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-31, 0.85, 2.8)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/BalcaoRecepcao"]
+mesh = SubResource("mesh_28")
+material_override = SubResource("mat_wood")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/BalcaoRecepcao"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/BalcaoRecepcao/Corpo"]
+shape = SubResource("shape_28")
+[node name="PainelRecepcao" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-31, 2.6, 4.7)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/PainelRecepcao"]
+mesh = SubResource("mesh_29")
+material_override = SubResource("mat_dark")
+[node name="RecepcaoLabel" type="Label3D" parent="QuartelGeneral"]
+position = Vector3(-31, 3.1, 4.58)
+text = "RECEPÇÃO • SERVIÇO"
+font_size = 13
+pixel_size = 0.0085
+modulate = Color(0.86,0.92,0.82,1)
+outline_modulate = Color(0.02,0.03,0.02,1)
+visibility_range_end = 260.0
+[node name="MesaOps0" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-18, 0.78, 7.5)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/MesaOps0"]
+mesh = SubResource("mesh_30")
+material_override = SubResource("mat_wood")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/MesaOps0"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/MesaOps0/Corpo"]
+shape = SubResource("shape_30")
+[node name="MonitorOps0" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-18, 1.35, 7.15)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/MonitorOps0"]
+mesh = SubResource("mesh_31")
+material_override = SubResource("mat_screen")
+[node name="MesaOps1" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-14, 0.78, 7.5)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/MesaOps1"]
+mesh = SubResource("mesh_30")
+material_override = SubResource("mat_wood")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/MesaOps1"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/MesaOps1/Corpo"]
+shape = SubResource("shape_30")
+[node name="MonitorOps1" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-14, 1.35, 7.15)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/MonitorOps1"]
+mesh = SubResource("mesh_31")
+material_override = SubResource("mat_screen")
+[node name="OperacoesLabel" type="Label3D" parent="QuartelGeneral"]
+position = Vector3(-17, 3.1, 13.9)
+text = "OPERAÇÕES"
+font_size = 12
+pixel_size = 0.008
+modulate = Color(0.86,0.92,0.82,1)
+outline_modulate = Color(0.02,0.03,0.02,1)
+visibility_range_end = 260.0
+[node name="ArmarioArsenal0" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-48, 1.5, 5)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/ArmarioArsenal0"]
+mesh = SubResource("mesh_32")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/ArmarioArsenal0"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/ArmarioArsenal0/Corpo"]
+shape = SubResource("shape_32")
+[node name="ArmarioArsenal1" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-48, 1.5, 8.2)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/ArmarioArsenal1"]
+mesh = SubResource("mesh_32")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/ArmarioArsenal1"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/ArmarioArsenal1/Corpo"]
+shape = SubResource("shape_32")
+[node name="ArmarioArsenal2" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-48, 1.5, 11.4)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/ArmarioArsenal2"]
+mesh = SubResource("mesh_32")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/ArmarioArsenal2"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/ArmarioArsenal2/Corpo"]
+shape = SubResource("shape_32")
+[node name="ArsenalLabel" type="Label3D" parent="QuartelGeneral"]
+position = Vector3(-47, 3.1, 13.9)
+text = "ARSENAL"
+font_size = 12
+pixel_size = 0.008
+modulate = Color(0.86,0.92,0.82,1)
+outline_modulate = Color(0.02,0.03,0.02,1)
+visibility_range_end = 260.0
+[node name="MesaBriefing" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-31, 0.85, 20.5)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/MesaBriefing"]
+mesh = SubResource("mesh_33")
+material_override = SubResource("mat_wood")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/MesaBriefing"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/MesaBriefing/Corpo"]
+shape = SubResource("shape_33")
+[node name="BancoBriefingN0" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-35, 0.45, 18.1)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/BancoBriefingN0"]
+mesh = SubResource("mesh_34")
+material_override = SubResource("mat_dark")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/BancoBriefingN0"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/BancoBriefingN0/Corpo"]
+shape = SubResource("shape_34")
+[node name="BancoBriefingS0" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-35, 0.45, 22.9)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/BancoBriefingS0"]
+mesh = SubResource("mesh_34")
+material_override = SubResource("mat_dark")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/BancoBriefingS0"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/BancoBriefingS0/Corpo"]
+shape = SubResource("shape_34")
+[node name="BancoBriefingN1" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-32, 0.45, 18.1)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/BancoBriefingN1"]
+mesh = SubResource("mesh_34")
+material_override = SubResource("mat_dark")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/BancoBriefingN1"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/BancoBriefingN1/Corpo"]
+shape = SubResource("shape_34")
+[node name="BancoBriefingS1" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-32, 0.45, 22.9)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/BancoBriefingS1"]
+mesh = SubResource("mesh_34")
+material_override = SubResource("mat_dark")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/BancoBriefingS1"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/BancoBriefingS1/Corpo"]
+shape = SubResource("shape_34")
+[node name="BancoBriefingN2" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-29, 0.45, 18.1)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/BancoBriefingN2"]
+mesh = SubResource("mesh_34")
+material_override = SubResource("mat_dark")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/BancoBriefingN2"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/BancoBriefingN2/Corpo"]
+shape = SubResource("shape_34")
+[node name="BancoBriefingS2" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-29, 0.45, 22.9)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/BancoBriefingS2"]
+mesh = SubResource("mesh_34")
+material_override = SubResource("mat_dark")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/BancoBriefingS2"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/BancoBriefingS2/Corpo"]
+shape = SubResource("shape_34")
+[node name="BancoBriefingN3" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-26, 0.45, 18.1)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/BancoBriefingN3"]
+mesh = SubResource("mesh_34")
+material_override = SubResource("mat_dark")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/BancoBriefingN3"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/BancoBriefingN3/Corpo"]
+shape = SubResource("shape_34")
+[node name="BancoBriefingS3" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-26, 0.45, 22.9)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/BancoBriefingS3"]
+mesh = SubResource("mesh_34")
+material_override = SubResource("mat_dark")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/BancoBriefingS3"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/BancoBriefingS3/Corpo"]
+shape = SubResource("shape_34")
+[node name="BriefingLabel" type="Label3D" parent="QuartelGeneral"]
+position = Vector3(-31, 3.1, 25.2)
+text = "BRIEFING"
+font_size = 12
+pixel_size = 0.008
+modulate = Color(0.86,0.92,0.82,1)
+outline_modulate = Color(0.02,0.03,0.02,1)
+visibility_range_end = 260.0
+[node name="RampaEscada" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-49, 2.25, 19.3)
+rotation = Vector3(-0.449918, 0, 0)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/RampaEscada"]
+mesh = SubResource("mesh_35")
+material_override = SubResource("mat_dark")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/RampaEscada"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/RampaEscada/Corpo"]
+shape = SubResource("shape_35")
+[node name="Degrau1" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-49, 0.291667, 15.2933)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Degrau1"]
+mesh = SubResource("mesh_36")
+material_override = SubResource("mat_sidewalk")
+[node name="Degrau2" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-49, 0.575, 15.88)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Degrau2"]
+mesh = SubResource("mesh_36")
+material_override = SubResource("mat_sidewalk")
+[node name="Degrau3" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-49, 0.858333, 16.4667)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Degrau3"]
+mesh = SubResource("mesh_36")
+material_override = SubResource("mat_sidewalk")
+[node name="Degrau4" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-49, 1.14167, 17.0533)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Degrau4"]
+mesh = SubResource("mesh_36")
+material_override = SubResource("mat_sidewalk")
+[node name="Degrau5" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-49, 1.425, 17.64)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Degrau5"]
+mesh = SubResource("mesh_36")
+material_override = SubResource("mat_sidewalk")
+[node name="Degrau6" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-49, 1.70833, 18.2267)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Degrau6"]
+mesh = SubResource("mesh_36")
+material_override = SubResource("mat_sidewalk")
+[node name="Degrau7" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-49, 1.99167, 18.8133)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Degrau7"]
+mesh = SubResource("mesh_36")
+material_override = SubResource("mat_sidewalk")
+[node name="Degrau8" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-49, 2.275, 19.4)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Degrau8"]
+mesh = SubResource("mesh_36")
+material_override = SubResource("mat_sidewalk")
+[node name="Degrau9" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-49, 2.55833, 19.9867)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Degrau9"]
+mesh = SubResource("mesh_36")
+material_override = SubResource("mat_sidewalk")
+[node name="Degrau10" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-49, 2.84167, 20.5733)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Degrau10"]
+mesh = SubResource("mesh_36")
+material_override = SubResource("mat_sidewalk")
+[node name="Degrau11" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-49, 3.125, 21.16)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Degrau11"]
+mesh = SubResource("mesh_36")
+material_override = SubResource("mat_sidewalk")
+[node name="Degrau12" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-49, 3.40833, 21.7467)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Degrau12"]
+mesh = SubResource("mesh_36")
+material_override = SubResource("mat_sidewalk")
+[node name="Degrau13" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-49, 3.69167, 22.3333)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Degrau13"]
+mesh = SubResource("mesh_36")
+material_override = SubResource("mat_sidewalk")
+[node name="Degrau14" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-49, 3.975, 22.92)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Degrau14"]
+mesh = SubResource("mesh_36")
+material_override = SubResource("mat_sidewalk")
+[node name="Degrau15" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-49, 4.25833, 23.5067)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Degrau15"]
+mesh = SubResource("mesh_36")
+material_override = SubResource("mat_sidewalk")
+[node name="CorrimaoEscadaE" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-50.75, 2.7, 19.3)
+rotation = Vector3(-0.449918, 0, 0)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/CorrimaoEscadaE"]
+mesh = SubResource("mesh_37")
+material_override = SubResource("mat_metal")
+[node name="CorrimaoEscadaD" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-47.25, 2.7, 19.3)
+rotation = Vector3(-0.449918, 0, 0)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/CorrimaoEscadaD"]
+mesh = SubResource("mesh_37")
+material_override = SubResource("mat_metal")
+[node name="PatamarSuperiorEscada" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-48, 4.45, 24.7)
+
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/PatamarSuperiorEscada"]
+mesh = SubResource("mesh_stair_landing")
+material_override = SubResource("mat_floor")
+
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/PatamarSuperiorEscada"]
+
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/PatamarSuperiorEscada/Corpo"]
+shape = SubResource("shape_stair_landing")
+
+[node name="Piso2Principal" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-26, 4.45, 12)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Piso2Principal"]
+mesh = SubResource("mesh_38")
+material_override = SubResource("mat_floor")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/Piso2Principal"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/Piso2Principal/Corpo"]
+shape = SubResource("shape_38")
+[node name="Piso2OesteFrente" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-48.5, 4.45, 5.2)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Piso2OesteFrente"]
+mesh = SubResource("mesh_39")
+material_override = SubResource("mat_floor")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/Piso2OesteFrente"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/Piso2OesteFrente/Corpo"]
+shape = SubResource("shape_39")
+[node name="Fachada2E" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-43, 6.65, -2)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Fachada2E"]
+mesh = SubResource("mesh_40")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/Fachada2E"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/Fachada2E/Corpo"]
+shape = SubResource("shape_40")
+[node name="Fachada2D" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-19, 6.65, -2)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Fachada2D"]
+mesh = SubResource("mesh_40")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/Fachada2D"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/Fachada2D/Corpo"]
+shape = SubResource("shape_40")
+[node name="Oeste2" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-53, 6.65, 12)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Oeste2"]
+mesh = SubResource("mesh_41")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/Oeste2"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/Oeste2/Corpo"]
+shape = SubResource("shape_41")
+[node name="Leste2" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-9, 6.65, 12)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Leste2"]
+mesh = SubResource("mesh_41")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/Leste2"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/Leste2/Corpo"]
+shape = SubResource("shape_41")
+[node name="Fundo2" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-31, 6.65, 26)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Fundo2"]
+mesh = SubResource("mesh_42")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/Fundo2"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/Fundo2/Corpo"]
+shape = SubResource("shape_42")
+[node name="TetoHQ" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-31, 8.85, 12)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/TetoHQ"]
+mesh = SubResource("mesh_43")
+material_override = SubResource("mat_dark")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/TetoHQ"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/TetoHQ/Corpo"]
+shape = SubResource("shape_43")
+[node name="ComandoLabel" type="Label3D" parent="QuartelGeneral"]
+position = Vector3(-42, 7.2, 7.7)
+text = "COMANDO"
+font_size = 12
+pixel_size = 0.008
+modulate = Color(0.86,0.92,0.82,1)
+outline_modulate = Color(0.02,0.03,0.02,1)
+visibility_range_end = 260.0
+[node name="IntelLabel" type="Label3D" parent="QuartelGeneral"]
+position = Vector3(-20, 7.2, 7.7)
+text = "INTELIGÊNCIA"
+font_size = 12
+pixel_size = 0.008
+modulate = Color(0.86,0.92,0.82,1)
+outline_modulate = Color(0.02,0.03,0.02,1)
+visibility_range_end = 260.0
+[node name="AdminLabel" type="Label3D" parent="QuartelGeneral"]
+position = Vector3(-31, 7.2, 17.7)
+text = "ADMINISTRAÇÃO"
+font_size = 12
+pixel_size = 0.008
+modulate = Color(0.86,0.92,0.82,1)
+outline_modulate = Color(0.02,0.03,0.02,1)
+visibility_range_end = 260.0
+[node name="Mesa2_-43_3" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-43, 5.15, 3)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Mesa2_-43_3"]
+mesh = SubResource("mesh_30")
+material_override = SubResource("mat_wood")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/Mesa2_-43_3"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/Mesa2_-43_3/Corpo"]
+shape = SubResource("shape_30")
+[node name="Monitor2_-43_3" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-43, 5.7, 2.65)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Monitor2_-43_3"]
+mesh = SubResource("mesh_45")
+material_override = SubResource("mat_screen")
+[node name="Mesa2_-19_3" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-19, 5.15, 3)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Mesa2_-19_3"]
+mesh = SubResource("mesh_30")
+material_override = SubResource("mat_wood")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/Mesa2_-19_3"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/Mesa2_-19_3/Corpo"]
+shape = SubResource("shape_30")
+[node name="Monitor2_-19_3" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-19, 5.7, 2.65)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Monitor2_-19_3"]
+mesh = SubResource("mesh_45")
+material_override = SubResource("mat_screen")
+[node name="Mesa2_-43_13" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-43, 5.15, 13)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Mesa2_-43_13"]
+mesh = SubResource("mesh_30")
+material_override = SubResource("mat_wood")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/Mesa2_-43_13"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/Mesa2_-43_13/Corpo"]
+shape = SubResource("shape_30")
+[node name="Monitor2_-43_13" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-43, 5.7, 12.65)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Monitor2_-43_13"]
+mesh = SubResource("mesh_45")
+material_override = SubResource("mat_screen")
+[node name="Mesa2_-19_13" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-19, 5.15, 13)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Mesa2_-19_13"]
+mesh = SubResource("mesh_30")
+material_override = SubResource("mat_wood")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/Mesa2_-19_13"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/Mesa2_-19_13/Corpo"]
+shape = SubResource("shape_30")
+[node name="Monitor2_-19_13" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-19, 5.7, 12.65)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Monitor2_-19_13"]
+mesh = SubResource("mesh_45")
+material_override = SubResource("mat_screen")
+[node name="Mesa2_-31_22" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-31, 5.15, 22)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Mesa2_-31_22"]
+mesh = SubResource("mesh_30")
+material_override = SubResource("mat_wood")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/Mesa2_-31_22"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/Mesa2_-31_22/Corpo"]
+shape = SubResource("shape_30")
+[node name="Monitor2_-31_22" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-31, 5.7, 21.65)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Monitor2_-31_22"]
+mesh = SubResource("mesh_45")
+material_override = SubResource("mat_screen")
+[node name="PisoGaragem" type="Node3D" parent="GaragemOperacional"]
+position = Vector3(37, 0.1, 13)
+[node name="Visual" type="MeshInstance3D" parent="GaragemOperacional/PisoGaragem"]
+mesh = SubResource("mesh_46")
+material_override = SubResource("mat_dark")
+[node name="Corpo" type="StaticBody3D" parent="GaragemOperacional/PisoGaragem"]
+[node name="Colisao" type="CollisionShape3D" parent="GaragemOperacional/PisoGaragem/Corpo"]
+shape = SubResource("shape_46")
+[node name="FundoGaragem" type="Node3D" parent="GaragemOperacional"]
+position = Vector3(37, 3.4, 30)
+[node name="Visual" type="MeshInstance3D" parent="GaragemOperacional/FundoGaragem"]
+mesh = SubResource("mesh_47")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="GaragemOperacional/FundoGaragem"]
+[node name="Colisao" type="CollisionShape3D" parent="GaragemOperacional/FundoGaragem/Corpo"]
+shape = SubResource("shape_47")
+[node name="LadoGaragemE" type="Node3D" parent="GaragemOperacional"]
+position = Vector3(11.2, 3.4, 13)
+[node name="Visual" type="MeshInstance3D" parent="GaragemOperacional/LadoGaragemE"]
+mesh = SubResource("mesh_48")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="GaragemOperacional/LadoGaragemE"]
+[node name="Colisao" type="CollisionShape3D" parent="GaragemOperacional/LadoGaragemE/Corpo"]
+shape = SubResource("shape_48")
+[node name="LadoGaragemD" type="Node3D" parent="GaragemOperacional"]
+position = Vector3(62.8, 3.4, 13)
+[node name="Visual" type="MeshInstance3D" parent="GaragemOperacional/LadoGaragemD"]
+mesh = SubResource("mesh_48")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="GaragemOperacional/LadoGaragemD"]
+[node name="Colisao" type="CollisionShape3D" parent="GaragemOperacional/LadoGaragemD/Corpo"]
+shape = SubResource("shape_48")
+[node name="CoberturaGaragem" type="Node3D" parent="GaragemOperacional"]
+position = Vector3(37, 6.9, 13)
+[node name="Visual" type="MeshInstance3D" parent="GaragemOperacional/CoberturaGaragem"]
+mesh = SubResource("mesh_49")
+material_override = SubResource("mat_dark")
+[node name="Corpo" type="StaticBody3D" parent="GaragemOperacional/CoberturaGaragem"]
+[node name="Colisao" type="CollisionShape3D" parent="GaragemOperacional/CoberturaGaragem/Corpo"]
+shape = SubResource("shape_49")
+[node name="PilarGaragem12" type="Node3D" parent="GaragemOperacional"]
+position = Vector3(12, 3.4, -3.5)
+[node name="Visual" type="MeshInstance3D" parent="GaragemOperacional/PilarGaragem12"]
+mesh = SubResource("mesh_50")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="GaragemOperacional/PilarGaragem12"]
+[node name="Colisao" type="CollisionShape3D" parent="GaragemOperacional/PilarGaragem12/Corpo"]
+shape = SubResource("shape_50")
+[node name="PilarGaragem24" type="Node3D" parent="GaragemOperacional"]
+position = Vector3(24, 3.4, -3.5)
+[node name="Visual" type="MeshInstance3D" parent="GaragemOperacional/PilarGaragem24"]
+mesh = SubResource("mesh_50")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="GaragemOperacional/PilarGaragem24"]
+[node name="Colisao" type="CollisionShape3D" parent="GaragemOperacional/PilarGaragem24/Corpo"]
+shape = SubResource("shape_50")
+[node name="PilarGaragem37" type="Node3D" parent="GaragemOperacional"]
+position = Vector3(37, 3.4, -3.5)
+[node name="Visual" type="MeshInstance3D" parent="GaragemOperacional/PilarGaragem37"]
+mesh = SubResource("mesh_50")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="GaragemOperacional/PilarGaragem37"]
+[node name="Colisao" type="CollisionShape3D" parent="GaragemOperacional/PilarGaragem37/Corpo"]
+shape = SubResource("shape_50")
+[node name="PilarGaragem50" type="Node3D" parent="GaragemOperacional"]
+position = Vector3(50, 3.4, -3.5)
+[node name="Visual" type="MeshInstance3D" parent="GaragemOperacional/PilarGaragem50"]
+mesh = SubResource("mesh_50")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="GaragemOperacional/PilarGaragem50"]
+[node name="Colisao" type="CollisionShape3D" parent="GaragemOperacional/PilarGaragem50/Corpo"]
+shape = SubResource("shape_50")
+[node name="PilarGaragem62" type="Node3D" parent="GaragemOperacional"]
+position = Vector3(62, 3.4, -3.5)
+[node name="Visual" type="MeshInstance3D" parent="GaragemOperacional/PilarGaragem62"]
+mesh = SubResource("mesh_50")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="GaragemOperacional/PilarGaragem62"]
+[node name="Colisao" type="CollisionShape3D" parent="GaragemOperacional/PilarGaragem62/Corpo"]
+shape = SubResource("shape_50")
+[node name="LinhaGaragem14" type="Node3D" parent="GaragemOperacional"]
+position = Vector3(14, 0.23, 12)
+[node name="Visual" type="MeshInstance3D" parent="GaragemOperacional/LinhaGaragem14"]
+mesh = SubResource("mesh_51")
+material_override = SubResource("mat_white")
+[node name="LinhaGaragem34" type="Node3D" parent="GaragemOperacional"]
+position = Vector3(34, 0.23, 12)
+[node name="Visual" type="MeshInstance3D" parent="GaragemOperacional/LinhaGaragem34"]
+mesh = SubResource("mesh_51")
+material_override = SubResource("mat_white")
+[node name="LinhaGaragem58" type="Node3D" parent="GaragemOperacional"]
+position = Vector3(58, 0.23, 12)
+[node name="Visual" type="MeshInstance3D" parent="GaragemOperacional/LinhaGaragem58"]
+mesh = SubResource("mesh_51")
+material_override = SubResource("mat_white")
+[node name="GaragemLabel" type="Label3D" parent="GaragemOperacional"]
+position = Vector3(37, 6, -3.1)
+text = "GARAGEM OPERACIONAL"
+font_size = 15
+pixel_size = 0.0095
+modulate = Color(0.86,0.92,0.82,1)
+outline_modulate = Color(0.02,0.03,0.02,1)
+visibility_range_end = 260.0
+[node name="HammerBay" type="Label3D" parent="GaragemOperacional"]
+position = Vector3(23, 1, -2.7)
+text = "HAMMER"
+font_size = 12
+pixel_size = 0.008
+modulate = Color(0.86,0.92,0.82,1)
+outline_modulate = Color(0.02,0.03,0.02,1)
+visibility_range_end = 260.0
+[node name="TruckBay" type="Label3D" parent="GaragemOperacional"]
+position = Vector3(50, 1, -2.7)
+text = "CAMINHÃO"
+font_size = 12
+pixel_size = 0.008
+modulate = Color(0.86,0.92,0.82,1)
+outline_modulate = Color(0.02,0.03,0.02,1)
+visibility_range_end = 260.0
+[node name="ArmarioGaragem0" type="Node3D" parent="GaragemOperacional"]
+position = Vector3(16, 1.2, 28.8)
+[node name="Visual" type="MeshInstance3D" parent="GaragemOperacional/ArmarioGaragem0"]
+mesh = SubResource("mesh_52")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="GaragemOperacional/ArmarioGaragem0"]
+[node name="Colisao" type="CollisionShape3D" parent="GaragemOperacional/ArmarioGaragem0/Corpo"]
+shape = SubResource("shape_52")
+[node name="ArmarioGaragem1" type="Node3D" parent="GaragemOperacional"]
+position = Vector3(28, 1.2, 28.8)
+[node name="Visual" type="MeshInstance3D" parent="GaragemOperacional/ArmarioGaragem1"]
+mesh = SubResource("mesh_52")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="GaragemOperacional/ArmarioGaragem1"]
+[node name="Colisao" type="CollisionShape3D" parent="GaragemOperacional/ArmarioGaragem1/Corpo"]
+shape = SubResource("shape_52")
+[node name="ArmarioGaragem2" type="Node3D" parent="GaragemOperacional"]
+position = Vector3(40, 1.2, 28.8)
+[node name="Visual" type="MeshInstance3D" parent="GaragemOperacional/ArmarioGaragem2"]
+mesh = SubResource("mesh_52")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="GaragemOperacional/ArmarioGaragem2"]
+[node name="Colisao" type="CollisionShape3D" parent="GaragemOperacional/ArmarioGaragem2/Corpo"]
+shape = SubResource("shape_52")
+[node name="ArmarioGaragem3" type="Node3D" parent="GaragemOperacional"]
+position = Vector3(52, 1.2, 28.8)
+[node name="Visual" type="MeshInstance3D" parent="GaragemOperacional/ArmarioGaragem3"]
+mesh = SubResource("mesh_52")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="GaragemOperacional/ArmarioGaragem3"]
+[node name="Colisao" type="CollisionShape3D" parent="GaragemOperacional/ArmarioGaragem3/Corpo"]
+shape = SubResource("shape_52")
+[node name="PisoOficina" type="Node3D" parent="Oficina"]
+position = Vector3(43, 0.1, 42)
+[node name="Visual" type="MeshInstance3D" parent="Oficina/PisoOficina"]
+mesh = SubResource("mesh_53")
+material_override = SubResource("mat_floor")
+[node name="Corpo" type="StaticBody3D" parent="Oficina/PisoOficina"]
+[node name="Colisao" type="CollisionShape3D" parent="Oficina/PisoOficina/Corpo"]
+shape = SubResource("shape_53")
+[node name="FundoOficina" type="Node3D" parent="Oficina"]
+position = Vector3(43, 2.8, 51)
+[node name="Visual" type="MeshInstance3D" parent="Oficina/FundoOficina"]
+mesh = SubResource("mesh_54")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="Oficina/FundoOficina"]
+[node name="Colisao" type="CollisionShape3D" parent="Oficina/FundoOficina/Corpo"]
+shape = SubResource("shape_54")
+[node name="LadoOficinaE" type="Node3D" parent="Oficina"]
+position = Vector3(24.2, 2.8, 42)
+[node name="Visual" type="MeshInstance3D" parent="Oficina/LadoOficinaE"]
+mesh = SubResource("mesh_55")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="Oficina/LadoOficinaE"]
+[node name="Colisao" type="CollisionShape3D" parent="Oficina/LadoOficinaE/Corpo"]
+shape = SubResource("shape_55")
+[node name="LadoOficinaD" type="Node3D" parent="Oficina"]
+position = Vector3(61.8, 2.8, 42)
+[node name="Visual" type="MeshInstance3D" parent="Oficina/LadoOficinaD"]
+mesh = SubResource("mesh_55")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="Oficina/LadoOficinaD"]
+[node name="Colisao" type="CollisionShape3D" parent="Oficina/LadoOficinaD/Corpo"]
+shape = SubResource("shape_55")
+[node name="TetoOficina" type="Node3D" parent="Oficina"]
+position = Vector3(43, 5.7, 42)
+[node name="Visual" type="MeshInstance3D" parent="Oficina/TetoOficina"]
+mesh = SubResource("mesh_56")
+material_override = SubResource("mat_dark")
+[node name="Corpo" type="StaticBody3D" parent="Oficina/TetoOficina"]
+[node name="Colisao" type="CollisionShape3D" parent="Oficina/TetoOficina/Corpo"]
+shape = SubResource("shape_56")
+[node name="PilarOficina27" type="Node3D" parent="Oficina"]
+position = Vector3(27, 2.8, 33.2)
+[node name="Visual" type="MeshInstance3D" parent="Oficina/PilarOficina27"]
+mesh = SubResource("mesh_57")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="Oficina/PilarOficina27"]
+[node name="Colisao" type="CollisionShape3D" parent="Oficina/PilarOficina27/Corpo"]
+shape = SubResource("shape_57")
+[node name="PilarOficina39" type="Node3D" parent="Oficina"]
+position = Vector3(39, 2.8, 33.2)
+[node name="Visual" type="MeshInstance3D" parent="Oficina/PilarOficina39"]
+mesh = SubResource("mesh_57")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="Oficina/PilarOficina39"]
+[node name="Colisao" type="CollisionShape3D" parent="Oficina/PilarOficina39/Corpo"]
+shape = SubResource("shape_57")
+[node name="PilarOficina51" type="Node3D" parent="Oficina"]
+position = Vector3(51, 2.8, 33.2)
+[node name="Visual" type="MeshInstance3D" parent="Oficina/PilarOficina51"]
+mesh = SubResource("mesh_57")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="Oficina/PilarOficina51"]
+[node name="Colisao" type="CollisionShape3D" parent="Oficina/PilarOficina51/Corpo"]
+shape = SubResource("shape_57")
+[node name="PilarOficina60" type="Node3D" parent="Oficina"]
+position = Vector3(60, 2.8, 33.2)
+[node name="Visual" type="MeshInstance3D" parent="Oficina/PilarOficina60"]
+mesh = SubResource("mesh_57")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="Oficina/PilarOficina60"]
+[node name="Colisao" type="CollisionShape3D" parent="Oficina/PilarOficina60/Corpo"]
+shape = SubResource("shape_57")
+[node name="OficinaLabel" type="Label3D" parent="Oficina"]
+position = Vector3(43, 4.7, 33)
+text = "OFICINA • MANUTENÇÃO"
+font_size = 13
+pixel_size = 0.0085
+modulate = Color(0.86,0.92,0.82,1)
+outline_modulate = Color(0.02,0.03,0.02,1)
+visibility_range_end = 260.0
+[node name="PisoAlojamento" type="Node3D" parent="Alojamento"]
+position = Vector3(-50, 0.1, 53)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/PisoAlojamento"]
+mesh = SubResource("mesh_58")
+material_override = SubResource("mat_floor")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/PisoAlojamento"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/PisoAlojamento/Corpo"]
+shape = SubResource("shape_58")
+[node name="FundoAlojamento" type="Node3D" parent="Alojamento"]
+position = Vector3(-50, 2.7, 69)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/FundoAlojamento"]
+mesh = SubResource("mesh_59")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/FundoAlojamento"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/FundoAlojamento/Corpo"]
+shape = SubResource("shape_59")
+[node name="LadoAlojE" type="Node3D" parent="Alojamento"]
+position = Vector3(-61.8, 2.7, 53)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/LadoAlojE"]
+mesh = SubResource("mesh_60")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/LadoAlojE"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/LadoAlojE/Corpo"]
+shape = SubResource("shape_60")
+[node name="LadoAlojD" type="Node3D" parent="Alojamento"]
+position = Vector3(-38.2, 2.7, 53)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/LadoAlojD"]
+mesh = SubResource("mesh_60")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/LadoAlojD"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/LadoAlojD/Corpo"]
+shape = SubResource("shape_60")
+[node name="FrenteAlojE" type="Node3D" parent="Alojamento"]
+position = Vector3(-56.5, 2.7, 37)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/FrenteAlojE"]
+mesh = SubResource("mesh_61")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/FrenteAlojE"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/FrenteAlojE/Corpo"]
+shape = SubResource("shape_61")
+[node name="FrenteAlojD" type="Node3D" parent="Alojamento"]
+position = Vector3(-43.5, 2.7, 37)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/FrenteAlojD"]
+mesh = SubResource("mesh_61")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/FrenteAlojD"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/FrenteAlojD/Corpo"]
+shape = SubResource("shape_61")
+[node name="TetoAlojamento" type="Node3D" parent="Alojamento"]
+position = Vector3(-50, 5.5, 53)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/TetoAlojamento"]
+mesh = SubResource("mesh_62")
+material_override = SubResource("mat_dark")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/TetoAlojamento"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/TetoAlojamento/Corpo"]
+shape = SubResource("shape_62")
+[node name="AlojamentoLabel" type="Label3D" parent="Alojamento"]
+position = Vector3(-50, 4.5, 36.8)
+text = "ALOJAMENTO"
+font_size = 13
+pixel_size = 0.0085
+modulate = Color(0.86,0.92,0.82,1)
+outline_modulate = Color(0.02,0.03,0.02,1)
+visibility_range_end = 260.0
+[node name="Cama_0_-57" type="Node3D" parent="Alojamento"]
+position = Vector3(-57, 0.45, 43)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/Cama_0_-57"]
+mesh = SubResource("mesh_63")
+material_override = SubResource("mat_green2")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/Cama_0_-57"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/Cama_0_-57/Corpo"]
+shape = SubResource("shape_63")
+[node name="Armario_0_-57" type="Node3D" parent="Alojamento"]
+position = Vector3(-57, 1.1, 44.5)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/Armario_0_-57"]
+mesh = SubResource("mesh_64")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/Armario_0_-57"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/Armario_0_-57/Corpo"]
+shape = SubResource("shape_64")
+[node name="Cama_0_-51" type="Node3D" parent="Alojamento"]
+position = Vector3(-51, 0.45, 43)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/Cama_0_-51"]
+mesh = SubResource("mesh_63")
+material_override = SubResource("mat_green2")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/Cama_0_-51"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/Cama_0_-51/Corpo"]
+shape = SubResource("shape_63")
+[node name="Armario_0_-51" type="Node3D" parent="Alojamento"]
+position = Vector3(-51, 1.1, 44.5)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/Armario_0_-51"]
+mesh = SubResource("mesh_64")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/Armario_0_-51"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/Armario_0_-51/Corpo"]
+shape = SubResource("shape_64")
+[node name="Cama_0_-45" type="Node3D" parent="Alojamento"]
+position = Vector3(-45, 0.45, 43)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/Cama_0_-45"]
+mesh = SubResource("mesh_63")
+material_override = SubResource("mat_green2")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/Cama_0_-45"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/Cama_0_-45/Corpo"]
+shape = SubResource("shape_63")
+[node name="Armario_0_-45" type="Node3D" parent="Alojamento"]
+position = Vector3(-45, 1.1, 44.5)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/Armario_0_-45"]
+mesh = SubResource("mesh_64")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/Armario_0_-45"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/Armario_0_-45/Corpo"]
+shape = SubResource("shape_64")
+[node name="Cama_1_-57" type="Node3D" parent="Alojamento"]
+position = Vector3(-57, 0.45, 50)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/Cama_1_-57"]
+mesh = SubResource("mesh_63")
+material_override = SubResource("mat_green2")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/Cama_1_-57"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/Cama_1_-57/Corpo"]
+shape = SubResource("shape_63")
+[node name="Armario_1_-57" type="Node3D" parent="Alojamento"]
+position = Vector3(-57, 1.1, 51.5)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/Armario_1_-57"]
+mesh = SubResource("mesh_64")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/Armario_1_-57"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/Armario_1_-57/Corpo"]
+shape = SubResource("shape_64")
+[node name="Cama_1_-51" type="Node3D" parent="Alojamento"]
+position = Vector3(-51, 0.45, 50)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/Cama_1_-51"]
+mesh = SubResource("mesh_63")
+material_override = SubResource("mat_green2")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/Cama_1_-51"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/Cama_1_-51/Corpo"]
+shape = SubResource("shape_63")
+[node name="Armario_1_-51" type="Node3D" parent="Alojamento"]
+position = Vector3(-51, 1.1, 51.5)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/Armario_1_-51"]
+mesh = SubResource("mesh_64")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/Armario_1_-51"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/Armario_1_-51/Corpo"]
+shape = SubResource("shape_64")
+[node name="Cama_1_-45" type="Node3D" parent="Alojamento"]
+position = Vector3(-45, 0.45, 50)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/Cama_1_-45"]
+mesh = SubResource("mesh_63")
+material_override = SubResource("mat_green2")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/Cama_1_-45"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/Cama_1_-45/Corpo"]
+shape = SubResource("shape_63")
+[node name="Armario_1_-45" type="Node3D" parent="Alojamento"]
+position = Vector3(-45, 1.1, 51.5)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/Armario_1_-45"]
+mesh = SubResource("mesh_64")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/Armario_1_-45"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/Armario_1_-45/Corpo"]
+shape = SubResource("shape_64")
+[node name="Cama_2_-57" type="Node3D" parent="Alojamento"]
+position = Vector3(-57, 0.45, 57)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/Cama_2_-57"]
+mesh = SubResource("mesh_63")
+material_override = SubResource("mat_green2")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/Cama_2_-57"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/Cama_2_-57/Corpo"]
+shape = SubResource("shape_63")
+[node name="Armario_2_-57" type="Node3D" parent="Alojamento"]
+position = Vector3(-57, 1.1, 58.5)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/Armario_2_-57"]
+mesh = SubResource("mesh_64")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/Armario_2_-57"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/Armario_2_-57/Corpo"]
+shape = SubResource("shape_64")
+[node name="Cama_2_-51" type="Node3D" parent="Alojamento"]
+position = Vector3(-51, 0.45, 57)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/Cama_2_-51"]
+mesh = SubResource("mesh_63")
+material_override = SubResource("mat_green2")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/Cama_2_-51"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/Cama_2_-51/Corpo"]
+shape = SubResource("shape_63")
+[node name="Armario_2_-51" type="Node3D" parent="Alojamento"]
+position = Vector3(-51, 1.1, 58.5)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/Armario_2_-51"]
+mesh = SubResource("mesh_64")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/Armario_2_-51"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/Armario_2_-51/Corpo"]
+shape = SubResource("shape_64")
+[node name="Cama_2_-45" type="Node3D" parent="Alojamento"]
+position = Vector3(-45, 0.45, 57)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/Cama_2_-45"]
+mesh = SubResource("mesh_63")
+material_override = SubResource("mat_green2")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/Cama_2_-45"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/Cama_2_-45/Corpo"]
+shape = SubResource("shape_63")
+[node name="Armario_2_-45" type="Node3D" parent="Alojamento"]
+position = Vector3(-45, 1.1, 58.5)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/Armario_2_-45"]
+mesh = SubResource("mesh_64")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/Armario_2_-45"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/Armario_2_-45/Corpo"]
+shape = SubResource("shape_64")
+[node name="Cama_3_-57" type="Node3D" parent="Alojamento"]
+position = Vector3(-57, 0.45, 64)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/Cama_3_-57"]
+mesh = SubResource("mesh_63")
+material_override = SubResource("mat_green2")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/Cama_3_-57"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/Cama_3_-57/Corpo"]
+shape = SubResource("shape_63")
+[node name="Armario_3_-57" type="Node3D" parent="Alojamento"]
+position = Vector3(-57, 1.1, 65.5)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/Armario_3_-57"]
+mesh = SubResource("mesh_64")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/Armario_3_-57"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/Armario_3_-57/Corpo"]
+shape = SubResource("shape_64")
+[node name="Cama_3_-51" type="Node3D" parent="Alojamento"]
+position = Vector3(-51, 0.45, 64)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/Cama_3_-51"]
+mesh = SubResource("mesh_63")
+material_override = SubResource("mat_green2")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/Cama_3_-51"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/Cama_3_-51/Corpo"]
+shape = SubResource("shape_63")
+[node name="Armario_3_-51" type="Node3D" parent="Alojamento"]
+position = Vector3(-51, 1.1, 65.5)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/Armario_3_-51"]
+mesh = SubResource("mesh_64")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/Armario_3_-51"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/Armario_3_-51/Corpo"]
+shape = SubResource("shape_64")
+[node name="Cama_3_-45" type="Node3D" parent="Alojamento"]
+position = Vector3(-45, 0.45, 64)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/Cama_3_-45"]
+mesh = SubResource("mesh_63")
+material_override = SubResource("mat_green2")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/Cama_3_-45"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/Cama_3_-45/Corpo"]
+shape = SubResource("shape_63")
+[node name="Armario_3_-45" type="Node3D" parent="Alojamento"]
+position = Vector3(-45, 1.1, 65.5)
+[node name="Visual" type="MeshInstance3D" parent="Alojamento/Armario_3_-45"]
+mesh = SubResource("mesh_64")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="Alojamento/Armario_3_-45"]
+[node name="Colisao" type="CollisionShape3D" parent="Alojamento/Armario_3_-45/Corpo"]
+shape = SubResource("shape_64")
+[node name="PisoRefeitorio" type="Node3D" parent="Refeitorio"]
+position = Vector3(-22, 0.1, 57)
+[node name="Visual" type="MeshInstance3D" parent="Refeitorio/PisoRefeitorio"]
+mesh = SubResource("mesh_65")
+material_override = SubResource("mat_floor")
+[node name="Corpo" type="StaticBody3D" parent="Refeitorio/PisoRefeitorio"]
+[node name="Colisao" type="CollisionShape3D" parent="Refeitorio/PisoRefeitorio/Corpo"]
+shape = SubResource("shape_65")
+[node name="FundoRefeitorio" type="Node3D" parent="Refeitorio"]
+position = Vector3(-22, 2.45, 68)
+[node name="Visual" type="MeshInstance3D" parent="Refeitorio/FundoRefeitorio"]
+mesh = SubResource("mesh_66")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="Refeitorio/FundoRefeitorio"]
+[node name="Colisao" type="CollisionShape3D" parent="Refeitorio/FundoRefeitorio/Corpo"]
+shape = SubResource("shape_66")
+[node name="LadoRefE" type="Node3D" parent="Refeitorio"]
+position = Vector3(-34.8, 2.45, 57)
+[node name="Visual" type="MeshInstance3D" parent="Refeitorio/LadoRefE"]
+mesh = SubResource("mesh_67")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="Refeitorio/LadoRefE"]
+[node name="Colisao" type="CollisionShape3D" parent="Refeitorio/LadoRefE/Corpo"]
+shape = SubResource("shape_67")
+[node name="LadoRefD" type="Node3D" parent="Refeitorio"]
+position = Vector3(-9.2, 2.45, 57)
+[node name="Visual" type="MeshInstance3D" parent="Refeitorio/LadoRefD"]
+mesh = SubResource("mesh_67")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="Refeitorio/LadoRefD"]
+[node name="Colisao" type="CollisionShape3D" parent="Refeitorio/LadoRefD/Corpo"]
+shape = SubResource("shape_67")
+[node name="FrenteRefE" type="Node3D" parent="Refeitorio"]
+position = Vector3(-29, 2.45, 46)
+[node name="Visual" type="MeshInstance3D" parent="Refeitorio/FrenteRefE"]
+mesh = SubResource("mesh_68")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="Refeitorio/FrenteRefE"]
+[node name="Colisao" type="CollisionShape3D" parent="Refeitorio/FrenteRefE/Corpo"]
+shape = SubResource("shape_68")
+[node name="FrenteRefD" type="Node3D" parent="Refeitorio"]
+position = Vector3(-15, 2.45, 46)
+[node name="Visual" type="MeshInstance3D" parent="Refeitorio/FrenteRefD"]
+mesh = SubResource("mesh_68")
+material_override = SubResource("mat_facade")
+[node name="Corpo" type="StaticBody3D" parent="Refeitorio/FrenteRefD"]
+[node name="Colisao" type="CollisionShape3D" parent="Refeitorio/FrenteRefD/Corpo"]
+shape = SubResource("shape_68")
+[node name="TetoRefeitorio" type="Node3D" parent="Refeitorio"]
+position = Vector3(-22, 5, 57)
+[node name="Visual" type="MeshInstance3D" parent="Refeitorio/TetoRefeitorio"]
+mesh = SubResource("mesh_69")
+material_override = SubResource("mat_dark")
+[node name="Corpo" type="StaticBody3D" parent="Refeitorio/TetoRefeitorio"]
+[node name="Colisao" type="CollisionShape3D" parent="Refeitorio/TetoRefeitorio/Corpo"]
+shape = SubResource("shape_69")
+[node name="RefeitorioLabel" type="Label3D" parent="Refeitorio"]
+position = Vector3(-22, 4, 45.8)
+text = "REFEITÓRIO"
+font_size = 13
+pixel_size = 0.0085
+modulate = Color(0.86,0.92,0.82,1)
+outline_modulate = Color(0.02,0.03,0.02,1)
+visibility_range_end = 260.0
+[node name="MesaRefeitorio0" type="Node3D" parent="Refeitorio"]
+position = Vector3(-22, 0.78, 51)
+[node name="Visual" type="MeshInstance3D" parent="Refeitorio/MesaRefeitorio0"]
+mesh = SubResource("mesh_70")
+material_override = SubResource("mat_wood")
+[node name="Corpo" type="StaticBody3D" parent="Refeitorio/MesaRefeitorio0"]
+[node name="Colisao" type="CollisionShape3D" parent="Refeitorio/MesaRefeitorio0/Corpo"]
+shape = SubResource("shape_70")
+[node name="MesaRefeitorio1" type="Node3D" parent="Refeitorio"]
+position = Vector3(-22, 0.78, 56)
+[node name="Visual" type="MeshInstance3D" parent="Refeitorio/MesaRefeitorio1"]
+mesh = SubResource("mesh_70")
+material_override = SubResource("mat_wood")
+[node name="Corpo" type="StaticBody3D" parent="Refeitorio/MesaRefeitorio1"]
+[node name="Colisao" type="CollisionShape3D" parent="Refeitorio/MesaRefeitorio1/Corpo"]
+shape = SubResource("shape_70")
+[node name="MesaRefeitorio2" type="Node3D" parent="Refeitorio"]
+position = Vector3(-22, 0.78, 61)
+[node name="Visual" type="MeshInstance3D" parent="Refeitorio/MesaRefeitorio2"]
+mesh = SubResource("mesh_70")
+material_override = SubResource("mat_wood")
+[node name="Corpo" type="StaticBody3D" parent="Refeitorio/MesaRefeitorio2"]
+[node name="Colisao" type="CollisionShape3D" parent="Refeitorio/MesaRefeitorio2/Corpo"]
+shape = SubResource("shape_70")
+[node name="MesaRefeitorio3" type="Node3D" parent="Refeitorio"]
+position = Vector3(-22, 0.78, 66)
+[node name="Visual" type="MeshInstance3D" parent="Refeitorio/MesaRefeitorio3"]
+mesh = SubResource("mesh_70")
+material_override = SubResource("mat_wood")
+[node name="Corpo" type="StaticBody3D" parent="Refeitorio/MesaRefeitorio3"]
+[node name="Colisao" type="CollisionShape3D" parent="Refeitorio/MesaRefeitorio3/Corpo"]
+shape = SubResource("shape_70")
+[node name="PisoFormatura" type="Node3D" parent="PatioFormatura"]
+position = Vector3(5, 0.13, 49)
+[node name="Visual" type="MeshInstance3D" parent="PatioFormatura/PisoFormatura"]
+mesh = SubResource("mesh_71")
+material_override = SubResource("mat_sidewalk")
+[node name="Corpo" type="StaticBody3D" parent="PatioFormatura/PisoFormatura"]
+[node name="Colisao" type="CollisionShape3D" parent="PatioFormatura/PisoFormatura/Corpo"]
+shape = SubResource("shape_71")
+[node name="LinhaFormatura39" type="Node3D" parent="PatioFormatura"]
+position = Vector3(5, 0.19, 39)
+[node name="Visual" type="MeshInstance3D" parent="PatioFormatura/LinhaFormatura39"]
+mesh = SubResource("mesh_72")
+material_override = SubResource("mat_white")
+[node name="LinhaFormatura45" type="Node3D" parent="PatioFormatura"]
+position = Vector3(5, 0.19, 45)
+[node name="Visual" type="MeshInstance3D" parent="PatioFormatura/LinhaFormatura45"]
+mesh = SubResource("mesh_72")
+material_override = SubResource("mat_white")
+[node name="LinhaFormatura51" type="Node3D" parent="PatioFormatura"]
+position = Vector3(5, 0.19, 51)
+[node name="Visual" type="MeshInstance3D" parent="PatioFormatura/LinhaFormatura51"]
+mesh = SubResource("mesh_72")
+material_override = SubResource("mat_white")
+[node name="LinhaFormatura57" type="Node3D" parent="PatioFormatura"]
+position = Vector3(5, 0.19, 57)
+[node name="Visual" type="MeshInstance3D" parent="PatioFormatura/LinhaFormatura57"]
+mesh = SubResource("mesh_72")
+material_override = SubResource("mat_white")
+[node name="FormaturaLabel" type="Label3D" parent="PatioFormatura"]
+position = Vector3(5, 0.6, 61)
+text = "PÁTIO DE FORMATURA"
+font_size = 12
+pixel_size = 0.008
+modulate = Color(0.86,0.92,0.82,1)
+outline_modulate = Color(0.02,0.03,0.02,1)
+visibility_range_end = 260.0
+[node name="HelipontoPiso" type="Node3D" parent="Heliponto"]
+position = Vector3(6, 0.15, 70)
+[node name="Visual" type="MeshInstance3D" parent="Heliponto/HelipontoPiso"]
+mesh = SubResource("mesh_73")
+material_override = SubResource("mat_dark")
+[node name="Corpo" type="StaticBody3D" parent="Heliponto/HelipontoPiso"]
+[node name="Colisao" type="CollisionShape3D" parent="Heliponto/HelipontoPiso/Corpo"]
+shape = SubResource("shape_73")
+[node name="H1" type="Node3D" parent="Heliponto"]
+position = Vector3(6, 0.24, 70)
+[node name="Visual" type="MeshInstance3D" parent="Heliponto/H1"]
+mesh = SubResource("mesh_74")
+material_override = SubResource("mat_white")
+[node name="H2" type="Node3D" parent="Heliponto"]
+position = Vector3(2.5, 0.24, 70)
+[node name="Visual" type="MeshInstance3D" parent="Heliponto/H2"]
+mesh = SubResource("mesh_74")
+material_override = SubResource("mat_white")
+[node name="H3" type="Node3D" parent="Heliponto"]
+position = Vector3(9.5, 0.24, 70)
+[node name="Visual" type="MeshInstance3D" parent="Heliponto/H3"]
+mesh = SubResource("mesh_74")
+material_override = SubResource("mat_white")
+[node name="H4" type="Node3D" parent="Heliponto"]
+position = Vector3(6, 0.24, 70)
+[node name="Visual" type="MeshInstance3D" parent="Heliponto/H4"]
+mesh = SubResource("mesh_75")
+material_override = SubResource("mat_white")
+[node name="HelipontoLabel" type="Label3D" parent="Heliponto"]
+position = Vector3(6, 0.65, 78)
+text = "HELIPONTO"
+font_size = 11
+pixel_size = 0.0075
+modulate = Color(0.86,0.92,0.82,1)
+outline_modulate = Color(0.02,0.03,0.02,1)
+visibility_range_end = 260.0
+[node name="PisoTreino" type="Node3D" parent="Treinamento"]
+position = Vector3(48, 0.1, 66)
+[node name="Visual" type="MeshInstance3D" parent="Treinamento/PisoTreino"]
+mesh = SubResource("mesh_76")
+material_override = SubResource("mat_floor")
+[node name="Corpo" type="StaticBody3D" parent="Treinamento/PisoTreino"]
+[node name="Colisao" type="CollisionShape3D" parent="Treinamento/PisoTreino/Corpo"]
+shape = SubResource("shape_76")
+[node name="Obstaculo0" type="Node3D" parent="Treinamento"]
+position = Vector3(38, 0.65, 64)
+[node name="Visual" type="MeshInstance3D" parent="Treinamento/Obstaculo0"]
+mesh = SubResource("mesh_77")
+material_override = SubResource("mat_green")
+[node name="Corpo" type="StaticBody3D" parent="Treinamento/Obstaculo0"]
+[node name="Colisao" type="CollisionShape3D" parent="Treinamento/Obstaculo0/Corpo"]
+shape = SubResource("shape_77")
+[node name="Obstaculo1" type="Node3D" parent="Treinamento"]
+position = Vector3(44, 0.65, 64)
+[node name="Visual" type="MeshInstance3D" parent="Treinamento/Obstaculo1"]
+mesh = SubResource("mesh_77")
+material_override = SubResource("mat_green")
+[node name="Corpo" type="StaticBody3D" parent="Treinamento/Obstaculo1"]
+[node name="Colisao" type="CollisionShape3D" parent="Treinamento/Obstaculo1/Corpo"]
+shape = SubResource("shape_77")
+[node name="Obstaculo2" type="Node3D" parent="Treinamento"]
+position = Vector3(50, 0.65, 64)
+[node name="Visual" type="MeshInstance3D" parent="Treinamento/Obstaculo2"]
+mesh = SubResource("mesh_77")
+material_override = SubResource("mat_green")
+[node name="Corpo" type="StaticBody3D" parent="Treinamento/Obstaculo2"]
+[node name="Colisao" type="CollisionShape3D" parent="Treinamento/Obstaculo2/Corpo"]
+shape = SubResource("shape_77")
+[node name="Obstaculo3" type="Node3D" parent="Treinamento"]
+position = Vector3(56, 0.65, 64)
+[node name="Visual" type="MeshInstance3D" parent="Treinamento/Obstaculo3"]
+mesh = SubResource("mesh_77")
+material_override = SubResource("mat_green")
+[node name="Corpo" type="StaticBody3D" parent="Treinamento/Obstaculo3"]
+[node name="Colisao" type="CollisionShape3D" parent="Treinamento/Obstaculo3/Corpo"]
+shape = SubResource("shape_77")
+[node name="MuroTreino0" type="Node3D" parent="Treinamento"]
+position = Vector3(60, 1.4, 58)
+[node name="Visual" type="MeshInstance3D" parent="Treinamento/MuroTreino0"]
+mesh = SubResource("mesh_78")
+material_override = SubResource("mat_wall")
+[node name="Corpo" type="StaticBody3D" parent="Treinamento/MuroTreino0"]
+[node name="Colisao" type="CollisionShape3D" parent="Treinamento/MuroTreino0/Corpo"]
+shape = SubResource("shape_78")
+[node name="MuroTreino1" type="Node3D" parent="Treinamento"]
+position = Vector3(60, 1.4, 64)
+[node name="Visual" type="MeshInstance3D" parent="Treinamento/MuroTreino1"]
+mesh = SubResource("mesh_78")
+material_override = SubResource("mat_wall")
+[node name="Corpo" type="StaticBody3D" parent="Treinamento/MuroTreino1"]
+[node name="Colisao" type="CollisionShape3D" parent="Treinamento/MuroTreino1/Corpo"]
+shape = SubResource("shape_78")
+[node name="MuroTreino2" type="Node3D" parent="Treinamento"]
+position = Vector3(60, 1.4, 70)
+[node name="Visual" type="MeshInstance3D" parent="Treinamento/MuroTreino2"]
+mesh = SubResource("mesh_78")
+material_override = SubResource("mat_wall")
+[node name="Corpo" type="StaticBody3D" parent="Treinamento/MuroTreino2"]
+[node name="Colisao" type="CollisionShape3D" parent="Treinamento/MuroTreino2/Corpo"]
+shape = SubResource("shape_78")
+[node name="TreinoLabel" type="Label3D" parent="Treinamento"]
+position = Vector3(48, 0.7, 76)
+text = "TREINAMENTO"
+font_size = 12
+pixel_size = 0.008
+modulate = Color(0.86,0.92,0.82,1)
+outline_modulate = Color(0.02,0.03,0.02,1)
+visibility_range_end = 260.0
+[node name="Container0" type="Node3D" parent="Depositos"]
+position = Vector3(20, 1.3, 62)
+[node name="Visual" type="MeshInstance3D" parent="Depositos/Container0"]
+mesh = SubResource("mesh_79")
+material_override = SubResource("mat_green")
+[node name="Corpo" type="StaticBody3D" parent="Depositos/Container0"]
+[node name="Colisao" type="CollisionShape3D" parent="Depositos/Container0/Corpo"]
+shape = SubResource("shape_79")
+[node name="Container1" type="Node3D" parent="Depositos"]
+position = Vector3(28, 1.3, 62)
+[node name="Visual" type="MeshInstance3D" parent="Depositos/Container1"]
+mesh = SubResource("mesh_79")
+material_override = SubResource("mat_green")
+[node name="Corpo" type="StaticBody3D" parent="Depositos/Container1"]
+[node name="Colisao" type="CollisionShape3D" parent="Depositos/Container1/Corpo"]
+shape = SubResource("shape_79")
+[node name="Container2" type="Node3D" parent="Depositos"]
+position = Vector3(20, 1.3, 70)
+[node name="Visual" type="MeshInstance3D" parent="Depositos/Container2"]
+mesh = SubResource("mesh_79")
+material_override = SubResource("mat_green")
+[node name="Corpo" type="StaticBody3D" parent="Depositos/Container2"]
+[node name="Colisao" type="CollisionShape3D" parent="Depositos/Container2/Corpo"]
+shape = SubResource("shape_79")
+[node name="Container3" type="Node3D" parent="Depositos"]
+position = Vector3(28, 1.3, 70)
+[node name="Visual" type="MeshInstance3D" parent="Depositos/Container3"]
+mesh = SubResource("mesh_79")
+material_override = SubResource("mat_green")
+[node name="Corpo" type="StaticBody3D" parent="Depositos/Container3"]
+[node name="Colisao" type="CollisionShape3D" parent="Depositos/Container3/Corpo"]
+shape = SubResource("shape_79")
+[node name="DepositoMunicao" type="Node3D" parent="Depositos"]
+position = Vector3(36, 1.5, 69)
+[node name="Visual" type="MeshInstance3D" parent="Depositos/DepositoMunicao"]
+mesh = SubResource("mesh_80")
+material_override = SubResource("mat_dark")
+[node name="Corpo" type="StaticBody3D" parent="Depositos/DepositoMunicao"]
+[node name="Colisao" type="CollisionShape3D" parent="Depositos/DepositoMunicao/Corpo"]
+shape = SubResource("shape_80")
+[node name="DepositoLabel" type="Label3D" parent="Depositos"]
+position = Vector3(28, 3.3, 74)
+text = "DEPÓSITOS • MUNIÇÃO"
+font_size = 11
+pixel_size = 0.0075
+modulate = Color(0.86,0.92,0.82,1)
+outline_modulate = Color(0.02,0.03,0.02,1)
+visibility_range_end = 260.0
+[node name="Tanque55" type="Node3D" parent="Combustivel"]
+position = Vector3(55, 1.6, 54)
+[node name="Visual" type="MeshInstance3D" parent="Combustivel/Tanque55"]
+mesh = SubResource("mesh_81")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="Combustivel/Tanque55"]
+[node name="Colisao" type="CollisionShape3D" parent="Combustivel/Tanque55/Corpo"]
+shape = SubResource("shape_81")
+[node name="Tanque60" type="Node3D" parent="Combustivel"]
+position = Vector3(60, 1.6, 54)
+[node name="Visual" type="MeshInstance3D" parent="Combustivel/Tanque60"]
+mesh = SubResource("mesh_81")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="Combustivel/Tanque60"]
+[node name="Colisao" type="CollisionShape3D" parent="Combustivel/Tanque60/Corpo"]
+shape = SubResource("shape_81")
+[node name="ProtecaoCombustivel" type="Node3D" parent="Combustivel"]
+position = Vector3(57.5, 0.7, 50)
+[node name="Visual" type="MeshInstance3D" parent="Combustivel/ProtecaoCombustivel"]
+mesh = SubResource("mesh_82")
+material_override = SubResource("mat_wall")
+[node name="Corpo" type="StaticBody3D" parent="Combustivel/ProtecaoCombustivel"]
+[node name="Colisao" type="CollisionShape3D" parent="Combustivel/ProtecaoCombustivel/Corpo"]
+shape = SubResource("shape_82")
+[node name="CombustivelLabel" type="Label3D" parent="Combustivel"]
+position = Vector3(57.5, 3.6, 54)
+text = "COMBUSTÍVEL"
+font_size = 11
+pixel_size = 0.0075
+modulate = Color(0.86,0.92,0.82,1)
+outline_modulate = Color(0.02,0.03,0.02,1)
+visibility_range_end = 260.0
+[node name="PisoEstacionamento" type="Node3D" parent="Estacionamento"]
+position = Vector3(-52, 0.13, 16)
+[node name="Visual" type="MeshInstance3D" parent="Estacionamento/PisoEstacionamento"]
+mesh = SubResource("mesh_83")
+material_override = SubResource("mat_dark")
+[node name="Corpo" type="StaticBody3D" parent="Estacionamento/PisoEstacionamento"]
+[node name="Colisao" type="CollisionShape3D" parent="Estacionamento/PisoEstacionamento/Corpo"]
+shape = SubResource("shape_83")
+[node name="LinhaVaga-60" type="Node3D" parent="Estacionamento"]
+position = Vector3(-60, 0.21, 16)
+[node name="Visual" type="MeshInstance3D" parent="Estacionamento/LinhaVaga-60"]
+mesh = SubResource("mesh_84")
+material_override = SubResource("mat_white")
+[node name="LinhaVaga-56" type="Node3D" parent="Estacionamento"]
+position = Vector3(-56, 0.21, 16)
+[node name="Visual" type="MeshInstance3D" parent="Estacionamento/LinhaVaga-56"]
+mesh = SubResource("mesh_84")
+material_override = SubResource("mat_white")
+[node name="LinhaVaga-52" type="Node3D" parent="Estacionamento"]
+position = Vector3(-52, 0.21, 16)
+[node name="Visual" type="MeshInstance3D" parent="Estacionamento/LinhaVaga-52"]
+mesh = SubResource("mesh_84")
+material_override = SubResource("mat_white")
+[node name="LinhaVaga-48" type="Node3D" parent="Estacionamento"]
+position = Vector3(-48, 0.21, 16)
+[node name="Visual" type="MeshInstance3D" parent="Estacionamento/LinhaVaga-48"]
+mesh = SubResource("mesh_84")
+material_override = SubResource("mat_white")
+[node name="LinhaVaga-44" type="Node3D" parent="Estacionamento"]
+position = Vector3(-44, 0.21, 16)
+[node name="Visual" type="MeshInstance3D" parent="Estacionamento/LinhaVaga-44"]
+mesh = SubResource("mesh_84")
+material_override = SubResource("mat_white")
+[node name="EstacionamentoLabel" type="Label3D" parent="Estacionamento"]
+position = Vector3(-52, 0.55, 27)
+text = "ESTACIONAMENTO"
+font_size = 11
+pixel_size = 0.0075
+modulate = Color(0.86,0.92,0.82,1)
+outline_modulate = Color(0.02,0.03,0.02,1)
+visibility_range_end = 260.0
+[node name="TorrePilar0" type="Node3D" parent="Torres"]
+position = Vector3(-60, 4, -23)
+[node name="Visual" type="MeshInstance3D" parent="Torres/TorrePilar0"]
+mesh = SubResource("mesh_85")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="Torres/TorrePilar0"]
+[node name="Colisao" type="CollisionShape3D" parent="Torres/TorrePilar0/Corpo"]
+shape = SubResource("shape_85")
+[node name="TorrePiso0" type="Node3D" parent="Torres"]
+position = Vector3(-60, 8.1, -23)
+[node name="Visual" type="MeshInstance3D" parent="Torres/TorrePiso0"]
+mesh = SubResource("mesh_86")
+material_override = SubResource("mat_floor")
+[node name="Corpo" type="StaticBody3D" parent="Torres/TorrePiso0"]
+[node name="Colisao" type="CollisionShape3D" parent="Torres/TorrePiso0/Corpo"]
+shape = SubResource("shape_86")
+[node name="TorreTeto0" type="Node3D" parent="Torres"]
+position = Vector3(-60, 10.6, -23)
+[node name="Visual" type="MeshInstance3D" parent="Torres/TorreTeto0"]
+mesh = SubResource("mesh_87")
+material_override = SubResource("mat_dark")
+[node name="Corpo" type="StaticBody3D" parent="Torres/TorreTeto0"]
+[node name="Colisao" type="CollisionShape3D" parent="Torres/TorreTeto0/Corpo"]
+shape = SubResource("shape_87")
+[node name="TorrePilar1" type="Node3D" parent="Torres"]
+position = Vector3(60, 4, -23)
+[node name="Visual" type="MeshInstance3D" parent="Torres/TorrePilar1"]
+mesh = SubResource("mesh_85")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="Torres/TorrePilar1"]
+[node name="Colisao" type="CollisionShape3D" parent="Torres/TorrePilar1/Corpo"]
+shape = SubResource("shape_85")
+[node name="TorrePiso1" type="Node3D" parent="Torres"]
+position = Vector3(60, 8.1, -23)
+[node name="Visual" type="MeshInstance3D" parent="Torres/TorrePiso1"]
+mesh = SubResource("mesh_86")
+material_override = SubResource("mat_floor")
+[node name="Corpo" type="StaticBody3D" parent="Torres/TorrePiso1"]
+[node name="Colisao" type="CollisionShape3D" parent="Torres/TorrePiso1/Corpo"]
+shape = SubResource("shape_86")
+[node name="TorreTeto1" type="Node3D" parent="Torres"]
+position = Vector3(60, 10.6, -23)
+[node name="Visual" type="MeshInstance3D" parent="Torres/TorreTeto1"]
+mesh = SubResource("mesh_87")
+material_override = SubResource("mat_dark")
+[node name="Corpo" type="StaticBody3D" parent="Torres/TorreTeto1"]
+[node name="Colisao" type="CollisionShape3D" parent="Torres/TorreTeto1/Corpo"]
+shape = SubResource("shape_87")
+[node name="TorrePilar2" type="Node3D" parent="Torres"]
+position = Vector3(-60, 4, 77)
+[node name="Visual" type="MeshInstance3D" parent="Torres/TorrePilar2"]
+mesh = SubResource("mesh_85")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="Torres/TorrePilar2"]
+[node name="Colisao" type="CollisionShape3D" parent="Torres/TorrePilar2/Corpo"]
+shape = SubResource("shape_85")
+[node name="TorrePiso2" type="Node3D" parent="Torres"]
+position = Vector3(-60, 8.1, 77)
+[node name="Visual" type="MeshInstance3D" parent="Torres/TorrePiso2"]
+mesh = SubResource("mesh_86")
+material_override = SubResource("mat_floor")
+[node name="Corpo" type="StaticBody3D" parent="Torres/TorrePiso2"]
+[node name="Colisao" type="CollisionShape3D" parent="Torres/TorrePiso2/Corpo"]
+shape = SubResource("shape_86")
+[node name="TorreTeto2" type="Node3D" parent="Torres"]
+position = Vector3(-60, 10.6, 77)
+[node name="Visual" type="MeshInstance3D" parent="Torres/TorreTeto2"]
+mesh = SubResource("mesh_87")
+material_override = SubResource("mat_dark")
+[node name="Corpo" type="StaticBody3D" parent="Torres/TorreTeto2"]
+[node name="Colisao" type="CollisionShape3D" parent="Torres/TorreTeto2/Corpo"]
+shape = SubResource("shape_87")
+[node name="TorrePilar3" type="Node3D" parent="Torres"]
+position = Vector3(60, 4, 77)
+[node name="Visual" type="MeshInstance3D" parent="Torres/TorrePilar3"]
+mesh = SubResource("mesh_85")
+material_override = SubResource("mat_metal")
+[node name="Corpo" type="StaticBody3D" parent="Torres/TorrePilar3"]
+[node name="Colisao" type="CollisionShape3D" parent="Torres/TorrePilar3/Corpo"]
+shape = SubResource("shape_85")
+[node name="TorrePiso3" type="Node3D" parent="Torres"]
+position = Vector3(60, 8.1, 77)
+[node name="Visual" type="MeshInstance3D" parent="Torres/TorrePiso3"]
+mesh = SubResource("mesh_86")
+material_override = SubResource("mat_floor")
+[node name="Corpo" type="StaticBody3D" parent="Torres/TorrePiso3"]
+[node name="Colisao" type="CollisionShape3D" parent="Torres/TorrePiso3/Corpo"]
+shape = SubResource("shape_86")
+[node name="TorreTeto3" type="Node3D" parent="Torres"]
+position = Vector3(60, 10.6, 77)
+[node name="Visual" type="MeshInstance3D" parent="Torres/TorreTeto3"]
+mesh = SubResource("mesh_87")
+material_override = SubResource("mat_dark")
+[node name="Corpo" type="StaticBody3D" parent="Torres/TorreTeto3"]
+[node name="Colisao" type="CollisionShape3D" parent="Torres/TorreTeto3/Corpo"]
+shape = SubResource("shape_87")
+[node name="Acesso" type="Label3D" parent="Sinalizacao"]
+position = Vector3(0, 1.2, -23)
+text = "ACESSO MILITAR"
+font_size = 13
+pixel_size = 0.0085
+modulate = Color(0.86,0.92,0.82,1)
+outline_modulate = Color(0.02,0.03,0.02,1)
+visibility_range_end = 260.0
+[node name="MotorPool" type="Label3D" parent="Sinalizacao"]
+position = Vector3(37, 1, -1)
+text = "VIATURAS"
+font_size = 13
+pixel_size = 0.0085
+modulate = Color(0.86,0.92,0.82,1)
+outline_modulate = Color(0.02,0.03,0.02,1)
+visibility_range_end = 260.0
+[node name="Administracao" type="Label3D" parent="Sinalizacao"]
+position = Vector3(-31, 1.2, -5)
+text = "ADMINISTRAÇÃO"
+font_size = 12
+pixel_size = 0.008
+modulate = Color(0.86,0.92,0.82,1)
+outline_modulate = Color(0.02,0.03,0.02,1)
+visibility_range_end = 260.0
+[node name="ServicoMilitar" type="Marker3D" parent="Gameplay" groups=["army_duty_spawn"]]
+position = Vector3(-31, 0.35, 12)
+[node name="Esfera" type="MeshInstance3D" parent="Gameplay/ServicoMilitar"]
+position = Vector3(0, 0.45, 0)
+mesh = SubResource("sphere_88")
+material_override = SubResource("mat_green2")
+[node name="Anel" type="MeshInstance3D" parent="Gameplay/ServicoMilitar"]
+position = Vector3(0, 0.03, 0)
+mesh = SubResource("cyl_89")
+material_override = SubResource("mat_green")
+[node name="Texto" type="Label3D" parent="Gameplay/ServicoMilitar"]
+position = Vector3(0, 1.45, 0)
+text = "SEJA MILITAR"
+font_size = 16
+pixel_size = 0.01
+modulate = Color(0.2,0.82,0.24,1)
+outline_modulate = Color(0.02,0.03,0.02,1)
+visibility_range_end = 260.0
+[node name="GaragemHammerCheckpoint" type="Marker3D" parent="Gameplay" groups=["army_hammer_garage_spawn"]]
+position = Vector3(23, 0.35, 8)
+[node name="Esfera" type="MeshInstance3D" parent="Gameplay/GaragemHammerCheckpoint"]
+position = Vector3(0, 0.45, 0)
+mesh = SubResource("sphere_90")
+material_override = SubResource("mat_green2")
+[node name="Anel" type="MeshInstance3D" parent="Gameplay/GaragemHammerCheckpoint"]
+position = Vector3(0, 0.03, 0)
+mesh = SubResource("cyl_91")
+material_override = SubResource("mat_green")
+[node name="Texto" type="Label3D" parent="Gameplay/GaragemHammerCheckpoint"]
+position = Vector3(0, 1.45, 0)
+text = "RETIRAR HAMMER"
+font_size = 16
+pixel_size = 0.01
+modulate = Color(0.2,0.82,0.24,1)
+outline_modulate = Color(0.02,0.03,0.02,1)
+visibility_range_end = 260.0
+[node name="SpawnHammer" type="Marker3D" parent="Gameplay" groups=["army_hammer_vehicle_spawn"]]
+position = Vector3(23, 0.35, 18)
+[node name="GaragemCaminhaoCheckpoint" type="Marker3D" parent="Gameplay" groups=["army_truck_garage_spawn"]]
+position = Vector3(50, 0.35, 8)
+[node name="Esfera" type="MeshInstance3D" parent="Gameplay/GaragemCaminhaoCheckpoint"]
+position = Vector3(0, 0.45, 0)
+mesh = SubResource("sphere_92")
+material_override = SubResource("mat_green2")
+[node name="Anel" type="MeshInstance3D" parent="Gameplay/GaragemCaminhaoCheckpoint"]
+position = Vector3(0, 0.03, 0)
+mesh = SubResource("cyl_93")
+material_override = SubResource("mat_green")
+[node name="Texto" type="Label3D" parent="Gameplay/GaragemCaminhaoCheckpoint"]
+position = Vector3(0, 1.45, 0)
+text = "RETIRAR CAMINHÃO"
+font_size = 16
+pixel_size = 0.01
+modulate = Color(0.2,0.82,0.24,1)
+outline_modulate = Color(0.02,0.03,0.02,1)
+visibility_range_end = 260.0
+[node name="SpawnCaminhao" type="Marker3D" parent="Gameplay" groups=["army_truck_vehicle_spawn"]]
+position = Vector3(50, 0.35, 18)
+[node name="LuzPatio1" type="OmniLight3D" parent="Iluminacao"]
+position = Vector3(-55, 5, -15)
+light_color = Color(0.82,0.90,0.76,1)
+light_energy = 0.78
+omni_range = 19.0
+shadow_enabled = false
+[node name="LuzPatio2" type="OmniLight3D" parent="Iluminacao"]
+position = Vector3(-25, 5, -15)
+light_color = Color(0.82,0.90,0.76,1)
+light_energy = 0.78
+omni_range = 19.0
+shadow_enabled = false
+[node name="LuzPatio3" type="OmniLight3D" parent="Iluminacao"]
+position = Vector3(5, 5, -15)
+light_color = Color(0.82,0.90,0.76,1)
+light_energy = 0.78
+omni_range = 19.0
+shadow_enabled = false
+[node name="LuzPatio4" type="OmniLight3D" parent="Iluminacao"]
+position = Vector3(35, 5, -15)
+light_color = Color(0.82,0.90,0.76,1)
+light_energy = 0.78
+omni_range = 19.0
+shadow_enabled = false
+[node name="LuzPatio5" type="OmniLight3D" parent="Iluminacao"]
+position = Vector3(60, 5, -15)
+light_color = Color(0.82,0.90,0.76,1)
+light_energy = 0.78
+omni_range = 19.0
+shadow_enabled = false
+[node name="LuzPatio6" type="OmniLight3D" parent="Iluminacao"]
+position = Vector3(-55, 5, 30)
+light_color = Color(0.82,0.90,0.76,1)
+light_energy = 0.78
+omni_range = 19.0
+shadow_enabled = false
+[node name="LuzPatio7" type="OmniLight3D" parent="Iluminacao"]
+position = Vector3(-20, 5, 32)
+light_color = Color(0.82,0.90,0.76,1)
+light_energy = 0.78
+omni_range = 19.0
+shadow_enabled = false
+[node name="LuzPatio8" type="OmniLight3D" parent="Iluminacao"]
+position = Vector3(15, 5, 32)
+light_color = Color(0.82,0.90,0.76,1)
+light_energy = 0.78
+omni_range = 19.0
+shadow_enabled = false
+[node name="LuzPatio9" type="OmniLight3D" parent="Iluminacao"]
+position = Vector3(50, 5, 32)
+light_color = Color(0.82,0.90,0.76,1)
+light_energy = 0.78
+omni_range = 19.0
+shadow_enabled = false
+[node name="LuzPatio10" type="OmniLight3D" parent="Iluminacao"]
+position = Vector3(-55, 5, 70)
+light_color = Color(0.82,0.90,0.76,1)
+light_energy = 0.78
+omni_range = 19.0
+shadow_enabled = false
+[node name="LuzPatio11" type="OmniLight3D" parent="Iluminacao"]
+position = Vector3(-15, 5, 72)
+light_color = Color(0.82,0.90,0.76,1)
+light_energy = 0.78
+omni_range = 19.0
+shadow_enabled = false
+[node name="LuzPatio12" type="OmniLight3D" parent="Iluminacao"]
+position = Vector3(30, 5, 72)
+light_color = Color(0.82,0.90,0.76,1)
+light_energy = 0.78
+omni_range = 19.0
+shadow_enabled = false
+[node name="LuzPatio13" type="OmniLight3D" parent="Iluminacao"]
+position = Vector3(60, 5, 70)
+light_color = Color(0.82,0.90,0.76,1)
+light_energy = 0.78
+omni_range = 19.0
+shadow_enabled = false
+[node name="LuzHQ1" type="OmniLight3D" parent="Iluminacao"]
+position = Vector3(-43, 3.5, 4)
+light_color = Color(0.92,0.95,0.88,1)
+light_energy = 0.62
+omni_range = 10.0
+shadow_enabled = false
+[node name="LuzHQ2" type="OmniLight3D" parent="Iluminacao"]
+position = Vector3(-31, 3.5, 4)
+light_color = Color(0.92,0.95,0.88,1)
+light_energy = 0.62
+omni_range = 10.0
+shadow_enabled = false
+[node name="LuzHQ3" type="OmniLight3D" parent="Iluminacao"]
+position = Vector3(-19, 3.5, 4)
+light_color = Color(0.92,0.95,0.88,1)
+light_energy = 0.62
+omni_range = 10.0
+shadow_enabled = false
+[node name="LuzHQ4" type="OmniLight3D" parent="Iluminacao"]
+position = Vector3(-43, 3.5, 17)
+light_color = Color(0.92,0.95,0.88,1)
+light_energy = 0.62
+omni_range = 10.0
+shadow_enabled = false
+[node name="LuzHQ5" type="OmniLight3D" parent="Iluminacao"]
+position = Vector3(-31, 3.5, 17)
+light_color = Color(0.92,0.95,0.88,1)
+light_energy = 0.62
+omni_range = 10.0
+shadow_enabled = false
+[node name="LuzHQ6" type="OmniLight3D" parent="Iluminacao"]
+position = Vector3(-19, 3.5, 17)
+light_color = Color(0.92,0.95,0.88,1)
+light_energy = 0.62
+omni_range = 10.0
+shadow_enabled = false
+[node name="LuzGaragem1" type="OmniLight3D" parent="Iluminacao"]
+position = Vector3(18, 5.7, 12)
+light_color = Color(0.92,0.95,0.88,1)
+light_energy = 0.72
+omni_range = 14.0
+shadow_enabled = false
+[node name="LuzGaragem2" type="OmniLight3D" parent="Iluminacao"]
+position = Vector3(32, 5.7, 12)
+light_color = Color(0.92,0.95,0.88,1)
+light_energy = 0.72
+omni_range = 14.0
+shadow_enabled = false
+[node name="LuzGaragem3" type="OmniLight3D" parent="Iluminacao"]
+position = Vector3(46, 5.7, 12)
+light_color = Color(0.92,0.95,0.88,1)
+light_energy = 0.72
+omni_range = 14.0
+shadow_enabled = false
+[node name="LuzGaragem4" type="OmniLight3D" parent="Iluminacao"]
+position = Vector3(58, 5.7, 12)
+light_color = Color(0.92,0.95,0.88,1)
+light_energy = 0.72
+omni_range = 14.0
+shadow_enabled = false
+[node name="Div2AE" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-43.5, 6.55, 8)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Div2AE"]
+mesh = SubResource("mesh_94")
+material_override = SubResource("mat_inside")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/Div2AE"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/Div2AE/Corpo"]
+shape = SubResource("shape_94")
+[node name="Div2AD" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-18.5, 6.55, 8)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Div2AD"]
+mesh = SubResource("mesh_94")
+material_override = SubResource("mat_inside")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/Div2AD"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/Div2AD/Corpo"]
+shape = SubResource("shape_94")
+[node name="Div2BE" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-43.5, 6.55, 18)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Div2BE"]
+mesh = SubResource("mesh_94")
+material_override = SubResource("mat_inside")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/Div2BE"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/Div2BE/Corpo"]
+shape = SubResource("shape_94")
+[node name="Div2BD" type="Node3D" parent="QuartelGeneral"]
+position = Vector3(-18.5, 6.55, 18)
+[node name="Visual" type="MeshInstance3D" parent="QuartelGeneral/Div2BD"]
+mesh = SubResource("mesh_94")
+material_override = SubResource("mat_inside")
+[node name="Corpo" type="StaticBody3D" parent="QuartelGeneral/Div2BD"]
+[node name="Colisao" type="CollisionShape3D" parent="QuartelGeneral/Div2BD/Corpo"]
+shape = SubResource("shape_94")

@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/third_person_player.gd" id="player"]
+[ext_resource type="Script" path="res://scripts/tps_visual.gd" id="visual"]
+[sub_resource type="CapsuleShape3D" id="body"]
+radius = 0.32
+height = 2.4
+[sub_resource type="SphereShape3D" id="camera"]
+radius = 0.15
+
+[node name="Player" type="CharacterBody3D" groups=["player"]]
+floor_constant_speed = true
+floor_max_angle = 0.872665
+floor_snap_length = 0.4
+safe_margin = 0.004
+script = ExtResource("player")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+position = Vector3(0, 1.5, 0)
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot"]
+shape = SubResource("camera")
+spring_length = 5.35
+[node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D"]
+current = true
+fov = 62.0
+[node name="InteractRay" type="RayCast3D" parent="CameraPivot/SpringArm3D/Camera3D"]
+target_position = Vector3(0, 0, -8.5)
+collide_with_areas = true
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0, 1.2, 0)
+shape = SubResource("body")
+[node name="Visual" type="Node3D" parent="."]
+script = ExtResource("visual")

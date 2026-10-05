@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dxv21l870bxeo"
+path="res://.godot/imported/pickup_body.obj-3bc5d917dcf1167c0334103267a1786c.mesh"
+
+[deps]
+
+files=["res://.godot/imported/pickup_body.obj-3bc5d917dcf1167c0334103267a1786c.mesh"]
+
+source_file="res://assets/pickup_body.obj"
+dest_files=["res://.godot/imported/pickup_body.obj-3bc5d917dcf1167c0334103267a1786c.mesh", "res://.godot/imported/pickup_body.obj-3bc5d917dcf1167c0334103267a1786c.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

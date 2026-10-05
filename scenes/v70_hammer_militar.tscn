@@ -1,0 +1,137 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://scripts/car.gd" id="drive"]
+[ext_resource type="PackedScene" path="res://assets/models/v70_military/hammer_body.glb" id="model"]
+[ext_resource type="PackedScene" path="res://assets/models/v52_duster_wheels/duster_wheel_FL.glb" id="wheel_FL"]
+[ext_resource type="PackedScene" path="res://assets/models/v52_duster_wheels/duster_wheel_FR.glb" id="wheel_FR"]
+[ext_resource type="PackedScene" path="res://assets/models/v52_duster_wheels/duster_wheel_RL.glb" id="wheel_RL"]
+[ext_resource type="PackedScene" path="res://assets/models/v52_duster_wheels/duster_wheel_RR.glb" id="wheel_RR"]
+[ext_resource type="AudioStream" path="res://assets/audio/engine_v24.wav" id="engine"]
+[ext_resource type="Script" path="res://scripts/vehicle_night_lights.gd" id="lights"]
+[ext_resource type="Script" path="res://scripts/military_vehicle_paint.gd" id="paint"]
+
+[sub_resource type="BoxShape3D" id="chassis"]
+size = Vector3(2.45, 1.35, 4.45)
+
+[node name="HammerMilitar" type="VehicleBody3D" groups=["vehicle"]]
+script = ExtResource("drive")
+mass = 3000
+vehicle_name = "HAMMER MILITAR"
+overall_scale = 1.45
+engine_power = 12000
+reverse_power = 4300
+brake_power = 450
+max_steer = 0.38
+steer_speed = 2.9
+top_speed_mps = 42.0
+drive_sign = -1.0
+front_is_positive_z = false
+roll_spring = 29000.0
+roll_damping = 9800.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.38, 0.05)
+shape = SubResource("chassis")
+
+[node name="BodyModel" parent="." instance=ExtResource("model")]
+position = Vector3(0, -0.332, 0)
+rotation = Vector3(0, 3.141592653589793, 0)
+scale = Vector3(0.014, 0.014, 0.014)
+
+[node name="ArmyCamouflage" type="Node3D" parent="."]
+script = ExtResource("paint")
+
+[node name="WheelFL" type="VehicleWheel3D" parent="."]
+position = Vector3(-0.9160, 0.1000, -1.7216)
+wheel_radius = 0.4520
+wheel_rest_length = 0.2500
+suspension_travel = 0.2400
+suspension_stiffness = 82.0
+suspension_max_force = 62000.0
+damping_compression = 4.1
+damping_relaxation = 5.0
+wheel_friction_slip = 4.15
+wheel_roll_influence = 0.04
+use_as_steering = true
+use_as_traction = true
+
+[node name="WheelModel" parent="WheelFL" instance=ExtResource("wheel_FL")]
+scale = Vector3(1.8120, 1.8120, 1.8120)
+
+[node name="WheelFR" type="VehicleWheel3D" parent="."]
+position = Vector3(0.9160, 0.1000, -1.7216)
+wheel_radius = 0.4520
+wheel_rest_length = 0.2500
+suspension_travel = 0.2400
+suspension_stiffness = 82.0
+suspension_max_force = 62000.0
+damping_compression = 4.1
+damping_relaxation = 5.0
+wheel_friction_slip = 4.15
+wheel_roll_influence = 0.04
+use_as_steering = true
+use_as_traction = true
+
+[node name="WheelModel" parent="WheelFR" instance=ExtResource("wheel_FR")]
+scale = Vector3(1.8120, 1.8120, 1.8120)
+
+[node name="WheelRL" type="VehicleWheel3D" parent="."]
+position = Vector3(-0.9160, 0.1000, 1.5455)
+wheel_radius = 0.4520
+wheel_rest_length = 0.2500
+suspension_travel = 0.2400
+suspension_stiffness = 82.0
+suspension_max_force = 62000.0
+damping_compression = 4.1
+damping_relaxation = 5.0
+wheel_friction_slip = 4.15
+wheel_roll_influence = 0.04
+use_as_steering = false
+use_as_traction = true
+
+[node name="WheelModel" parent="WheelRL" instance=ExtResource("wheel_RL")]
+scale = Vector3(1.8120, 1.8120, 1.8120)
+
+[node name="WheelRR" type="VehicleWheel3D" parent="."]
+position = Vector3(0.9160, 0.1000, 1.5455)
+wheel_radius = 0.4520
+wheel_rest_length = 0.2500
+suspension_travel = 0.2400
+suspension_stiffness = 82.0
+suspension_max_force = 62000.0
+damping_compression = 4.1
+damping_relaxation = 5.0
+wheel_friction_slip = 4.15
+wheel_roll_influence = 0.04
+use_as_steering = false
+use_as_traction = true
+
+[node name="WheelModel" parent="WheelRR" instance=ExtResource("wheel_RR")]
+scale = Vector3(1.8120, 1.8120, 1.8120)
+
+[node name="CameraRig" type="Node3D" parent="."]
+position = Vector3(0, 1.55, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraRig"]
+spring_length = 7.8
+rotation = Vector3(-0.15, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig/SpringArm3D"]
+far = 1500.0
+current = false
+
+[node name="EngineAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("engine")
+max_distance = 75.0
+volume_db = -11.0
+
+[node name="VehicleNightLights" type="Node3D" parent="."]
+script = ExtResource("lights")
+front_left_position = Vector3(-0.72, 0.75, -2.15)
+front_right_position = Vector3(0.72, 0.75, -2.15)
+rear_left_position = Vector3(-0.72, 0.65, 2.05)
+rear_right_position = Vector3(0.72, 0.65, 2.05)
+front_range = 34.0
+rear_range = 6.0
+front_energy = 2.0
+rear_energy = 0.8

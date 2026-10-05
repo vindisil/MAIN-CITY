@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/v50_veiculos_rua/policial_holandes.glb" id="modelo"]
+
+[sub_resource type="CapsuleShape3D" id="corpo"]
+radius = 0.37
+height = 2.1
+
+[node name="PolicialAoLadoDaViatura" type="StaticBody3D"]
+collision_layer = 1
+collision_mask = 1
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+position = Vector3(0, 1.05, 0)
+shape = SubResource("corpo")
+
+[node name="Modelo" parent="." instance=ExtResource("modelo")]
+position = Vector3(-0.003, 0.013, -0.022)
+rotation = Vector3(1.570796327, 0, 0)
+scale = Vector3(1.15, 1.15, 1.15)

@@ -1,0 +1,209 @@
+[gd_scene load_steps=68 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-4_-4.tscn" id="sector_0"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-4_-3.tscn" id="sector_1"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-4_-2.tscn" id="sector_2"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-4_-1.tscn" id="sector_3"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-4_0.tscn" id="sector_4"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-4_1.tscn" id="sector_5"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-4_2.tscn" id="sector_6"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-4_3.tscn" id="sector_7"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-3_-4.tscn" id="sector_8"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-3_-3.tscn" id="sector_9"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-3_-2.tscn" id="sector_10"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-3_-1.tscn" id="sector_11"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-3_0.tscn" id="sector_12"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-3_1.tscn" id="sector_13"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-3_2.tscn" id="sector_14"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-3_3.tscn" id="sector_15"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-2_-4.tscn" id="sector_16"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-2_-3.tscn" id="sector_17"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-2_-2.tscn" id="sector_18"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-2_-1.tscn" id="sector_19"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-2_0.tscn" id="sector_20"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-2_1.tscn" id="sector_21"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-2_2.tscn" id="sector_22"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-2_3.tscn" id="sector_23"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-1_-4.tscn" id="sector_24"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-1_-3.tscn" id="sector_25"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-1_-2.tscn" id="sector_26"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-1_-1.tscn" id="sector_27"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-1_0.tscn" id="sector_28"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-1_1.tscn" id="sector_29"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-1_2.tscn" id="sector_30"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_-1_3.tscn" id="sector_31"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_0_-4.tscn" id="sector_32"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_0_-3.tscn" id="sector_33"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_0_-2.tscn" id="sector_34"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_0_-1.tscn" id="sector_35"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_0_0.tscn" id="sector_36"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_0_1.tscn" id="sector_37"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_0_2.tscn" id="sector_38"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_0_3.tscn" id="sector_39"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_1_-4.tscn" id="sector_40"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_1_-3.tscn" id="sector_41"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_1_-2.tscn" id="sector_42"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_1_-1.tscn" id="sector_43"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_1_0.tscn" id="sector_44"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_1_1.tscn" id="sector_45"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_1_2.tscn" id="sector_46"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_1_3.tscn" id="sector_47"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_2_-4.tscn" id="sector_48"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_2_-3.tscn" id="sector_49"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_2_-2.tscn" id="sector_50"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_2_-1.tscn" id="sector_51"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_2_0.tscn" id="sector_52"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_2_1.tscn" id="sector_53"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_2_2.tscn" id="sector_54"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_2_3.tscn" id="sector_55"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_3_-4.tscn" id="sector_56"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_3_-3.tscn" id="sector_57"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_3_-2.tscn" id="sector_58"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_3_-1.tscn" id="sector_59"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_3_0.tscn" id="sector_60"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_3_1.tscn" id="sector_61"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_3_2.tscn" id="sector_62"]
+[ext_resource type="PackedScene" path="res://scenes/city_chunks/cell_3_3.tscn" id="sector_63"]
+[ext_resource type="PackedScene" path="res://scenes/v29_1_expansao.tscn" id="extra_0"]
+[ext_resource type="PackedScene" path="res://scenes/v29_3_quadra.tscn" id="extra_1"]
+[ext_resource type="PackedScene" path="res://scenes/v19_bairro_importado.tscn" id="extra_2"]
+
+[node name="MAPA_EDITOR_3D" type="Node3D"]
+
+[node name="Setores_64" type="Node3D" parent="."]
+
+[node name="Setor_-4_-4" parent="Setores_64" instance=ExtResource("sector_0")]
+
+[node name="Setor_-4_-3" parent="Setores_64" instance=ExtResource("sector_1")]
+
+[node name="Setor_-4_-2" parent="Setores_64" instance=ExtResource("sector_2")]
+
+[node name="Setor_-4_-1" parent="Setores_64" instance=ExtResource("sector_3")]
+
+[node name="Setor_-4_0" parent="Setores_64" instance=ExtResource("sector_4")]
+
+[node name="Setor_-4_1" parent="Setores_64" instance=ExtResource("sector_5")]
+
+[node name="Setor_-4_2" parent="Setores_64" instance=ExtResource("sector_6")]
+
+[node name="Setor_-4_3" parent="Setores_64" instance=ExtResource("sector_7")]
+
+[node name="Setor_-3_-4" parent="Setores_64" instance=ExtResource("sector_8")]
+
+[node name="Setor_-3_-3" parent="Setores_64" instance=ExtResource("sector_9")]
+
+[node name="Setor_-3_-2" parent="Setores_64" instance=ExtResource("sector_10")]
+
+[node name="Setor_-3_-1" parent="Setores_64" instance=ExtResource("sector_11")]
+
+[node name="Setor_-3_0" parent="Setores_64" instance=ExtResource("sector_12")]
+
+[node name="Setor_-3_1" parent="Setores_64" instance=ExtResource("sector_13")]
+
+[node name="Setor_-3_2" parent="Setores_64" instance=ExtResource("sector_14")]
+
+[node name="Setor_-3_3" parent="Setores_64" instance=ExtResource("sector_15")]
+
+[node name="Setor_-2_-4" parent="Setores_64" instance=ExtResource("sector_16")]
+
+[node name="Setor_-2_-3" parent="Setores_64" instance=ExtResource("sector_17")]
+
+[node name="Setor_-2_-2" parent="Setores_64" instance=ExtResource("sector_18")]
+
+[node name="Setor_-2_-1" parent="Setores_64" instance=ExtResource("sector_19")]
+
+[node name="Setor_-2_0" parent="Setores_64" instance=ExtResource("sector_20")]
+
+[node name="Setor_-2_1" parent="Setores_64" instance=ExtResource("sector_21")]
+
+[node name="Setor_-2_2" parent="Setores_64" instance=ExtResource("sector_22")]
+
+[node name="Setor_-2_3" parent="Setores_64" instance=ExtResource("sector_23")]
+
+[node name="Setor_-1_-4" parent="Setores_64" instance=ExtResource("sector_24")]
+
+[node name="Setor_-1_-3" parent="Setores_64" instance=ExtResource("sector_25")]
+
+[node name="Setor_-1_-2" parent="Setores_64" instance=ExtResource("sector_26")]
+
+[node name="Setor_-1_-1" parent="Setores_64" instance=ExtResource("sector_27")]
+
+[node name="Setor_-1_0" parent="Setores_64" instance=ExtResource("sector_28")]
+
+[node name="Setor_-1_1" parent="Setores_64" instance=ExtResource("sector_29")]
+
+[node name="Setor_-1_2" parent="Setores_64" instance=ExtResource("sector_30")]
+
+[node name="Setor_-1_3" parent="Setores_64" instance=ExtResource("sector_31")]
+
+[node name="Setor_0_-4" parent="Setores_64" instance=ExtResource("sector_32")]
+
+[node name="Setor_0_-3" parent="Setores_64" instance=ExtResource("sector_33")]
+
+[node name="Setor_0_-2" parent="Setores_64" instance=ExtResource("sector_34")]
+
+[node name="Setor_0_-1" parent="Setores_64" instance=ExtResource("sector_35")]
+
+[node name="Setor_0_0" parent="Setores_64" instance=ExtResource("sector_36")]
+
+[node name="Setor_0_1" parent="Setores_64" instance=ExtResource("sector_37")]
+
+[node name="Setor_0_2" parent="Setores_64" instance=ExtResource("sector_38")]
+
+[node name="Setor_0_3" parent="Setores_64" instance=ExtResource("sector_39")]
+
+[node name="Setor_1_-4" parent="Setores_64" instance=ExtResource("sector_40")]
+
+[node name="Setor_1_-3" parent="Setores_64" instance=ExtResource("sector_41")]
+
+[node name="Setor_1_-2" parent="Setores_64" instance=ExtResource("sector_42")]
+
+[node name="Setor_1_-1" parent="Setores_64" instance=ExtResource("sector_43")]
+
+[node name="Setor_1_0" parent="Setores_64" instance=ExtResource("sector_44")]
+
+[node name="Setor_1_1" parent="Setores_64" instance=ExtResource("sector_45")]
+
+[node name="Setor_1_2" parent="Setores_64" instance=ExtResource("sector_46")]
+
+[node name="Setor_1_3" parent="Setores_64" instance=ExtResource("sector_47")]
+
+[node name="Setor_2_-4" parent="Setores_64" instance=ExtResource("sector_48")]
+
+[node name="Setor_2_-3" parent="Setores_64" instance=ExtResource("sector_49")]
+
+[node name="Setor_2_-2" parent="Setores_64" instance=ExtResource("sector_50")]
+
+[node name="Setor_2_-1" parent="Setores_64" instance=ExtResource("sector_51")]
+
+[node name="Setor_2_0" parent="Setores_64" instance=ExtResource("sector_52")]
+
+[node name="Setor_2_1" parent="Setores_64" instance=ExtResource("sector_53")]
+
+[node name="Setor_2_2" parent="Setores_64" instance=ExtResource("sector_54")]
+
+[node name="Setor_2_3" parent="Setores_64" instance=ExtResource("sector_55")]
+
+[node name="Setor_3_-4" parent="Setores_64" instance=ExtResource("sector_56")]
+
+[node name="Setor_3_-3" parent="Setores_64" instance=ExtResource("sector_57")]
+
+[node name="Setor_3_-2" parent="Setores_64" instance=ExtResource("sector_58")]
+
+[node name="Setor_3_-1" parent="Setores_64" instance=ExtResource("sector_59")]
+
+[node name="Setor_3_0" parent="Setores_64" instance=ExtResource("sector_60")]
+
+[node name="Setor_3_1" parent="Setores_64" instance=ExtResource("sector_61")]
+
+[node name="Setor_3_2" parent="Setores_64" instance=ExtResource("sector_62")]
+
+[node name="Setor_3_3" parent="Setores_64" instance=ExtResource("sector_63")]
+
+[node name="Locais_Especiais" type="Node3D" parent="."]
+
+[node name="v29_1_expansao" parent="Locais_Especiais" instance=ExtResource("extra_0")]
+
+[node name="v29_3_quadra" parent="Locais_Especiais" instance=ExtResource("extra_1")]
+
+[node name="v19_bairro_importado" parent="Locais_Especiais" instance=ExtResource("extra_2")]

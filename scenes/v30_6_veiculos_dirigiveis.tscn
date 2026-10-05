@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/v30_6_raptor_dirigivel.tscn" id="raptor"]
+[ext_resource type="PackedScene" path="res://scenes/v30_6_blindado_dirigivel.tscn" id="blindado"]
+
+
+[node name="VeiculosDirigiveisV30_6" type="Node3D"]
+
+; Mesma rua atras da BMW (Z=70) e Mercedes (Z=88).
+; Apenas duas Raptors e os dois blindados: retirada a viatura provisoria quadrada.
+[node name="FordF150Raptor" parent="." instance=ExtResource("raptor")]
+position = Vector3(-3.25, 0.95, 104)
+vehicle_name = "FORD RAPTOR"
+
+[node name="FordF150RaptorPolicial" parent="." instance=ExtResource("raptor")]
+position = Vector3(-3.25, 0.95, 117)
+vehicle_name = "FORD RAPTOR POLICIAL"
+
+
+[node name="BlindadoPolicial1" parent="." instance=ExtResource("blindado")]
+position = Vector3(-3.25, 1.10, 143)
+vehicle_name = "BLINDADO POLICIAL 1"
+
+[node name="BlindadoPolicial2" parent="." instance=ExtResource("blindado")]
+position = Vector3(3.25, 1.10, 143)
+vehicle_name = "BLINDADO POLICIAL 2"

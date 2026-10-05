@@ -1,0 +1,327 @@
+{
+  "global.tscn": {
+    "nodes": 4,
+    "sub_resources": 9,
+    "bytes": 2470
+  },
+  "cell_-4_-4.tscn": {
+    "nodes": 29,
+    "sub_resources": 61,
+    "bytes": 22806
+  },
+  "cell_-4_-3.tscn": {
+    "nodes": 36,
+    "sub_resources": 76,
+    "bytes": 28601
+  },
+  "cell_-4_-2.tscn": {
+    "nodes": 39,
+    "sub_resources": 70,
+    "bytes": 29803
+  },
+  "cell_-4_-1.tscn": {
+    "nodes": 38,
+    "sub_resources": 67,
+    "bytes": 29824
+  },
+  "cell_-4_0.tscn": {
+    "nodes": 40,
+    "sub_resources": 71,
+    "bytes": 30693
+  },
+  "cell_-4_1.tscn": {
+    "nodes": 38,
+    "sub_resources": 68,
+    "bytes": 28720
+  },
+  "cell_-4_2.tscn": {
+    "nodes": 38,
+    "sub_resources": 68,
+    "bytes": 29362
+  },
+  "cell_-4_3.tscn": {
+    "nodes": 29,
+    "sub_resources": 61,
+    "bytes": 23478
+  },
+  "cell_-3_-4.tscn": {
+    "nodes": 37,
+    "sub_resources": 79,
+    "bytes": 29107
+  },
+  "cell_-3_-3.tscn": {
+    "nodes": 76,
+    "sub_resources": 116,
+    "bytes": 47352
+  },
+  "cell_-3_-2.tscn": {
+    "nodes": 54,
+    "sub_resources": 76,
+    "bytes": 39930
+  },
+  "cell_-3_-1.tscn": {
+    "nodes": 53,
+    "sub_resources": 74,
+    "bytes": 38638
+  },
+  "cell_-3_0.tscn": {
+    "nodes": 51,
+    "sub_resources": 70,
+    "bytes": 37903
+  },
+  "cell_-3_1.tscn": {
+    "nodes": 55,
+    "sub_resources": 78,
+    "bytes": 40068
+  },
+  "cell_-3_2.tscn": {
+    "nodes": 56,
+    "sub_resources": 93,
+    "bytes": 41997
+  },
+  "cell_-3_3.tscn": {
+    "nodes": 37,
+    "sub_resources": 79,
+    "bytes": 29883
+  },
+  "cell_-2_-4.tscn": {
+    "nodes": 37,
+    "sub_resources": 65,
+    "bytes": 28775
+  },
+  "cell_-2_-3.tscn": {
+    "nodes": 53,
+    "sub_resources": 74,
+    "bytes": 39860
+  },
+  "cell_-2_-2.tscn": {
+    "nodes": 51,
+    "sub_resources": 70,
+    "bytes": 39197
+  },
+  "cell_-2_-1.tscn": {
+    "nodes": 54,
+    "sub_resources": 76,
+    "bytes": 40735
+  },
+  "cell_-2_0.tscn": {
+    "nodes": 56,
+    "sub_resources": 80,
+    "bytes": 41251
+  },
+  "cell_-2_1.tscn": {
+    "nodes": 55,
+    "sub_resources": 91,
+    "bytes": 41591
+  },
+  "cell_-2_2.tscn": {
+    "nodes": 56,
+    "sub_resources": 93,
+    "bytes": 41488
+  },
+  "cell_-2_3.tscn": {
+    "nodes": 39,
+    "sub_resources": 70,
+    "bytes": 31121
+  },
+  "cell_-1_-4.tscn": {
+    "nodes": 37,
+    "sub_resources": 66,
+    "bytes": 28983
+  },
+  "cell_-1_-3.tscn": {
+    "nodes": 54,
+    "sub_resources": 76,
+    "bytes": 40083
+  },
+  "cell_-1_-2.tscn": {
+    "nodes": 55,
+    "sub_resources": 78,
+    "bytes": 41197
+  },
+  "cell_-1_-1.tscn": {
+    "nodes": 43,
+    "sub_resources": 70,
+    "bytes": 54639
+  },
+  "cell_-1_0.tscn": {
+    "nodes": 45,
+    "sub_resources": 83,
+    "bytes": 50229
+  },
+  "cell_-1_1.tscn": {
+    "nodes": 55,
+    "sub_resources": 91,
+    "bytes": 41180
+  },
+  "cell_-1_2.tscn": {
+    "nodes": 54,
+    "sub_resources": 76,
+    "bytes": 39276
+  },
+  "cell_-1_3.tscn": {
+    "nodes": 37,
+    "sub_resources": 66,
+    "bytes": 30100
+  },
+  "cell_0_-4.tscn": {
+    "nodes": 38,
+    "sub_resources": 67,
+    "bytes": 29866
+  },
+  "cell_0_-3.tscn": {
+    "nodes": 55,
+    "sub_resources": 78,
+    "bytes": 40224
+  },
+  "cell_0_-2.tscn": {
+    "nodes": 52,
+    "sub_resources": 72,
+    "bytes": 39277
+  },
+  "cell_0_-1.tscn": {
+    "nodes": 49,
+    "sub_resources": 96,
+    "bytes": 44931
+  },
+  "cell_0_0.tscn": {
+    "nodes": 44,
+    "sub_resources": 80,
+    "bytes": 51544
+  },
+  "cell_0_1.tscn": {
+    "nodes": 55,
+    "sub_resources": 78,
+    "bytes": 41017
+  },
+  "cell_0_2.tscn": {
+    "nodes": 53,
+    "sub_resources": 74,
+    "bytes": 38834
+  },
+  "cell_0_3.tscn": {
+    "nodes": 39,
+    "sub_resources": 69,
+    "bytes": 29699
+  },
+  "cell_1_-4.tscn": {
+    "nodes": 38,
+    "sub_resources": 68,
+    "bytes": 28733
+  },
+  "cell_1_-3.tscn": {
+    "nodes": 54,
+    "sub_resources": 76,
+    "bytes": 41034
+  },
+  "cell_1_-2.tscn": {
+    "nodes": 54,
+    "sub_resources": 89,
+    "bytes": 41169
+  },
+  "cell_1_-1.tscn": {
+    "nodes": 53,
+    "sub_resources": 87,
+    "bytes": 39753
+  },
+  "cell_1_0.tscn": {
+    "nodes": 51,
+    "sub_resources": 70,
+    "bytes": 39316
+  },
+  "cell_1_1.tscn": {
+    "nodes": 53,
+    "sub_resources": 74,
+    "bytes": 40167
+  },
+  "cell_1_2.tscn": {
+    "nodes": 55,
+    "sub_resources": 78,
+    "bytes": 40366
+  },
+  "cell_1_3.tscn": {
+    "nodes": 37,
+    "sub_resources": 66,
+    "bytes": 29020
+  },
+  "cell_2_-4.tscn": {
+    "nodes": 22,
+    "sub_resources": 46,
+    "bytes": 18570
+  },
+  "cell_2_-3.tscn": {
+    "nodes": 32,
+    "sub_resources": 64,
+    "bytes": 26404
+  },
+  "cell_2_-2.tscn": {
+    "nodes": 53,
+    "sub_resources": 95,
+    "bytes": 39117
+  },
+  "cell_2_-1.tscn": {
+    "nodes": 54,
+    "sub_resources": 76,
+    "bytes": 40106
+  },
+  "cell_2_0.tscn": {
+    "nodes": 53,
+    "sub_resources": 74,
+    "bytes": 39522
+  },
+  "cell_2_1.tscn": {
+    "nodes": 53,
+    "sub_resources": 74,
+    "bytes": 40108
+  },
+  "cell_2_2.tscn": {
+    "nodes": 79,
+    "sub_resources": 122,
+    "bytes": 49381
+  },
+  "cell_2_3.tscn": {
+    "nodes": 37,
+    "sub_resources": 66,
+    "bytes": 29077
+  },
+  "cell_3_-4.tscn": {
+    "nodes": 20,
+    "sub_resources": 46,
+    "bytes": 17422
+  },
+  "cell_3_-3.tscn": {
+    "nodes": 28,
+    "sub_resources": 64,
+    "bytes": 23917
+  },
+  "cell_3_-2.tscn": {
+    "nodes": 37,
+    "sub_resources": 74,
+    "bytes": 28133
+  },
+  "cell_3_-1.tscn": {
+    "nodes": 37,
+    "sub_resources": 65,
+    "bytes": 28613
+  },
+  "cell_3_0.tscn": {
+    "nodes": 41,
+    "sub_resources": 73,
+    "bytes": 31058
+  },
+  "cell_3_1.tscn": {
+    "nodes": 38,
+    "sub_resources": 68,
+    "bytes": 29645
+  },
+  "cell_3_2.tscn": {
+    "nodes": 38,
+    "sub_resources": 68,
+    "bytes": 29766
+  },
+  "cell_3_3.tscn": {
+    "nodes": 28,
+    "sub_resources": 59,
+    "bytes": 23389
+  }
+}

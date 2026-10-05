@@ -1,0 +1,1286 @@
+[gd_scene load_steps=32 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/v19/bmw_importada.glb" id="bmw"]
+[ext_resource type="PackedScene" path="res://assets/models/sedan_v18_shell.glb" id="sedan"]
+
+[sub_resource type="BoxMesh" id="cube"]
+size = Vector3(1, 1, 1)
+
+[sub_resource type="CylinderMesh" id="cyl"]
+top_radius = 0.5
+bottom_radius = 0.5
+height = 1.0
+radial_segments = 12
+
+[sub_resource type="SphereMesh" id="sphere"]
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="CylinderMesh" id="fountain"]
+top_radius = 1.0
+bottom_radius = 1.0
+height = 0.3
+radial_segments = 24
+
+[sub_resource type="StandardMaterial3D" id="mat_concrete"]
+albedo_color = Color(0.62,0.64,0.65,1)
+roughness = 0.88
+metallic = 0.0
+
+[sub_resource type="StandardMaterial3D" id="mat_white"]
+albedo_color = Color(0.92,0.93,0.92,1)
+roughness = 0.72
+metallic = 0.02
+
+[sub_resource type="StandardMaterial3D" id="mat_dark"]
+albedo_color = Color(0.07,0.09,0.10,1)
+roughness = 0.38
+metallic = 0.35
+
+[sub_resource type="StandardMaterial3D" id="mat_glass"]
+albedo_color = Color(0.20,0.38,0.48,0.42)
+roughness = 0.12
+metallic = 0.10
+transparency = 1
+cull_mode = 2
+depth_draw_mode = 1
+
+[sub_resource type="StandardMaterial3D" id="mat_asphalt"]
+albedo_color = Color(0.12,0.13,0.14,1)
+roughness = 0.98
+metallic = 0.0
+
+[sub_resource type="StandardMaterial3D" id="mat_line"]
+albedo_color = Color(0.96,0.95,0.86,1)
+roughness = 0.90
+metallic = 0.0
+
+[sub_resource type="StandardMaterial3D" id="mat_grass"]
+albedo_color = Color(0.10,0.30,0.12,1)
+roughness = 0.98
+metallic = 0.0
+
+[sub_resource type="StandardMaterial3D" id="mat_grass2"]
+albedo_color = Color(0.16,0.39,0.18,1)
+roughness = 0.98
+metallic = 0.0
+
+[sub_resource type="StandardMaterial3D" id="mat_wood"]
+albedo_color = Color(0.38,0.24,0.13,1)
+roughness = 0.82
+metallic = 0.0
+
+[sub_resource type="StandardMaterial3D" id="mat_metal"]
+albedo_color = Color(0.24,0.28,0.30,1)
+roughness = 0.34
+metallic = 0.70
+
+[sub_resource type="StandardMaterial3D" id="mat_blue"]
+albedo_color = Color(0.04,0.28,0.46,1)
+roughness = 0.36
+metallic = 0.22
+
+[sub_resource type="StandardMaterial3D" id="mat_water"]
+albedo_color = Color(0.12,0.48,0.68,0.72)
+roughness = 0.08
+metallic = 0.02
+transparency = 1
+cull_mode = 2
+depth_draw_mode = 1
+
+[sub_resource type="StandardMaterial3D" id="mat_brick"]
+albedo_color = Color(0.50,0.46,0.40,1)
+roughness = 0.90
+metallic = 0.0
+
+[sub_resource type="StandardMaterial3D" id="mat_yellow"]
+albedo_color = Color(0.92,0.70,0.10,1)
+roughness = 0.78
+metallic = 0.0
+
+[sub_resource type="BoxShape3D" id="shape_dealer_floor"]
+size = Vector3(56,0.24,34)
+
+[sub_resource type="BoxShape3D" id="shape_dealer_roof"]
+size = Vector3(57,0.32,35)
+
+[sub_resource type="BoxShape3D" id="shape_dealer_back"]
+size = Vector3(0.38,6.5,34)
+
+[sub_resource type="BoxShape3D" id="shape_dealer_side"]
+size = Vector3(56,6.5,0.38)
+
+[sub_resource type="BoxShape3D" id="shape_front_glass"]
+size = Vector3(0.16,4.8,11.5)
+
+[sub_resource type="BoxShape3D" id="shape_office_wall"]
+size = Vector3(0.28,3.2,12)
+
+[sub_resource type="BoxShape3D" id="shape_sidewalk"]
+size = Vector3(5.0,0.22,130)
+
+[sub_resource type="BoxShape3D" id="shape_parking"]
+size = Vector3(42,0.16,40)
+
+[sub_resource type="BoxShape3D" id="shape_counter"]
+size = Vector3(4.2,1.1,0.9)
+
+[sub_resource type="BoxShape3D" id="shape_bench"]
+size = Vector3(2.4,0.16,0.58)
+
+[sub_resource type="BoxShape3D" id="shape_tree"]
+size = Vector3(0.62,4.6,0.62)
+
+[node name="QuadraParqueConcessionariaV10" type="Node3D" parent="."]
+
+[node name="Calcadas" type="Node3D" parent="."]
+
+[node name="CalcadaRuaVeiculos" type="StaticBody3D" parent="Calcadas"]
+
+[node name="Visual" type="MeshInstance3D" parent="Calcadas/CalcadaRuaVeiculos"]
+position = Vector3(20.500, 0.110, 82.000)
+scale = Vector3(5.000, 0.220, 130.000)
+mesh = SubResource("cube")
+material_override = SubResource("mat_concrete")
+
+[node name="Colisao" type="CollisionShape3D" parent="Calcadas/CalcadaRuaVeiculos"]
+position = Vector3(20.500, 0.110, 82.000)
+shape = SubResource("shape_sidewalk")
+
+[node name="MeioFio0" type="MeshInstance3D" parent="Calcadas"]
+position = Vector3(17.800, 0.160, 31.000)
+scale = Vector3(0.220, 0.300, 26.000)
+mesh = SubResource("cube")
+material_override = SubResource("mat_concrete")
+
+[node name="MeioFio1" type="MeshInstance3D" parent="Calcadas"]
+position = Vector3(17.800, 0.160, 73.000)
+scale = Vector3(0.220, 0.300, 18.000)
+mesh = SubResource("cube")
+material_override = SubResource("mat_concrete")
+
+[node name="MeioFio2" type="MeshInstance3D" parent="Calcadas"]
+position = Vector3(17.800, 0.160, 88.000)
+scale = Vector3(0.220, 0.300, 12.000)
+mesh = SubResource("cube")
+material_override = SubResource("mat_concrete")
+
+[node name="MeioFio3" type="MeshInstance3D" parent="Calcadas"]
+position = Vector3(17.800, 0.160, 128.000)
+scale = Vector3(0.220, 0.300, 34.000)
+mesh = SubResource("cube")
+material_override = SubResource("mat_concrete")
+
+[node name="FaixaPedestreDealer0" type="MeshInstance3D" parent="Calcadas"]
+position = Vector3(12.000, 0.025, 48.000)
+scale = Vector3(8.000, 0.030, 0.550)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="FaixaPedestreDealer1" type="MeshInstance3D" parent="Calcadas"]
+position = Vector3(12.000, 0.025, 49.050)
+scale = Vector3(8.000, 0.030, 0.550)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="FaixaPedestreDealer2" type="MeshInstance3D" parent="Calcadas"]
+position = Vector3(12.000, 0.025, 50.100)
+scale = Vector3(8.000, 0.030, 0.550)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="FaixaPedestreDealer3" type="MeshInstance3D" parent="Calcadas"]
+position = Vector3(12.000, 0.025, 51.150)
+scale = Vector3(8.000, 0.030, 0.550)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="FaixaPedestreDealer4" type="MeshInstance3D" parent="Calcadas"]
+position = Vector3(12.000, 0.025, 52.200)
+scale = Vector3(8.000, 0.030, 0.550)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="FaixaPedestreDealer5" type="MeshInstance3D" parent="Calcadas"]
+position = Vector3(12.000, 0.025, 53.250)
+scale = Vector3(8.000, 0.030, 0.550)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="FaixaPedestreParque0" type="MeshInstance3D" parent="Calcadas"]
+position = Vector3(12.000, 0.025, 103.000)
+scale = Vector3(8.000, 0.030, 0.550)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="FaixaPedestreParque1" type="MeshInstance3D" parent="Calcadas"]
+position = Vector3(12.000, 0.025, 104.050)
+scale = Vector3(8.000, 0.030, 0.550)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="FaixaPedestreParque2" type="MeshInstance3D" parent="Calcadas"]
+position = Vector3(12.000, 0.025, 105.100)
+scale = Vector3(8.000, 0.030, 0.550)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="FaixaPedestreParque3" type="MeshInstance3D" parent="Calcadas"]
+position = Vector3(12.000, 0.025, 106.150)
+scale = Vector3(8.000, 0.030, 0.550)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="FaixaPedestreParque4" type="MeshInstance3D" parent="Calcadas"]
+position = Vector3(12.000, 0.025, 107.200)
+scale = Vector3(8.000, 0.030, 0.550)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="FaixaPedestreParque5" type="MeshInstance3D" parent="Calcadas"]
+position = Vector3(12.000, 0.025, 108.250)
+scale = Vector3(8.000, 0.030, 0.550)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="AcessoConcessionaria" type="MeshInstance3D" parent="Calcadas"]
+position = Vector3(35.000, 0.035, 52.000)
+scale = Vector3(29.000, 0.070, 12.000)
+mesh = SubResource("cube")
+material_override = SubResource("mat_asphalt")
+
+[node name="CalcadaFrenteDealer" type="MeshInstance3D" parent="Calcadas"]
+position = Vector3(72.000, 0.105, 50.000)
+scale = Vector3(8.000, 0.180, 38.000)
+mesh = SubResource("cube")
+material_override = SubResource("mat_concrete")
+
+[node name="CalcadaNorteDealer" type="MeshInstance3D" parent="Calcadas"]
+position = Vector3(104.000, 0.105, 30.500)
+scale = Vector3(64.000, 0.180, 4.500)
+mesh = SubResource("cube")
+material_override = SubResource("mat_concrete")
+
+[node name="CalcadaSulDealer" type="MeshInstance3D" parent="Calcadas"]
+position = Vector3(104.000, 0.105, 69.500)
+scale = Vector3(64.000, 0.180, 4.500)
+mesh = SubResource("cube")
+material_override = SubResource("mat_concrete")
+
+[node name="CalcadaLesteDealer" type="MeshInstance3D" parent="Calcadas"]
+position = Vector3(134.000, 0.105, 50.000)
+scale = Vector3(4.500, 0.180, 38.000)
+mesh = SubResource("cube")
+material_override = SubResource("mat_concrete")
+
+[node name="RampaPedestreDealer" type="MeshInstance3D" parent="Calcadas"]
+position = Vector3(68.000, 0.065, 50.000)
+scale = Vector3(4.000, 0.100, 7.000)
+mesh = SubResource("cube")
+material_override = SubResource("mat_concrete")
+
+[node name="SeparadorEstacionamentoParque" type="MeshInstance3D" parent="Calcadas"]
+position = Vector3(47.000, 0.170, 75.000)
+scale = Vector3(44.000, 0.280, 0.300)
+mesh = SubResource("cube")
+material_override = SubResource("mat_concrete")
+
+[node name="FaixaBordaRuaVeiculos" type="MeshInstance3D" parent="Calcadas"]
+position = Vector3(11.200, 0.022, 82.000)
+scale = Vector3(0.120, 0.025, 130.000)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="ConcessionariaMainCity" type="Node3D" parent="."]
+
+[node name="Estrutura" type="StaticBody3D" parent="ConcessionariaMainCity"]
+
+[node name="Piso" type="MeshInstance3D" parent="ConcessionariaMainCity/Estrutura"]
+position = Vector3(104.000, 0.120, 50.000)
+scale = Vector3(56.000, 0.240, 34.000)
+mesh = SubResource("cube")
+material_override = SubResource("mat_concrete")
+
+[node name="ColisaoPiso" type="CollisionShape3D" parent="ConcessionariaMainCity/Estrutura"]
+position = Vector3(104.000, 0.120, 50.000)
+shape = SubResource("shape_dealer_floor")
+
+[node name="Teto" type="MeshInstance3D" parent="ConcessionariaMainCity/Estrutura"]
+position = Vector3(104.000, 6.650, 50.000)
+scale = Vector3(57.000, 0.320, 35.000)
+mesh = SubResource("cube")
+material_override = SubResource("mat_dark")
+
+[node name="ColisaoTeto" type="CollisionShape3D" parent="ConcessionariaMainCity/Estrutura"]
+position = Vector3(104.000, 6.650, 50.000)
+shape = SubResource("shape_dealer_roof")
+
+[node name="ParedeFundo" type="MeshInstance3D" parent="ConcessionariaMainCity/Estrutura"]
+position = Vector3(132.000, 3.250, 50.000)
+scale = Vector3(0.380, 6.500, 34.000)
+mesh = SubResource("cube")
+material_override = SubResource("mat_white")
+
+[node name="ColisaoFundo" type="CollisionShape3D" parent="ConcessionariaMainCity/Estrutura"]
+position = Vector3(132.000, 3.250, 50.000)
+shape = SubResource("shape_dealer_back")
+
+[node name="ParedeNorte" type="MeshInstance3D" parent="ConcessionariaMainCity/Estrutura"]
+position = Vector3(104.000, 3.250, 33.000)
+scale = Vector3(56.000, 6.500, 0.380)
+mesh = SubResource("cube")
+material_override = SubResource("mat_white")
+
+[node name="ColisaoParedeNorte" type="CollisionShape3D" parent="ConcessionariaMainCity/Estrutura"]
+position = Vector3(104.000, 3.250, 33.000)
+shape = SubResource("shape_dealer_side")
+
+[node name="ParedeSul" type="MeshInstance3D" parent="ConcessionariaMainCity/Estrutura"]
+position = Vector3(104.000, 3.250, 67.000)
+scale = Vector3(56.000, 6.500, 0.380)
+mesh = SubResource("cube")
+material_override = SubResource("mat_white")
+
+[node name="ColisaoParedeSul" type="CollisionShape3D" parent="ConcessionariaMainCity/Estrutura"]
+position = Vector3(104.000, 3.250, 67.000)
+shape = SubResource("shape_dealer_side")
+
+[node name="VitrineNorte" type="MeshInstance3D" parent="ConcessionariaMainCity/Estrutura"]
+position = Vector3(76.050, 2.700, 38.200)
+scale = Vector3(0.160, 4.800, 11.500)
+mesh = SubResource("cube")
+material_override = SubResource("mat_glass")
+
+[node name="ColisaoVitrineNorte" type="CollisionShape3D" parent="ConcessionariaMainCity/Estrutura"]
+position = Vector3(76.050, 2.700, 38.200)
+shape = SubResource("shape_front_glass")
+
+[node name="VitrineSul" type="MeshInstance3D" parent="ConcessionariaMainCity/Estrutura"]
+position = Vector3(76.050, 2.700, 61.800)
+scale = Vector3(0.160, 4.800, 11.500)
+mesh = SubResource("cube")
+material_override = SubResource("mat_glass")
+
+[node name="ColisaoVitrineSul" type="CollisionShape3D" parent="ConcessionariaMainCity/Estrutura"]
+position = Vector3(76.050, 2.700, 61.800)
+shape = SubResource("shape_front_glass")
+
+[node name="MarquiseEntrada" type="MeshInstance3D" parent="ConcessionariaMainCity"]
+position = Vector3(72.500, 5.450, 50.000)
+scale = Vector3(7.000, 0.300, 11.500)
+mesh = SubResource("cube")
+material_override = SubResource("mat_dark")
+
+[node name="FaixaFachada" type="MeshInstance3D" parent="ConcessionariaMainCity"]
+position = Vector3(75.700, 5.550, 50.000)
+scale = Vector3(0.340, 1.050, 34.000)
+mesh = SubResource("cube")
+material_override = SubResource("mat_blue")
+
+[node name="Nome" type="Label3D" parent="ConcessionariaMainCity"]
+position = Vector3(75.450, 5.550, 50.000)
+rotation_degrees = Vector3(0.000, -90.000, 0.000)
+text = "MAIN CITY MOTORS"
+font_size = 36
+pixel_size = 0.009
+outline_size = 6
+modulate = Color(0.96, 0.98, 1.0, 1)
+
+[node name="Interior" type="Node3D" parent="ConcessionariaMainCity"]
+
+[node name="BalcaoAtendimento" type="StaticBody3D" parent="ConcessionariaMainCity/Interior"]
+
+[node name="Visual" type="MeshInstance3D" parent="ConcessionariaMainCity/Interior/BalcaoAtendimento"]
+position = Vector3(118.000, 0.620, 47.000)
+scale = Vector3(4.200, 1.100, 0.900)
+mesh = SubResource("cube")
+material_override = SubResource("mat_wood")
+
+[node name="Colisao" type="CollisionShape3D" parent="ConcessionariaMainCity/Interior/BalcaoAtendimento"]
+position = Vector3(118.000, 0.620, 47.000)
+shape = SubResource("shape_counter")
+
+[node name="PlacaAtendimento" type="Label3D" parent="ConcessionariaMainCity/Interior"]
+position = Vector3(118.000, 2.250, 47.000)
+rotation_degrees = Vector3(0.000, 180.000, 0.000)
+text = "ATENDIMENTO"
+font_size = 25
+pixel_size = 0.007
+outline_size = 4
+
+[node name="Divisoria0" type="MeshInstance3D" parent="ConcessionariaMainCity/Interior"]
+position = Vector3(122.000, 1.600, 57.000)
+scale = Vector3(20.000, 3.200, 0.250)
+mesh = SubResource("cube")
+material_override = SubResource("mat_white")
+
+[node name="Divisoria1" type="MeshInstance3D" parent="ConcessionariaMainCity/Interior"]
+position = Vector3(112.000, 1.600, 60.000)
+scale = Vector3(0.250, 3.200, 12.000)
+mesh = SubResource("cube")
+material_override = SubResource("mat_white")
+
+[node name="Divisoria2" type="MeshInstance3D" parent="ConcessionariaMainCity/Interior"]
+position = Vector3(122.000, 1.600, 40.000)
+scale = Vector3(20.000, 3.200, 0.250)
+mesh = SubResource("cube")
+material_override = SubResource("mat_white")
+
+[node name="Divisoria3" type="MeshInstance3D" parent="ConcessionariaMainCity/Interior"]
+position = Vector3(112.000, 1.600, 38.000)
+scale = Vector3(0.250, 3.200, 10.000)
+mesh = SubResource("cube")
+material_override = SubResource("mat_white")
+
+[node name="BancoCliente0" type="MeshInstance3D" parent="ConcessionariaMainCity/Interior"]
+position = Vector3(84.000, 0.480, 58.000)
+scale = Vector3(2.400, 0.220, 0.720)
+mesh = SubResource("cube")
+material_override = SubResource("mat_wood")
+
+[node name="BancoCliente1" type="MeshInstance3D" parent="ConcessionariaMainCity/Interior"]
+position = Vector3(90.000, 0.480, 58.000)
+scale = Vector3(2.400, 0.220, 0.720)
+mesh = SubResource("cube")
+material_override = SubResource("mat_wood")
+
+[node name="BancoCliente2" type="MeshInstance3D" parent="ConcessionariaMainCity/Interior"]
+position = Vector3(84.000, 0.480, 40.000)
+scale = Vector3(2.400, 0.220, 0.720)
+mesh = SubResource("cube")
+material_override = SubResource("mat_wood")
+
+[node name="BancoCliente3" type="MeshInstance3D" parent="ConcessionariaMainCity/Interior"]
+position = Vector3(90.000, 0.480, 40.000)
+scale = Vector3(2.400, 0.220, 0.720)
+mesh = SubResource("cube")
+material_override = SubResource("mat_wood")
+
+[node name="MesaCliente0" type="MeshInstance3D" parent="ConcessionariaMainCity/Interior"]
+position = Vector3(87.000, 0.420, 58.000)
+scale = Vector3(1.200, 0.100, 1.200)
+mesh = SubResource("cube")
+material_override = SubResource("mat_dark")
+
+[node name="MesaCliente1" type="MeshInstance3D" parent="ConcessionariaMainCity/Interior"]
+position = Vector3(87.000, 0.420, 40.000)
+scale = Vector3(1.200, 0.100, 1.200)
+mesh = SubResource("cube")
+material_override = SubResource("mat_dark")
+
+[node name="Plataforma0" type="MeshInstance3D" parent="ConcessionariaMainCity/Interior"]
+position = Vector3(88.000, 0.120, 50.000)
+scale = Vector3(6.800, 0.160, 4.200)
+mesh = SubResource("cube")
+material_override = SubResource("mat_dark")
+
+[node name="CarroExposicao0" parent="ConcessionariaMainCity/Interior" instance=ExtResource("bmw")]
+position = Vector3(88.000, 0.360, 50.000)
+scale = Vector3(1.000, 1.000, 1.000)
+rotation_degrees = Vector3(0.000, 90.000, 0.000)
+
+[node name="Plataforma1" type="MeshInstance3D" parent="ConcessionariaMainCity/Interior"]
+position = Vector3(101.000, 0.120, 42.000)
+scale = Vector3(6.800, 0.160, 4.200)
+mesh = SubResource("cube")
+material_override = SubResource("mat_dark")
+
+[node name="CarroExposicao1" parent="ConcessionariaMainCity/Interior" instance=ExtResource("sedan")]
+position = Vector3(101.000, 0.360, 42.000)
+scale = Vector3(1.000, 1.000, 1.000)
+rotation_degrees = Vector3(0.000, 90.000, 0.000)
+
+[node name="Plataforma2" type="MeshInstance3D" parent="ConcessionariaMainCity/Interior"]
+position = Vector3(101.000, 0.120, 58.000)
+scale = Vector3(6.800, 0.160, 4.200)
+mesh = SubResource("cube")
+material_override = SubResource("mat_dark")
+
+[node name="CarroExposicao2" parent="ConcessionariaMainCity/Interior" instance=ExtResource("sedan")]
+position = Vector3(101.000, 0.360, 58.000)
+scale = Vector3(1.000, 1.000, 1.000)
+rotation_degrees = Vector3(0.000, 90.000, 0.000)
+
+[node name="LuzTetoVisual0" type="MeshInstance3D" parent="ConcessionariaMainCity/Interior"]
+position = Vector3(104.000, 6.380, 38.000)
+scale = Vector3(38.000, 0.080, 0.160)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="LuzTetoVisual1" type="MeshInstance3D" parent="ConcessionariaMainCity/Interior"]
+position = Vector3(104.000, 6.380, 46.000)
+scale = Vector3(38.000, 0.080, 0.160)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="LuzTetoVisual2" type="MeshInstance3D" parent="ConcessionariaMainCity/Interior"]
+position = Vector3(104.000, 6.380, 54.000)
+scale = Vector3(38.000, 0.080, 0.160)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="LuzTetoVisual3" type="MeshInstance3D" parent="ConcessionariaMainCity/Interior"]
+position = Vector3(104.000, 6.380, 62.000)
+scale = Vector3(38.000, 0.080, 0.160)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="LuzShowroom0" type="OmniLight3D" parent="ConcessionariaMainCity/Interior"]
+position = Vector3(90.000, 5.700, 42.000)
+light_color = Color(0.92, 0.96, 1.0, 1)
+light_energy = 0.55
+omni_range = 12.0
+shadow_enabled = false
+
+[node name="LuzShowroom1" type="OmniLight3D" parent="ConcessionariaMainCity/Interior"]
+position = Vector3(90.000, 5.700, 58.000)
+light_color = Color(0.92, 0.96, 1.0, 1)
+light_energy = 0.55
+omni_range = 12.0
+shadow_enabled = false
+
+[node name="LuzShowroom2" type="OmniLight3D" parent="ConcessionariaMainCity/Interior"]
+position = Vector3(115.000, 5.700, 42.000)
+light_color = Color(0.92, 0.96, 1.0, 1)
+light_energy = 0.55
+omni_range = 12.0
+shadow_enabled = false
+
+[node name="LuzShowroom3" type="OmniLight3D" parent="ConcessionariaMainCity/Interior"]
+position = Vector3(115.000, 5.700, 58.000)
+light_color = Color(0.92, 0.96, 1.0, 1)
+light_energy = 0.55
+omni_range = 12.0
+shadow_enabled = false
+
+[node name="Estacionamento" type="Node3D" parent="."]
+
+[node name="PisoEstacionamento" type="MeshInstance3D" parent="Estacionamento"]
+position = Vector3(47.000, 0.040, 52.000)
+scale = Vector3(42.000, 0.080, 40.000)
+mesh = SubResource("cube")
+material_override = SubResource("mat_asphalt")
+
+[node name="LinhaVaga0" type="MeshInstance3D" parent="Estacionamento"]
+position = Vector3(47.000, 0.085, 34.000)
+scale = Vector3(30.000, 0.025, 0.100)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="LinhaVaga1" type="MeshInstance3D" parent="Estacionamento"]
+position = Vector3(47.000, 0.085, 38.500)
+scale = Vector3(30.000, 0.025, 0.100)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="LinhaVaga2" type="MeshInstance3D" parent="Estacionamento"]
+position = Vector3(47.000, 0.085, 43.000)
+scale = Vector3(30.000, 0.025, 0.100)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="LinhaVaga3" type="MeshInstance3D" parent="Estacionamento"]
+position = Vector3(47.000, 0.085, 47.500)
+scale = Vector3(30.000, 0.025, 0.100)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="LinhaVaga4" type="MeshInstance3D" parent="Estacionamento"]
+position = Vector3(47.000, 0.085, 52.000)
+scale = Vector3(30.000, 0.025, 0.100)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="LinhaVaga5" type="MeshInstance3D" parent="Estacionamento"]
+position = Vector3(47.000, 0.085, 56.500)
+scale = Vector3(30.000, 0.025, 0.100)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="LinhaVaga6" type="MeshInstance3D" parent="Estacionamento"]
+position = Vector3(47.000, 0.085, 61.000)
+scale = Vector3(30.000, 0.025, 0.100)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="LinhaVaga7" type="MeshInstance3D" parent="Estacionamento"]
+position = Vector3(47.000, 0.085, 65.500)
+scale = Vector3(30.000, 0.025, 0.100)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="LinhaVaga8" type="MeshInstance3D" parent="Estacionamento"]
+position = Vector3(47.000, 0.085, 70.000)
+scale = Vector3(30.000, 0.025, 0.100)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="FaixaInterna" type="MeshInstance3D" parent="Estacionamento"]
+position = Vector3(31.000, 0.090, 52.000)
+scale = Vector3(0.120, 0.030, 40.000)
+mesh = SubResource("cube")
+material_override = SubResource("mat_yellow")
+
+[node name="PlacaEstacionamento" type="Label3D" parent="Estacionamento"]
+position = Vector3(48.000, 0.100, 29.500)
+rotation_degrees = Vector3(-90.000, 0.000, 0.000)
+text = "ESTACIONAMENTO CLIENTES"
+font_size = 22
+pixel_size = 0.010
+outline_size = 3
+
+[node name="ParqueCentral" type="Node3D" parent="."]
+
+[node name="Gramado0" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(54.000, 0.025, 109.000)
+scale = Vector3(56.000, 0.050, 58.000)
+mesh = SubResource("cube")
+material_override = SubResource("mat_grass")
+
+[node name="Gramado1" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(112.000, 0.025, 109.000)
+scale = Vector3(56.000, 0.050, 58.000)
+mesh = SubResource("cube")
+material_override = SubResource("mat_grass2")
+
+[node name="Gramado2" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(136.000, 0.025, 109.000)
+scale = Vector3(16.000, 0.050, 58.000)
+mesh = SubResource("cube")
+material_override = SubResource("mat_grass")
+
+[node name="CaminhoVertical" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(83.000, 0.055, 108.000)
+scale = Vector3(5.000, 0.080, 66.000)
+mesh = SubResource("cube")
+material_override = SubResource("mat_concrete")
+
+[node name="CaminhoHorizontal" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(84.000, 0.060, 109.000)
+scale = Vector3(116.000, 0.080, 5.000)
+mesh = SubResource("cube")
+material_override = SubResource("mat_concrete")
+
+[node name="PracaCentral" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(84.000, 0.070, 109.000)
+scale = Vector3(22.000, 0.100, 22.000)
+mesh = SubResource("cube")
+material_override = SubResource("mat_concrete")
+
+[node name="FonteBase" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(84.000, 0.200, 109.000)
+scale = Vector3(8.500, 0.450, 8.500)
+mesh = SubResource("fountain")
+material_override = SubResource("mat_concrete")
+
+[node name="FonteAgua" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(84.000, 0.460, 109.000)
+scale = Vector3(7.300, 0.180, 7.300)
+mesh = SubResource("fountain")
+material_override = SubResource("mat_water")
+
+[node name="FonteCentro" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(84.000, 1.150, 109.000)
+scale = Vector3(1.000, 2.000, 1.000)
+mesh = SubResource("cyl")
+material_override = SubResource("mat_metal")
+
+[node name="Arvore0" type="Node3D" parent="ParqueCentral"]
+
+[node name="Tronco" type="MeshInstance3D" parent="ParqueCentral/Arvore0"]
+position = Vector3(34.000, 2.000, 85.000)
+scale = Vector3(0.650, 4.000, 0.650)
+mesh = SubResource("cyl")
+material_override = SubResource("mat_wood")
+
+[node name="Copa" type="MeshInstance3D" parent="ParqueCentral/Arvore0"]
+position = Vector3(34.000, 5.100, 85.000)
+scale = Vector3(4.000, 4.200, 4.000)
+mesh = SubResource("sphere")
+material_override = SubResource("mat_grass2")
+
+[node name="Arvore1" type="Node3D" parent="ParqueCentral"]
+
+[node name="Tronco" type="MeshInstance3D" parent="ParqueCentral/Arvore1"]
+position = Vector3(47.000, 2.000, 88.000)
+scale = Vector3(0.650, 4.000, 0.650)
+mesh = SubResource("cyl")
+material_override = SubResource("mat_wood")
+
+[node name="Copa" type="MeshInstance3D" parent="ParqueCentral/Arvore1"]
+position = Vector3(47.000, 5.100, 88.000)
+scale = Vector3(4.000, 4.200, 4.000)
+mesh = SubResource("sphere")
+material_override = SubResource("mat_grass2")
+
+[node name="Arvore2" type="Node3D" parent="ParqueCentral"]
+
+[node name="Tronco" type="MeshInstance3D" parent="ParqueCentral/Arvore2"]
+position = Vector3(62.000, 2.000, 88.000)
+scale = Vector3(0.650, 4.000, 0.650)
+mesh = SubResource("cyl")
+material_override = SubResource("mat_wood")
+
+[node name="Copa" type="MeshInstance3D" parent="ParqueCentral/Arvore2"]
+position = Vector3(62.000, 5.100, 88.000)
+scale = Vector3(4.000, 4.200, 4.000)
+mesh = SubResource("sphere")
+material_override = SubResource("mat_grass2")
+
+[node name="Arvore3" type="Node3D" parent="ParqueCentral"]
+
+[node name="Tronco" type="MeshInstance3D" parent="ParqueCentral/Arvore3"]
+position = Vector3(105.000, 2.000, 84.000)
+scale = Vector3(0.650, 4.000, 0.650)
+mesh = SubResource("cyl")
+material_override = SubResource("mat_wood")
+
+[node name="Copa" type="MeshInstance3D" parent="ParqueCentral/Arvore3"]
+position = Vector3(105.000, 5.100, 84.000)
+scale = Vector3(4.000, 4.200, 4.000)
+mesh = SubResource("sphere")
+material_override = SubResource("mat_grass2")
+
+[node name="Arvore4" type="Node3D" parent="ParqueCentral"]
+
+[node name="Tronco" type="MeshInstance3D" parent="ParqueCentral/Arvore4"]
+position = Vector3(122.000, 2.000, 86.000)
+scale = Vector3(0.650, 4.000, 0.650)
+mesh = SubResource("cyl")
+material_override = SubResource("mat_wood")
+
+[node name="Copa" type="MeshInstance3D" parent="ParqueCentral/Arvore4"]
+position = Vector3(122.000, 5.100, 86.000)
+scale = Vector3(4.000, 4.200, 4.000)
+mesh = SubResource("sphere")
+material_override = SubResource("mat_grass2")
+
+[node name="Arvore5" type="Node3D" parent="ParqueCentral"]
+
+[node name="Tronco" type="MeshInstance3D" parent="ParqueCentral/Arvore5"]
+position = Vector3(140.000, 2.000, 86.000)
+scale = Vector3(0.650, 4.000, 0.650)
+mesh = SubResource("cyl")
+material_override = SubResource("mat_wood")
+
+[node name="Copa" type="MeshInstance3D" parent="ParqueCentral/Arvore5"]
+position = Vector3(140.000, 5.100, 86.000)
+scale = Vector3(4.000, 4.200, 4.000)
+mesh = SubResource("sphere")
+material_override = SubResource("mat_grass2")
+
+[node name="Arvore6" type="Node3D" parent="ParqueCentral"]
+
+[node name="Tronco" type="MeshInstance3D" parent="ParqueCentral/Arvore6"]
+position = Vector3(34.000, 2.000, 131.000)
+scale = Vector3(0.650, 4.000, 0.650)
+mesh = SubResource("cyl")
+material_override = SubResource("mat_wood")
+
+[node name="Copa" type="MeshInstance3D" parent="ParqueCentral/Arvore6"]
+position = Vector3(34.000, 5.100, 131.000)
+scale = Vector3(4.000, 4.200, 4.000)
+mesh = SubResource("sphere")
+material_override = SubResource("mat_grass2")
+
+[node name="Arvore7" type="Node3D" parent="ParqueCentral"]
+
+[node name="Tronco" type="MeshInstance3D" parent="ParqueCentral/Arvore7"]
+position = Vector3(48.000, 2.000, 133.000)
+scale = Vector3(0.650, 4.000, 0.650)
+mesh = SubResource("cyl")
+material_override = SubResource("mat_wood")
+
+[node name="Copa" type="MeshInstance3D" parent="ParqueCentral/Arvore7"]
+position = Vector3(48.000, 5.100, 133.000)
+scale = Vector3(4.000, 4.200, 4.000)
+mesh = SubResource("sphere")
+material_override = SubResource("mat_grass2")
+
+[node name="Arvore8" type="Node3D" parent="ParqueCentral"]
+
+[node name="Tronco" type="MeshInstance3D" parent="ParqueCentral/Arvore8"]
+position = Vector3(63.000, 2.000, 132.000)
+scale = Vector3(0.650, 4.000, 0.650)
+mesh = SubResource("cyl")
+material_override = SubResource("mat_wood")
+
+[node name="Copa" type="MeshInstance3D" parent="ParqueCentral/Arvore8"]
+position = Vector3(63.000, 5.100, 132.000)
+scale = Vector3(4.000, 4.200, 4.000)
+mesh = SubResource("sphere")
+material_override = SubResource("mat_grass2")
+
+[node name="Arvore9" type="Node3D" parent="ParqueCentral"]
+
+[node name="Tronco" type="MeshInstance3D" parent="ParqueCentral/Arvore9"]
+position = Vector3(106.000, 2.000, 132.000)
+scale = Vector3(0.650, 4.000, 0.650)
+mesh = SubResource("cyl")
+material_override = SubResource("mat_wood")
+
+[node name="Copa" type="MeshInstance3D" parent="ParqueCentral/Arvore9"]
+position = Vector3(106.000, 5.100, 132.000)
+scale = Vector3(4.000, 4.200, 4.000)
+mesh = SubResource("sphere")
+material_override = SubResource("mat_grass2")
+
+[node name="Arvore10" type="Node3D" parent="ParqueCentral"]
+
+[node name="Tronco" type="MeshInstance3D" parent="ParqueCentral/Arvore10"]
+position = Vector3(123.000, 2.000, 130.000)
+scale = Vector3(0.650, 4.000, 0.650)
+mesh = SubResource("cyl")
+material_override = SubResource("mat_wood")
+
+[node name="Copa" type="MeshInstance3D" parent="ParqueCentral/Arvore10"]
+position = Vector3(123.000, 5.100, 130.000)
+scale = Vector3(4.000, 4.200, 4.000)
+mesh = SubResource("sphere")
+material_override = SubResource("mat_grass2")
+
+[node name="Arvore11" type="Node3D" parent="ParqueCentral"]
+
+[node name="Tronco" type="MeshInstance3D" parent="ParqueCentral/Arvore11"]
+position = Vector3(140.000, 2.000, 133.000)
+scale = Vector3(0.650, 4.000, 0.650)
+mesh = SubResource("cyl")
+material_override = SubResource("mat_wood")
+
+[node name="Copa" type="MeshInstance3D" parent="ParqueCentral/Arvore11"]
+position = Vector3(140.000, 5.100, 133.000)
+scale = Vector3(4.000, 4.200, 4.000)
+mesh = SubResource("sphere")
+material_override = SubResource("mat_grass2")
+
+[node name="Arvore12" type="Node3D" parent="ParqueCentral"]
+
+[node name="Tronco" type="MeshInstance3D" parent="ParqueCentral/Arvore12"]
+position = Vector3(31.000, 2.000, 109.000)
+scale = Vector3(0.650, 4.000, 0.650)
+mesh = SubResource("cyl")
+material_override = SubResource("mat_wood")
+
+[node name="Copa" type="MeshInstance3D" parent="ParqueCentral/Arvore12"]
+position = Vector3(31.000, 5.100, 109.000)
+scale = Vector3(4.000, 4.200, 4.000)
+mesh = SubResource("sphere")
+material_override = SubResource("mat_grass2")
+
+[node name="Arvore13" type="Node3D" parent="ParqueCentral"]
+
+[node name="Tronco" type="MeshInstance3D" parent="ParqueCentral/Arvore13"]
+position = Vector3(137.000, 2.000, 109.000)
+scale = Vector3(0.650, 4.000, 0.650)
+mesh = SubResource("cyl")
+material_override = SubResource("mat_wood")
+
+[node name="Copa" type="MeshInstance3D" parent="ParqueCentral/Arvore13"]
+position = Vector3(137.000, 5.100, 109.000)
+scale = Vector3(4.000, 4.200, 4.000)
+mesh = SubResource("sphere")
+material_override = SubResource("mat_grass2")
+
+[node name="BancoParque0" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(70.000, 0.480, 98.000)
+rotation_degrees = Vector3(0.000, 0.000, 0.000)
+scale = Vector3(2.500, 0.200, 0.650)
+mesh = SubResource("cube")
+material_override = SubResource("mat_wood")
+
+[node name="EncostoBanco0" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(70.000, 0.950, 97.720)
+rotation_degrees = Vector3(0.000, 0.000, 0.000)
+scale = Vector3(2.500, 0.750, 0.160)
+mesh = SubResource("cube")
+material_override = SubResource("mat_wood")
+
+[node name="BancoParque1" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(98.000, 0.480, 98.000)
+rotation_degrees = Vector3(0.000, 0.000, 0.000)
+scale = Vector3(2.500, 0.200, 0.650)
+mesh = SubResource("cube")
+material_override = SubResource("mat_wood")
+
+[node name="EncostoBanco1" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(98.000, 0.950, 97.720)
+rotation_degrees = Vector3(0.000, 0.000, 0.000)
+scale = Vector3(2.500, 0.750, 0.160)
+mesh = SubResource("cube")
+material_override = SubResource("mat_wood")
+
+[node name="BancoParque2" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(70.000, 0.480, 120.000)
+rotation_degrees = Vector3(0.000, 0.000, 0.000)
+scale = Vector3(2.500, 0.200, 0.650)
+mesh = SubResource("cube")
+material_override = SubResource("mat_wood")
+
+[node name="EncostoBanco2" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(70.000, 0.950, 119.720)
+rotation_degrees = Vector3(0.000, 0.000, 0.000)
+scale = Vector3(2.500, 0.750, 0.160)
+mesh = SubResource("cube")
+material_override = SubResource("mat_wood")
+
+[node name="BancoParque3" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(98.000, 0.480, 120.000)
+rotation_degrees = Vector3(0.000, 0.000, 0.000)
+scale = Vector3(2.500, 0.200, 0.650)
+mesh = SubResource("cube")
+material_override = SubResource("mat_wood")
+
+[node name="EncostoBanco3" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(98.000, 0.950, 119.720)
+rotation_degrees = Vector3(0.000, 0.000, 0.000)
+scale = Vector3(2.500, 0.750, 0.160)
+mesh = SubResource("cube")
+material_override = SubResource("mat_wood")
+
+[node name="BancoParque4" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(52.000, 0.480, 109.000)
+rotation_degrees = Vector3(0.000, 90.000, 0.000)
+scale = Vector3(2.500, 0.200, 0.650)
+mesh = SubResource("cube")
+material_override = SubResource("mat_wood")
+
+[node name="EncostoBanco4" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(52.000, 0.950, 109.000)
+rotation_degrees = Vector3(0.000, 90.000, 0.000)
+scale = Vector3(2.500, 0.750, 0.160)
+mesh = SubResource("cube")
+material_override = SubResource("mat_wood")
+
+[node name="BancoParque5" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(116.000, 0.480, 109.000)
+rotation_degrees = Vector3(0.000, 90.000, 0.000)
+scale = Vector3(2.500, 0.200, 0.650)
+mesh = SubResource("cube")
+material_override = SubResource("mat_wood")
+
+[node name="EncostoBanco5" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(116.000, 0.950, 109.000)
+rotation_degrees = Vector3(0.000, 90.000, 0.000)
+scale = Vector3(2.500, 0.750, 0.160)
+mesh = SubResource("cube")
+material_override = SubResource("mat_wood")
+
+[node name="BancoParque6" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(45.000, 0.480, 120.000)
+rotation_degrees = Vector3(0.000, 0.000, 0.000)
+scale = Vector3(2.500, 0.200, 0.650)
+mesh = SubResource("cube")
+material_override = SubResource("mat_wood")
+
+[node name="EncostoBanco6" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(45.000, 0.950, 119.720)
+rotation_degrees = Vector3(0.000, 0.000, 0.000)
+scale = Vector3(2.500, 0.750, 0.160)
+mesh = SubResource("cube")
+material_override = SubResource("mat_wood")
+
+[node name="BancoParque7" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(123.000, 0.480, 120.000)
+rotation_degrees = Vector3(0.000, 0.000, 0.000)
+scale = Vector3(2.500, 0.200, 0.650)
+mesh = SubResource("cube")
+material_override = SubResource("mat_wood")
+
+[node name="EncostoBanco7" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(123.000, 0.950, 119.720)
+rotation_degrees = Vector3(0.000, 0.000, 0.000)
+scale = Vector3(2.500, 0.750, 0.160)
+mesh = SubResource("cube")
+material_override = SubResource("mat_wood")
+
+[node name="Pergolado" type="Node3D" parent="ParqueCentral"]
+
+[node name="Pilar0" type="MeshInstance3D" parent="ParqueCentral/Pergolado"]
+position = Vector3(113.000, 1.600, 96.000)
+scale = Vector3(0.280, 3.200, 0.280)
+mesh = SubResource("cube")
+material_override = SubResource("mat_wood")
+
+[node name="Pilar1" type="MeshInstance3D" parent="ParqueCentral/Pergolado"]
+position = Vector3(125.000, 1.600, 96.000)
+scale = Vector3(0.280, 3.200, 0.280)
+mesh = SubResource("cube")
+material_override = SubResource("mat_wood")
+
+[node name="Pilar2" type="MeshInstance3D" parent="ParqueCentral/Pergolado"]
+position = Vector3(113.000, 1.600, 104.000)
+scale = Vector3(0.280, 3.200, 0.280)
+mesh = SubResource("cube")
+material_override = SubResource("mat_wood")
+
+[node name="Pilar3" type="MeshInstance3D" parent="ParqueCentral/Pergolado"]
+position = Vector3(125.000, 1.600, 104.000)
+scale = Vector3(0.280, 3.200, 0.280)
+mesh = SubResource("cube")
+material_override = SubResource("mat_wood")
+
+[node name="Viga0" type="MeshInstance3D" parent="ParqueCentral/Pergolado"]
+position = Vector3(119.000, 3.200, 96.000)
+scale = Vector3(13.000, 0.240, 0.260)
+mesh = SubResource("cube")
+material_override = SubResource("mat_wood")
+
+[node name="Viga1" type="MeshInstance3D" parent="ParqueCentral/Pergolado"]
+position = Vector3(119.000, 3.200, 100.000)
+scale = Vector3(13.000, 0.240, 0.260)
+mesh = SubResource("cube")
+material_override = SubResource("mat_wood")
+
+[node name="Viga2" type="MeshInstance3D" parent="ParqueCentral/Pergolado"]
+position = Vector3(119.000, 3.200, 104.000)
+scale = Vector3(13.000, 0.240, 0.260)
+mesh = SubResource("cube")
+material_override = SubResource("mat_wood")
+
+[node name="PlacaParque" type="Label3D" parent="ParqueCentral"]
+position = Vector3(47.000, 2.300, 79.000)
+rotation_degrees = Vector3(0.000, 180.000, 0.000)
+text = "PARQUE MAIN CITY"
+font_size = 30
+pixel_size = 0.009
+outline_size = 5
+
+[node name="Lixeira0" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(31.000, 0.480, 81.000)
+scale = Vector3(0.550, 0.900, 0.550)
+mesh = SubResource("cube")
+material_override = SubResource("mat_dark")
+
+[node name="Lixeira1" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(65.000, 0.480, 81.000)
+scale = Vector3(0.550, 0.900, 0.550)
+mesh = SubResource("cube")
+material_override = SubResource("mat_dark")
+
+[node name="Lixeira2" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(101.000, 0.480, 81.000)
+scale = Vector3(0.550, 0.900, 0.550)
+mesh = SubResource("cube")
+material_override = SubResource("mat_dark")
+
+[node name="Lixeira3" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(137.000, 0.480, 81.000)
+scale = Vector3(0.550, 0.900, 0.550)
+mesh = SubResource("cube")
+material_override = SubResource("mat_dark")
+
+[node name="Lixeira4" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(31.000, 0.480, 139.000)
+scale = Vector3(0.550, 0.900, 0.550)
+mesh = SubResource("cube")
+material_override = SubResource("mat_dark")
+
+[node name="Lixeira5" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(65.000, 0.480, 139.000)
+scale = Vector3(0.550, 0.900, 0.550)
+mesh = SubResource("cube")
+material_override = SubResource("mat_dark")
+
+[node name="Lixeira6" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(101.000, 0.480, 139.000)
+scale = Vector3(0.550, 0.900, 0.550)
+mesh = SubResource("cube")
+material_override = SubResource("mat_dark")
+
+[node name="Lixeira7" type="MeshInstance3D" parent="ParqueCentral"]
+position = Vector3(137.000, 0.480, 139.000)
+scale = Vector3(0.550, 0.900, 0.550)
+mesh = SubResource("cube")
+material_override = SubResource("mat_dark")
+
+[node name="IluminacaoLocal" type="Node3D" parent="."]
+
+[node name="Poste0" type="MeshInstance3D" parent="IluminacaoLocal"]
+position = Vector3(24.000, 3.100, 32.000)
+scale = Vector3(0.220, 6.200, 0.220)
+mesh = SubResource("cube")
+material_override = SubResource("mat_metal")
+
+[node name="Braco0" type="MeshInstance3D" parent="IluminacaoLocal"]
+position = Vector3(25.300, 6.000, 32.000)
+scale = Vector3(2.600, 0.140, 0.160)
+mesh = SubResource("cube")
+material_override = SubResource("mat_metal")
+
+[node name="Luminaria0" type="MeshInstance3D" parent="IluminacaoLocal"]
+position = Vector3(26.500, 5.850, 32.000)
+scale = Vector3(0.900, 0.180, 0.600)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="Poste1" type="MeshInstance3D" parent="IluminacaoLocal"]
+position = Vector3(24.000, 3.100, 75.000)
+scale = Vector3(0.220, 6.200, 0.220)
+mesh = SubResource("cube")
+material_override = SubResource("mat_metal")
+
+[node name="Braco1" type="MeshInstance3D" parent="IluminacaoLocal"]
+position = Vector3(25.300, 6.000, 75.000)
+scale = Vector3(2.600, 0.140, 0.160)
+mesh = SubResource("cube")
+material_override = SubResource("mat_metal")
+
+[node name="Luminaria1" type="MeshInstance3D" parent="IluminacaoLocal"]
+position = Vector3(26.500, 5.850, 75.000)
+scale = Vector3(0.900, 0.180, 0.600)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="Poste2" type="MeshInstance3D" parent="IluminacaoLocal"]
+position = Vector3(24.000, 3.100, 120.000)
+scale = Vector3(0.220, 6.200, 0.220)
+mesh = SubResource("cube")
+material_override = SubResource("mat_metal")
+
+[node name="Braco2" type="MeshInstance3D" parent="IluminacaoLocal"]
+position = Vector3(25.300, 6.000, 120.000)
+scale = Vector3(2.600, 0.140, 0.160)
+mesh = SubResource("cube")
+material_override = SubResource("mat_metal")
+
+[node name="Luminaria2" type="MeshInstance3D" parent="IluminacaoLocal"]
+position = Vector3(26.500, 5.850, 120.000)
+scale = Vector3(0.900, 0.180, 0.600)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="Poste3" type="MeshInstance3D" parent="IluminacaoLocal"]
+position = Vector3(48.000, 3.100, 82.000)
+scale = Vector3(0.220, 6.200, 0.220)
+mesh = SubResource("cube")
+material_override = SubResource("mat_metal")
+
+[node name="Braco3" type="MeshInstance3D" parent="IluminacaoLocal"]
+position = Vector3(49.300, 6.000, 82.000)
+scale = Vector3(2.600, 0.140, 0.160)
+mesh = SubResource("cube")
+material_override = SubResource("mat_metal")
+
+[node name="Luminaria3" type="MeshInstance3D" parent="IluminacaoLocal"]
+position = Vector3(50.500, 5.850, 82.000)
+scale = Vector3(0.900, 0.180, 0.600)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="Poste4" type="MeshInstance3D" parent="IluminacaoLocal"]
+position = Vector3(84.000, 3.100, 82.000)
+scale = Vector3(0.220, 6.200, 0.220)
+mesh = SubResource("cube")
+material_override = SubResource("mat_metal")
+
+[node name="Braco4" type="MeshInstance3D" parent="IluminacaoLocal"]
+position = Vector3(85.300, 6.000, 82.000)
+scale = Vector3(2.600, 0.140, 0.160)
+mesh = SubResource("cube")
+material_override = SubResource("mat_metal")
+
+[node name="Luminaria4" type="MeshInstance3D" parent="IluminacaoLocal"]
+position = Vector3(86.500, 5.850, 82.000)
+scale = Vector3(0.900, 0.180, 0.600)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="Poste5" type="MeshInstance3D" parent="IluminacaoLocal"]
+position = Vector3(120.000, 3.100, 82.000)
+scale = Vector3(0.220, 6.200, 0.220)
+mesh = SubResource("cube")
+material_override = SubResource("mat_metal")
+
+[node name="Braco5" type="MeshInstance3D" parent="IluminacaoLocal"]
+position = Vector3(121.300, 6.000, 82.000)
+scale = Vector3(2.600, 0.140, 0.160)
+mesh = SubResource("cube")
+material_override = SubResource("mat_metal")
+
+[node name="Luminaria5" type="MeshInstance3D" parent="IluminacaoLocal"]
+position = Vector3(122.500, 5.850, 82.000)
+scale = Vector3(0.900, 0.180, 0.600)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="Poste6" type="MeshInstance3D" parent="IluminacaoLocal"]
+position = Vector3(145.000, 3.100, 102.000)
+scale = Vector3(0.220, 6.200, 0.220)
+mesh = SubResource("cube")
+material_override = SubResource("mat_metal")
+
+[node name="Braco6" type="MeshInstance3D" parent="IluminacaoLocal"]
+position = Vector3(146.300, 6.000, 102.000)
+scale = Vector3(2.600, 0.140, 0.160)
+mesh = SubResource("cube")
+material_override = SubResource("mat_metal")
+
+[node name="Luminaria6" type="MeshInstance3D" parent="IluminacaoLocal"]
+position = Vector3(147.500, 5.850, 102.000)
+scale = Vector3(0.900, 0.180, 0.600)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="Poste7" type="MeshInstance3D" parent="IluminacaoLocal"]
+position = Vector3(84.000, 3.100, 140.000)
+scale = Vector3(0.220, 6.200, 0.220)
+mesh = SubResource("cube")
+material_override = SubResource("mat_metal")
+
+[node name="Braco7" type="MeshInstance3D" parent="IluminacaoLocal"]
+position = Vector3(85.300, 6.000, 140.000)
+scale = Vector3(2.600, 0.140, 0.160)
+mesh = SubResource("cube")
+material_override = SubResource("mat_metal")
+
+[node name="Luminaria7" type="MeshInstance3D" parent="IluminacaoLocal"]
+position = Vector3(86.500, 5.850, 140.000)
+scale = Vector3(0.900, 0.180, 0.600)
+mesh = SubResource("cube")
+material_override = SubResource("mat_line")
+
+[node name="LuzReal0" type="OmniLight3D" parent="IluminacaoLocal"]
+position = Vector3(26.500, 5.750, 32.000)
+light_color = Color(1.0, 0.82, 0.58, 1)
+light_energy = 0.75
+omni_range = 22.0
+shadow_enabled = false
+
+[node name="LuzReal1" type="OmniLight3D" parent="IluminacaoLocal"]
+position = Vector3(26.500, 5.750, 120.000)
+light_color = Color(1.0, 0.82, 0.58, 1)
+light_energy = 0.75
+omni_range = 22.0
+shadow_enabled = false
+
+[node name="LuzReal2" type="OmniLight3D" parent="IluminacaoLocal"]
+position = Vector3(86.500, 5.750, 82.000)
+light_color = Color(1.0, 0.82, 0.58, 1)
+light_energy = 0.75
+omni_range = 22.0
+shadow_enabled = false
+
+[node name="LuzReal3" type="OmniLight3D" parent="IluminacaoLocal"]
+position = Vector3(147.500, 5.750, 102.000)
+light_color = Color(1.0, 0.82, 0.58, 1)
+light_energy = 0.75
+omni_range = 22.0
+shadow_enabled = false
+
+[node name="TotemConcessionaria" type="MeshInstance3D" parent="ConcessionariaMainCity"]
+position = Vector3(30.000, 2.800, 31.000)
+scale = Vector3(1.500, 5.600, 0.500)
+mesh = SubResource("cube")
+material_override = SubResource("mat_blue")
+
+[node name="TotemNome" type="Label3D" parent="ConcessionariaMainCity"]
+position = Vector3(30.000, 3.300, 30.700)
+text = "MAIN CITY
+MOTORS"
+font_size = 24
+pixel_size = 0.009
+outline_size = 4
+modulate = Color(1,1,1,1)
+

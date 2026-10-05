@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/v30_6_blindado_dirigivel.tscn" id="blindado"]
+
+[node name="BlindadoPolicial2" instance=ExtResource("blindado")]

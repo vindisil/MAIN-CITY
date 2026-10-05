@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/grass_v002.gd" id="script"]
+[ext_resource type="PackedScene" path="res://assets/v002_grama/GramaReal.fbx" id="fbx"]
+
+[node name="Grama_Real_V002" type="Node3D"]
+script = ExtResource("script")
+
+[node name="Model" parent="." instance=ExtResource("fbx")]

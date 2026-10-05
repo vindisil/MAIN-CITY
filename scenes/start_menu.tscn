@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cvhisonicdpdg"]
+
+[ext_resource type="Script" uid="uid://dn0wk6kqxv4mc" path="res://scripts/start_menu.gd" id="1_menu"]
+[ext_resource type="Texture2D" uid="uid://duxvxvo1knegk" path="res://assets/ui/inicio_4_personagens.webp" id="2_image"]
+
+[node name="MenuInicial" type="Control" unique_id=93117549]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_menu")
+
+[node name="FotoInicial" type="TextureRect" parent="." unique_id=535214401]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_image")
+expand_mode = 1
+stretch_mode = 6

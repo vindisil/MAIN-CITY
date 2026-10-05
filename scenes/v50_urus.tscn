@@ -1,0 +1,133 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/car.gd" id="drive"]
+[ext_resource type="PackedScene" path="res://assets/models/v60_urus/urus_body.glb" id="body"]
+[ext_resource type="PackedScene" path="res://assets/models/v60_urus/urus_wheel_FL.glb" id="wheel_fl"]
+[ext_resource type="PackedScene" path="res://assets/models/v60_urus/urus_wheel_FR.glb" id="wheel_fr"]
+[ext_resource type="PackedScene" path="res://assets/models/v60_urus/urus_wheel_RL.glb" id="wheel_rl"]
+[ext_resource type="PackedScene" path="res://assets/models/v60_urus/urus_wheel_RR.glb" id="wheel_rr"]
+[ext_resource type="AudioStream" path="res://assets/audio/engine_v24.wav" id="motor"]
+[ext_resource type="Script" path="res://scripts/vehicle_night_lights.gd" id="lights"]
+
+[sub_resource type="BoxShape3D" id="chassis"]
+size = Vector3(2.08, 1.43, 4.88)
+
+[node name="UrusDirigivel" type="VehicleBody3D" groups=["vehicle"]]
+script = ExtResource("drive")
+vehicle_name = "LAMBORGHINI URUS"
+overall_scale = 1.38
+front_is_positive_z = true
+mass = 2200.0
+engine_power = 6100.0
+reverse_power = 2200.0
+brake_power = 390.0
+max_steer = 0.44
+steer_speed = 2.95
+top_speed_mps = 69.0
+drive_sign = 1.0
+roll_spring = 24500.0
+roll_damping = 8200.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0, 1.02, 0)
+shape = SubResource("chassis")
+
+[node name="BodyModel" parent="." instance=ExtResource("body")]
+position = Vector3(0, 0, -0.021)
+scale = Vector3(99, 99, 99)
+
+[node name="WheelFL" type="VehicleWheel3D" parent="."]
+position = Vector3(-0.92500, 0.55000, 1.53500)
+wheel_radius = 0.393
+wheel_rest_length = 0.22
+suspension_travel = 0.20
+suspension_stiffness = 56.0
+suspension_max_force = 34000.0
+damping_compression = 3.9
+damping_relaxation = 4.7
+wheel_friction_slip = 4.05
+wheel_roll_influence = 0.045
+use_as_steering = true
+use_as_traction = true
+
+[node name="OriginalUrusWheelFL" parent="WheelFL" instance=ExtResource("wheel_fl")]
+scale = Vector3(99.52081, 99.52081, 99.52081)
+
+[node name="WheelFR" type="VehicleWheel3D" parent="."]
+position = Vector3(0.92500, 0.55000, 1.53500)
+wheel_radius = 0.393
+wheel_rest_length = 0.22
+suspension_travel = 0.20
+suspension_stiffness = 56.0
+suspension_max_force = 34000.0
+damping_compression = 3.9
+damping_relaxation = 4.7
+wheel_friction_slip = 4.05
+wheel_roll_influence = 0.045
+use_as_steering = true
+use_as_traction = true
+
+[node name="OriginalUrusWheelFR" parent="WheelFR" instance=ExtResource("wheel_fr")]
+scale = Vector3(99.52081, 99.52081, 99.52081)
+
+[node name="WheelRL" type="VehicleWheel3D" parent="."]
+position = Vector3(-0.92500, 0.55000, -1.59200)
+wheel_radius = 0.393
+wheel_rest_length = 0.22
+suspension_travel = 0.20
+suspension_stiffness = 56.0
+suspension_max_force = 34000.0
+damping_compression = 3.9
+damping_relaxation = 4.7
+wheel_friction_slip = 4.05
+wheel_roll_influence = 0.045
+use_as_steering = false
+use_as_traction = true
+
+[node name="OriginalUrusWheelRL" parent="WheelRL" instance=ExtResource("wheel_rl")]
+scale = Vector3(99.65848, 99.65848, 99.65848)
+
+[node name="WheelRR" type="VehicleWheel3D" parent="."]
+position = Vector3(0.92500, 0.55000, -1.59200)
+wheel_radius = 0.393
+wheel_rest_length = 0.22
+suspension_travel = 0.20
+suspension_stiffness = 56.0
+suspension_max_force = 34000.0
+damping_compression = 3.9
+damping_relaxation = 4.7
+wheel_friction_slip = 4.05
+wheel_roll_influence = 0.045
+use_as_steering = false
+use_as_traction = true
+
+[node name="OriginalUrusWheelRR" parent="WheelRR" instance=ExtResource("wheel_rr")]
+scale = Vector3(99.65849, 99.65849, 99.65849)
+
+[node name="CameraRig" type="Node3D" parent="."]
+position = Vector3(0, 1.56, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraRig"]
+spring_length = 7.6
+rotation = Vector3(-0.15, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig/SpringArm3D"]
+current = false
+far = 1500.0
+
+[node name="EngineAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("motor")
+max_distance = 65.0
+volume_db = -12.0
+
+[node name="VehicleNightLights" type="Node3D" parent="."]
+script = ExtResource("lights")
+front_is_positive_z = true
+front_left_position = Vector3(-0.80, 0.77, 2.23)
+front_right_position = Vector3(0.80, 0.77, 2.23)
+rear_left_position = Vector3(-0.83, 0.81, -2.35)
+rear_right_position = Vector3(0.83, 0.81, -2.35)
+front_range = 29.0
+rear_range = 4.6
+front_energy = 1.85
+rear_energy = 0.65

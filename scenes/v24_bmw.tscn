@@ -1,0 +1,128 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/car.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://assets/models/v26/bmw_body.glb" id="2_body"]
+[ext_resource type="PackedScene" path="res://assets/models/v23_2/pneu_usuario_bmw.glb" id="3_wheel"]
+[ext_resource type="AudioStream" path="res://assets/audio/engine_v24.wav" id="4_engine"]
+[ext_resource type="Script" path="res://scripts/vehicle_night_lights.gd" id="vehicle_lights"]
+
+[sub_resource type="BoxShape3D" id="1_collision"]
+size = Vector3(1.9148, 0.8300, 4.5730)
+
+[node name="BMW" type="VehicleBody3D" groups=["vehicle"]]
+script = ExtResource("1_script")
+mass = 1750
+vehicle_name = "BMW IMPORTADA"
+overall_scale = 1.29
+engine_power = 9200
+reverse_power = 2800
+brake_power = 320
+max_steer = 0.51
+steer_speed = 3.4
+top_speed_mps = 86.0
+drive_sign = -1.0
+roll_spring = 21500
+roll_damping = 7000
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.20, 0)
+shape = SubResource("1_collision")
+
+[node name="BodyModel" parent="." instance=ExtResource("2_body")]
+position = Vector3(0, 0.22, 0)
+
+[node name="WheelFL" type="VehicleWheel3D" parent="."]
+position = Vector3(-1.00000, 0.18910, -1.83963)
+wheel_radius = 0.38910
+wheel_rest_length = 0.24
+suspension_stiffness = 65.0
+suspension_max_force = 34000.0
+damping_compression = 3.2
+damping_relaxation = 4.0
+wheel_friction_slip = 3.9
+wheel_roll_influence = 0.045
+use_as_steering = true
+use_as_traction = false
+
+[node name="WheelModel" parent="WheelFL" instance=ExtResource("3_wheel")]
+scale = Vector3(0.93058, 0.93058, 0.93058)
+rotation = Vector3(0, 0, 1.57079632679)
+
+[node name="WheelRL" type="VehicleWheel3D" parent="."]
+position = Vector3(-1.00000, 0.18910, 1.46365)
+wheel_radius = 0.38910
+wheel_rest_length = 0.24
+suspension_stiffness = 65.0
+suspension_max_force = 34000.0
+damping_compression = 3.2
+damping_relaxation = 4.0
+wheel_friction_slip = 3.9
+wheel_roll_influence = 0.045
+use_as_steering = false
+use_as_traction = true
+
+[node name="WheelModel" parent="WheelRL" instance=ExtResource("3_wheel")]
+scale = Vector3(0.93058, 0.93058, 0.93058)
+rotation = Vector3(0, 0, 1.57079632679)
+
+[node name="WheelFR" type="VehicleWheel3D" parent="."]
+position = Vector3(1.00000, 0.18910, -1.83963)
+wheel_radius = 0.38910
+wheel_rest_length = 0.24
+suspension_stiffness = 65.0
+suspension_max_force = 34000.0
+damping_compression = 3.2
+damping_relaxation = 4.0
+wheel_friction_slip = 3.9
+wheel_roll_influence = 0.045
+use_as_steering = true
+use_as_traction = false
+
+[node name="WheelModel" parent="WheelFR" instance=ExtResource("3_wheel")]
+scale = Vector3(0.93058, 0.93058, 0.93058)
+rotation = Vector3(0, 0, -1.57079632679)
+
+[node name="WheelRR" type="VehicleWheel3D" parent="."]
+position = Vector3(1.00000, 0.18910, 1.46365)
+wheel_radius = 0.38910
+wheel_rest_length = 0.24
+suspension_stiffness = 65.0
+suspension_max_force = 34000.0
+damping_compression = 3.2
+damping_relaxation = 4.0
+wheel_friction_slip = 3.9
+wheel_roll_influence = 0.045
+use_as_steering = false
+use_as_traction = true
+
+[node name="WheelModel" parent="WheelRR" instance=ExtResource("3_wheel")]
+scale = Vector3(0.93058, 0.93058, 0.93058)
+rotation = Vector3(0, 0, -1.57079632679)
+
+[node name="CameraRig" type="Node3D" parent="."]
+position = Vector3(0, 1.47, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraRig"]
+spring_length = 7.5
+rotation = Vector3(-0.15, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig/SpringArm3D"]
+far = 1500.0
+current = false
+
+[node name="EngineAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_engine")
+max_distance = 65.0
+unit_size = 9.0
+volume_db = -12.0
+
+[node name="VehicleNightLights" type="Node3D" parent="."]
+script = ExtResource("vehicle_lights")
+front_left_position = Vector3(-0.7400, 0.5500, -2.3200)
+front_right_position = Vector3(0.7400, 0.5500, -2.3200)
+rear_left_position = Vector3(-0.7500, 0.6100, 2.2900)
+rear_right_position = Vector3(0.7500, 0.6100, 2.2900)
+front_range = 25.0
+rear_range = 4.6
+front_energy = 1.55
+rear_energy = 0.58

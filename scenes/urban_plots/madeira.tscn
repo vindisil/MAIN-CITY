@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/urban_plot_fit.gd" id="fit"]
+[ext_resource type="PackedScene" path="res://assets/urban_imports/madeira/madeira.fbx" id="model_0"]
+[ext_resource type="PackedScene" path="res://assets/urban_imports/madeira/madeira.fbx" id="model_1"]
+[ext_resource type="PackedScene" path="res://assets/urban_imports/madeira/madeira.fbx" id="model_2"]
+[ext_resource type="PackedScene" path="res://assets/urban_imports/madeira/madeira.fbx" id="model_3"]
+
+[node name="Vila_Casas_Madeira" type="Node3D"]
+
+[node name="Predio_01_madeira" type="Node3D" parent="."]
+position = Vector3(-37.000, 0.0, -35.000)
+script = ExtResource("fit")
+plot_width = 49.000
+plot_depth = 55.000
+max_building_height = 26.000
+collision_coverage = 0.820
+
+[node name="Model" parent="Predio_01_madeira" instance=ExtResource("model_0")]
+
+[node name="Predio_02_madeira" type="Node3D" parent="."]
+position = Vector3(37.000, 0.0, -35.000)
+script = ExtResource("fit")
+plot_width = 49.000
+plot_depth = 55.000
+max_building_height = 26.000
+collision_coverage = 0.820
+
+[node name="Model" parent="Predio_02_madeira" instance=ExtResource("model_1")]
+
+[node name="Predio_03_madeira" type="Node3D" parent="."]
+position = Vector3(-37.000, 0.0, 35.000)
+script = ExtResource("fit")
+plot_width = 49.000
+plot_depth = 55.000
+max_building_height = 26.000
+collision_coverage = 0.820
+
+[node name="Model" parent="Predio_03_madeira" instance=ExtResource("model_2")]
+
+[node name="Predio_04_madeira" type="Node3D" parent="."]
+position = Vector3(37.000, 0.0, 35.000)
+script = ExtResource("fit")
+plot_width = 49.000
+plot_depth = 55.000
+max_building_height = 26.000
+collision_coverage = 0.820
+
+[node name="Model" parent="Predio_04_madeira" instance=ExtResource("model_3")]

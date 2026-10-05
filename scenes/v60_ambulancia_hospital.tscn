@@ -1,0 +1,118 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scripts/car.gd" id="car"]
+[ext_resource type="PackedScene" path="res://assets/models/hospital/ambulance.glb" id="model"]
+[ext_resource type="Script" path="res://scripts/ambulance_visual_cleanup.gd" id="cleanup"]
+[ext_resource type="PackedScene" path="res://assets/models/v52_duster_wheels/duster_wheel_FL.glb" id="wheel_FL"]
+[ext_resource type="PackedScene" path="res://assets/models/v52_duster_wheels/duster_wheel_FR.glb" id="wheel_FR"]
+[ext_resource type="PackedScene" path="res://assets/models/v52_duster_wheels/duster_wheel_RL.glb" id="wheel_RL"]
+[ext_resource type="PackedScene" path="res://assets/models/v52_duster_wheels/duster_wheel_RR.glb" id="wheel_RR"]
+
+[sub_resource type="BoxShape3D" id="collision"]
+size = Vector3(2.55, 2.84, 6.50)
+
+[node name="AmbulanciaHospital" type="VehicleBody3D" groups=["vehicle","hospital_ambulance"]]
+script = ExtResource("car")
+mass = 2850.0
+vehicle_name = "AMBULÂNCIA HOSPITAL"
+overall_scale = 1.10
+front_is_positive_z = false
+engine_power = 4850.0
+reverse_power = 1850.0
+brake_power = 390.0
+max_steer = 0.42
+steer_speed = 3.2
+top_speed_mps = 45.0
+drive_sign = -1.0
+roll_spring = 24500.0
+roll_damping = 7900.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0, 1.43, 0)
+shape = SubResource("collision")
+
+[node name="BodyModel" type="Node3D" parent="."]
+script = ExtResource("cleanup")
+hide_imported_wheels = true
+rotation = Vector3(0, 1.57079632679, 0)
+
+[node name="Model" parent="BodyModel" instance=ExtResource("model")]
+
+[node name="WheelFL" type="VehicleWheel3D" parent="."]
+position = Vector3(-0.95, 0.36, -2.59)
+wheel_radius = 0.355
+wheel_rest_length = 0.22
+suspension_travel = 0.18
+suspension_stiffness = 61.0
+suspension_max_force = 34000.0
+damping_compression = 4.2
+damping_relaxation = 5.0
+wheel_friction_slip = 4.0
+wheel_roll_influence = 0.045
+use_as_steering = true
+use_as_traction = true
+
+[node name="WheelModel" parent="WheelFL" instance=ExtResource("wheel_FL")]
+scale = Vector3(1.423, 1.423, 1.423)
+
+[node name="WheelFR" type="VehicleWheel3D" parent="."]
+position = Vector3(0.95, 0.36, -2.59)
+wheel_radius = 0.355
+wheel_rest_length = 0.22
+suspension_travel = 0.18
+suspension_stiffness = 61.0
+suspension_max_force = 34000.0
+damping_compression = 4.2
+damping_relaxation = 5.0
+wheel_friction_slip = 4.0
+wheel_roll_influence = 0.045
+use_as_steering = true
+use_as_traction = true
+
+[node name="WheelModel" parent="WheelFR" instance=ExtResource("wheel_FR")]
+scale = Vector3(1.423, 1.423, 1.423)
+
+[node name="WheelRL" type="VehicleWheel3D" parent="."]
+position = Vector3(-0.91, 0.36, 1.64)
+wheel_radius = 0.355
+wheel_rest_length = 0.22
+suspension_travel = 0.18
+suspension_stiffness = 61.0
+suspension_max_force = 34000.0
+damping_compression = 4.2
+damping_relaxation = 5.0
+wheel_friction_slip = 4.0
+wheel_roll_influence = 0.045
+use_as_steering = false
+use_as_traction = true
+
+[node name="WheelModel" parent="WheelRL" instance=ExtResource("wheel_RL")]
+scale = Vector3(1.423, 1.423, 1.423)
+
+[node name="WheelRR" type="VehicleWheel3D" parent="."]
+position = Vector3(0.91, 0.36, 1.64)
+wheel_radius = 0.355
+wheel_rest_length = 0.22
+suspension_travel = 0.18
+suspension_stiffness = 61.0
+suspension_max_force = 34000.0
+damping_compression = 4.2
+damping_relaxation = 5.0
+wheel_friction_slip = 4.0
+wheel_roll_influence = 0.045
+use_as_steering = false
+use_as_traction = true
+
+[node name="WheelModel" parent="WheelRR" instance=ExtResource("wheel_RR")]
+scale = Vector3(1.423, 1.423, 1.423)
+
+[node name="CameraRig" type="Node3D" parent="."]
+position = Vector3(0, 2.15, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraRig"]
+spring_length = 8.6
+rotation = Vector3(-0.17, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig/SpringArm3D"]
+far = 1500.0
+current = false
