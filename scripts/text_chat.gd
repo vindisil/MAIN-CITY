@@ -9,6 +9,9 @@ const MAX_MESSAGES: int = 12
 const TEXT := Color("e9f3ff")
 const MUTED := Color("91a9c2")
 const ACCENT := Color("55e4bf")
+const SPAWN_CONFIG_PATH := "user://main_city_spawn.cfg"
+const SPAWN_CONFIG_SECTION := "city1"
+const SPAWN_CONFIG_KEY := "position"
 
 var player: Node = null
 var log: RichTextLabel
@@ -213,12 +216,47 @@ func _submit_command(raw_command: String) -> void:
     if command_line.is_empty():
         add_message("SISTEMA", "Comando vazio.")
         return
+
     var parts := command_line.split(" ", false)
     var command := String(parts[0]).to_lower()
     var args := PackedStringArray()
     for i in range(1, parts.size()):
         args.append(String(parts[i]))
+
+    # Comandos locais essenciais: executados aqui no próprio chat para não
+    # depender de outro sinal, nó ou sistema externo.
+    if command == "pos":
+        _command_pos()
+        return
+    if command == "setaspawn":
+        _command_set_spawn()
+        return
+
     command_entered.emit(command, args)
+
+func _command_pos() -> void:
+    if not (player is Node3D) or not is_instance_valid(player):
+        add_message("SISTEMA", "Não foi possível localizar o personagem.")
+        return
+    var p := (player as Node3D).global_position
+    add_message("SISTEMA", "POSIÇÃO XYZ: " + _format_xyz(p))
+
+func _command_set_spawn() -> void:
+    if not (player is Node3D) or not is_instance_valid(player):
+        add_message("SISTEMA", "Não foi possível localizar o personagem.")
+        return
+
+    var p := (player as Node3D).global_position
+    var config := ConfigFile.new()
+    config.set_value(SPAWN_CONFIG_SECTION, SPAWN_CONFIG_KEY, p)
+    var err := config.save(SPAWN_CONFIG_PATH)
+    if err == OK:
+        add_message("SISTEMA", "SPAWN FIXADO: " + _format_xyz(p))
+    else:
+        add_message("SISTEMA", "ERRO: não foi possível salvar o spawn.")
+
+func _format_xyz(p: Vector3) -> String:
+    return "X=%.2f | Y=%.2f | Z=%.2f" % [p.x, p.y, p.z]
 
 func _refocus() -> void:
     if typing and is_instance_valid(input):
