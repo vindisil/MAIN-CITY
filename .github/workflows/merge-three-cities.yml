@@ -5,9 +5,10 @@ on:
   push:
     paths:
       - "source_cities/City 1.blend"
-      - "source_cities/City 2(2).blend"
+      - "source_cities/City 2.blend"
       - "source_cities/city cyles.zip"
       - "tools/merge_three_cities_blender.py"
+      - ".github/workflows/merge-three-cities.yml"
 
 jobs:
   merge-cities:
@@ -26,7 +27,7 @@ jobs:
       - name: Validate source files
         run: |
           test -f "source_cities/City 1.blend"
-          test -f "source_cities/City 2(2).blend"
+          test -f "source_cities/City 2.blend"
           test -f "source_cities/city cyles.zip"
           mkdir -p build
 
@@ -34,7 +35,7 @@ jobs:
         run: |
           blender --background --python tools/merge_three_cities_blender.py -- \
             --city1 "source_cities/City 1.blend" \
-            --city2 "source_cities/City 2(2).blend" \
+            --city2 "source_cities/City 2.blend" \
             --city3 "source_cities/city cyles.zip" \
             --output "build/MAIN_CITY_3_CIDADES.blend" \
             --export-glb "build/MAIN_CITY_3_CIDADES.glb" \
