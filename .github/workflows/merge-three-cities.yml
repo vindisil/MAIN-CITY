@@ -2,6 +2,12 @@ name: Merge 3 Cities
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - "source_cities/City 1.blend"
+      - "source_cities/City 2(2).blend"
+      - "source_cities/city cyles.zip"
+      - "tools/merge_three_cities_blender.py"
 
 jobs:
   merge-cities:
