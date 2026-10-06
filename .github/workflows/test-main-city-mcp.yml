@@ -26,18 +26,10 @@ jobs:
 
       - name: Syntax check
         working-directory: mcp-main-city
-        run: node --check src/index.mjs
-
-      - name: Start MCP smoke test
-        working-directory: mcp-main-city
-        shell: bash
         run: |
-          set +e
-          npm start >mcp.out 2>mcp.err < /dev/null
-          code=$?
-          set -e
-          cat mcp.err
-          cat mcp.out
-          test "$code" -eq 0
-          grep -q "Main City MCP iniciado" mcp.err
-          echo "MCP iniciou sem erro e encerrou normalmente quando o stdin foi fechado pelo teste."
+          node --check src/index.mjs
+          node --check src/smoke-client.mjs
+
+      - name: MCP protocol smoke test
+        working-directory: mcp-main-city
+        run: npm run test:mcp
