@@ -1,25 +1,15 @@
 # -*- coding: utf-8 -*-
-"""
-MAIN CITY - unir 3 cidades Blender lado a lado, sem alterar escala/rotacao.
+"""MAIN CITY - monta 3 cidades lado a lado para edicao manual posterior.
 
-Uso (Blender 4/5):
-  blender --background --python tools/merge_three_cities_blender.py -- \
-    --city1 "source_cities/City 1.blend" \
-    --city2 "source_cities/City 2(2).blend" \
-    --city3 "source_cities/city cyles.zip" \
-    --output "build/MAIN_CITY_3_CIDADES.blend" \
-    --export-glb "build/MAIN_CITY_3_CIDADES.glb"
-
-Regras do merge:
-- CITY_1 fica exatamente na origem/autoria original.
-- CITY_2 vai para a direita da CITY_1.
-- CITY_3 vai para a direita da CITY_2.
-- Nao muda escala nem rotacao dos mapas.
-- Tenta alinhar automaticamente uma estrada de borda com a estrada de borda
-  da proxima cidade usando apenas TRANSLACAO X/Y/Z.
-- Se nao encontrar estrada pelos nomes, usa o bounding box como fallback.
-- Cameras e luzes dos mapas importados sao ignoradas para evitar duplicacao.
-- Cada cidade fica numa Collection propria: CITY_1, CITY_2, CITY_3.
+Regras:
+- CITY_1 permanece exatamente onde veio do arquivo original.
+- CITY_2 fica a direita da CITY_1.
+- CITY_3 fica a direita da CITY_2.
+- Escala e rotacao dos mapas nao sao alteradas.
+- Z e alinhado pela base real da cidade, nunca por poste/lampada/placa.
+- Estradas sao usadas somente para um ajuste Y seguro entre as bordas.
+- Camera e luz dos mapas importados sao descartadas.
+- Cada cidade fica em sua propria Collection e ROOT.
 """
 
 import argparse
@@ -27,13 +17,18 @@ import os
 import sys
 import tempfile
 import zipfile
-from mathutils import Vector
-import bpy
 
-ROAD_WORDS = (
+import bpy
+from mathutils import Vector
+
+ROAD_TOKENS = (
     "road", "roads", "street", "streets", "rua", "ruas", "avenida", "avenue",
-    "highway", "asphalt", "asfalto", "lane", "2lane", "4lane", "estrada",
-    "pista", "roadway", "bridge", "ponte"
+    "highway", "asphalt", "asfalto", "2lane", "4lane", "estrada", "pista",
+    "roadway", "bridge", "ponte"
+)
+ROAD_EXCLUDES = (
+    "lamp", "light", "pole", "sign", "signage", "traffic", "signal",
+    "antenna", "tree", "guardrail", "barrier", "fence", "post"
 )
 
 
@@ -43,23 +38,23 @@ def _argv_after_double_dash():
 
 
 def parse_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--city1", required=True)
-    parser.add_argument("--city2", required=True)
-    parser.add_argument("--city3", required=True)
-    parser.add_argument("--output", required=True)
-    parser.add_argument("--export-glb", default="")
-    parser.add_argument("--road-gap", type=float, default=0.20,
-                        help="Pequena folga entre as bordas das estradas conectadas.")
-    return parser.parse_args(_argv_after_double_dash())
+    p = argparse.ArgumentParser()
+    p.add_argument("--city1", required=True)
+    p.add_argument("--city2", required=True)
+    p.add_argument("--city3", required=True)
+    p.add_argument("--output", required=True)
+    p.add_argument("--export-glb", default="")
+    p.add_argument("--city-gap", type=float, default=12.0)
+    p.add_argument("--road-gap", type=float, default=0.20)
+    return p.parse_args(_argv_after_double_dash())
 
 
 def clean_scene():
     bpy.ops.object.select_all(action="SELECT")
     bpy.ops.object.delete(use_global=False)
-    for collection in list(bpy.data.collections):
-        if collection.users == 0:
-            bpy.data.collections.remove(collection)
+    for c in list(bpy.data.collections):
+        if c.users == 0:
+            bpy.data.collections.remove(c)
 
 
 def resolve_blend(path, temp_dir, label):
@@ -68,18 +63,22 @@ def resolve_blend(path, temp_dir, label):
         if not os.path.isfile(path):
             raise FileNotFoundError(path)
         return path
+
     if path.lower().endswith(".zip"):
         if not os.path.isfile(path):
             raise FileNotFoundError(path)
+        dest = os.path.join(temp_dir, label)
+        os.makedirs(dest, exist_ok=True)
         with zipfile.ZipFile(path, "r") as zf:
             blends = [n for n in zf.namelist() if n.lower().endswith(".blend") and not n.endswith("/")]
             if not blends:
-                raise RuntimeError(f"{label}: ZIP nao contem arquivo .blend: {path}")
-            # Prefere o maior .blend do ZIP, normalmente a cena completa.
+                raise RuntimeError(f"{label}: ZIP nao contem .blend: {path}")
             blends.sort(key=lambda n: zf.getinfo(n).file_size, reverse=True)
             chosen = blends[0]
-            zf.extract(chosen, temp_dir)
-            return os.path.join(temp_dir, chosen)
+            # Extrai o ZIP inteiro para preservar texturas/arquivos relativos da City 3.
+            zf.extractall(dest)
+            return os.path.join(dest, chosen)
+
     raise RuntimeError(f"{label}: formato nao suportado: {path}")
 
 
@@ -87,8 +86,6 @@ def append_city(blend_path, collection_name):
     wrapper = bpy.data.collections.new(collection_name)
     bpy.context.scene.collection.children.link(wrapper)
 
-    # Carrega todos os objetos da cena-fonte. Isso preserva hierarquias, meshes,
-    # materiais e transformacoes autorais sem usar Link externo.
     with bpy.data.libraries.load(blend_path, link=False) as (data_from, data_to):
         data_to.objects = list(data_from.objects)
 
@@ -98,16 +95,10 @@ def append_city(blend_path, collection_name):
             continue
         if obj.type in {"CAMERA", "LIGHT"}:
             continue
-        if len(obj.users_collection) == 0:
+        if wrapper not in obj.users_collection:
             wrapper.objects.link(obj)
-        else:
-            # Um objeto carregado pode vir ligado a uma collection de biblioteca;
-            # garante tambem a visibilidade pela collection da cidade.
-            if wrapper not in obj.users_collection:
-                wrapper.objects.link(obj)
         loaded.append(obj)
 
-    # Remove cameras/luzes que vieram como dependencias e ficaram sem uso desejado.
     for obj in list(data_to.objects):
         if obj is not None and obj.type in {"CAMERA", "LIGHT"}:
             bpy.data.objects.remove(obj, do_unlink=True)
@@ -123,11 +114,12 @@ def append_city(blend_path, collection_name):
             obj.parent = root
             obj.matrix_world = world
 
+    bpy.context.view_layer.update()
     return {"name": collection_name, "collection": wrapper, "root": root, "objects": loaded}
 
 
 def object_world_bbox(obj):
-    if obj.type not in {"MESH", "CURVE", "SURFACE", "FONT", "META"}:
+    if obj.type != "MESH":
         return None
     try:
         pts = [obj.matrix_world @ Vector(corner) for corner in obj.bound_box]
@@ -135,9 +127,9 @@ def object_world_bbox(obj):
         return None
     if not pts:
         return None
-    mins = Vector((min(p.x for p in pts), min(p.y for p in pts), min(p.z for p in pts)))
-    maxs = Vector((max(p.x for p in pts), max(p.y for p in pts), max(p.z for p in pts)))
-    return mins, maxs
+    mn = Vector((min(p.x for p in pts), min(p.y for p in pts), min(p.z for p in pts)))
+    mx = Vector((max(p.x for p in pts), max(p.y for p in pts), max(p.z for p in pts)))
+    return mn, mx
 
 
 def city_bbox(city):
@@ -146,47 +138,66 @@ def city_bbox(city):
     if not boxes:
         p = city["root"].matrix_world.translation.copy()
         return p.copy(), p.copy()
-    mins = Vector((min(b[0].x for b in boxes), min(b[0].y for b in boxes), min(b[0].z for b in boxes)))
-    maxs = Vector((max(b[1].x for b in boxes), max(b[1].y for b in boxes), max(b[1].z for b in boxes)))
-    return mins, maxs
+    mn = Vector((min(b[0].x for b in boxes), min(b[0].y for b in boxes), min(b[0].z for b in boxes)))
+    mx = Vector((max(b[1].x for b in boxes), max(b[1].y for b in boxes), max(b[1].z for b in boxes)))
+    return mn, mx
 
 
 def road_candidates(city):
+    cmin, cmax = city_bbox(city)
+    city_x = max(cmax.x - cmin.x, 1.0)
+    city_y = max(cmax.y - cmin.y, 1.0)
     result = []
+
     for obj in city["objects"]:
-        name = obj.name.lower()
-        if not any(word in name for word in ROAD_WORDS):
+        if obj.type != "MESH":
             continue
+        name = obj.name.lower()
+        if any(bad in name for bad in ROAD_EXCLUDES):
+            continue
+        if not any(token in name for token in ROAD_TOKENS):
+            continue
+
         box = object_world_bbox(obj)
         if box is None:
             continue
-        mins, maxs = box
-        size = maxs - mins
-        # Descarta pecas minusculas que apenas contenham uma palavra de estrada.
-        if max(size.x, size.y) < 2.0:
+        mn, mx = box
+        size = mx - mn
+        footprint_long = max(size.x, size.y)
+        footprint_short = min(size.x, size.y)
+        z_size = max(size.z, 0.0)
+
+        # Uma estrada precisa ter uma superficie relevante. Isso elimina postes,
+        # placas e pequenos props mesmo quando seus nomes contem "street/highway".
+        if footprint_long < max(8.0, min(city_x, city_y) * 0.015):
             continue
-        result.append((obj, mins, maxs, (mins + maxs) * 0.5, size))
+        if footprint_short < 1.5:
+            continue
+        if z_size > footprint_long * 0.45:
+            continue
+
+        center = (mn + mx) * 0.5
+        area = max(size.x * size.y, 0.01)
+        result.append({"obj": obj, "min": mn, "max": mx, "center": center, "size": size, "area": area})
+
     return result
 
 
-def choose_edge_road(city, side):
-    """side='left' ou 'right'. Retorna estrada mais proxima da borda X da cidade."""
+def edge_roads(city, side):
     cmin, cmax = city_bbox(city)
-    roads = road_candidates(city)
-    if not roads:
-        return None
-    edge_x = cmin.x if side == "left" else cmax.x
+    span_x = max(cmax.x - cmin.x, 1.0)
+    edge = cmin.x if side == "left" else cmax.x
+    tolerance = max(25.0, span_x * 0.18)
+    candidates = []
 
-    def score(item):
-        _, mins, maxs, center, size = item
-        road_edge = mins.x if side == "left" else maxs.x
-        edge_distance = abs(road_edge - edge_x)
-        # Leve preferencia por estradas maiores; borda continua sendo prioridade.
-        length_bonus = max(size.x, size.y) * 0.015
-        return edge_distance - length_bonus
+    for r in road_candidates(city):
+        road_edge = r["min"].x if side == "left" else r["max"].x
+        dist = abs(road_edge - edge)
+        if dist <= tolerance:
+            candidates.append((dist, -r["area"], r))
 
-    roads.sort(key=score)
-    return roads[0]
+    candidates.sort(key=lambda item: (item[0], item[1]))
+    return [item[2] for item in candidates[:12]]
 
 
 def translate_city(city, delta):
@@ -194,36 +205,61 @@ def translate_city(city, delta):
     bpy.context.view_layer.update()
 
 
-def align_next_city(left_city, right_city, gap=0.20):
-    left_bbox = city_bbox(left_city)
-    right_bbox = city_bbox(right_city)
-    left_road = choose_edge_road(left_city, "right")
-    right_road = choose_edge_road(right_city, "left")
+def place_side_by_side(left_city, right_city, city_gap):
+    """Posicionamento deterministico. Nao depende de nomes de estrada."""
+    lmin, lmax = city_bbox(left_city)
+    rmin, rmax = city_bbox(right_city)
 
-    if left_road and right_road:
-        _, lmin, lmax, lcenter, _ = left_road
-        _, rmin, rmax, rcenter, _ = right_road
-        # Encosta as bordas X das duas estradas e sincroniza centro Y e nivel Z.
-        delta = Vector((
-            (lmax.x + gap) - rmin.x,
-            lcenter.y - rcenter.y,
-            lcenter.z - rcenter.z,
-        ))
-        translate_city(right_city, delta)
-        method = f"ROAD: {left_road[0].name} -> {right_road[0].name}"
-    else:
-        # Fallback seguro: cidades lado a lado, centros Y alinhados e base Z igual.
-        lmin, lmax = left_bbox
-        rmin, rmax = right_bbox
-        delta = Vector((
-            (lmax.x + gap) - rmin.x,
-            ((lmin.y + lmax.y) * 0.5) - ((rmin.y + rmax.y) * 0.5),
-            lmin.z - rmin.z,
-        ))
-        translate_city(right_city, delta)
-        method = "BBOX fallback"
+    # 1) Encosta a proxima cidade a direita.
+    # 2) Alinha o centro Y das duas cidades.
+    # 3) Alinha o piso/base Z, nunca o centro Z de uma estrada.
+    delta = Vector((
+        (lmax.x + city_gap) - rmin.x,
+        ((lmin.y + lmax.y) * 0.5) - ((rmin.y + rmax.y) * 0.5),
+        lmin.z - rmin.z,
+    ))
+    translate_city(right_city, delta)
+    return delta
 
-    return method, delta
+
+def safe_road_y_sync(left_city, right_city):
+    """Ajusta somente Y, escolhendo o par de estradas de borda mais proximo.
+
+    Nunca altera X/Z e nunca permite um salto grande que desalinhe as cidades.
+    """
+    left = edge_roads(left_city, "right")
+    right = edge_roads(right_city, "left")
+    if not left or not right:
+        return "CENTER/BBOX (sem estrada confiavel)", 0.0
+
+    lmin, lmax = city_bbox(left_city)
+    rmin, rmax = city_bbox(right_city)
+    y_span = max(lmax.y - lmin.y, rmax.y - rmin.y, 1.0)
+    max_adjust = max(30.0, y_span * 0.18)
+
+    best = None
+    for lr in left:
+        for rr in right:
+            dy = lr["center"].y - rr["center"].y
+            score = abs(dy) - min(lr["area"], rr["area"]) * 0.0005
+            if best is None or score < best[0]:
+                best = (score, dy, lr, rr)
+
+    _, dy, lr, rr = best
+    if abs(dy) > max_adjust:
+        return f"CENTER/BBOX (road rejeitada: {lr['obj'].name} -> {rr['obj'].name}, dy={dy:.2f})", 0.0
+
+    translate_city(right_city, Vector((0.0, dy, 0.0)))
+    return f"ROAD_Y: {lr['obj'].name} -> {rr['obj'].name}", dy
+
+
+def bbox_text(city):
+    mn, mx = city_bbox(city)
+    return (
+        f"min=({mn.x:.2f},{mn.y:.2f},{mn.z:.2f}) "
+        f"max=({mx.x:.2f},{mx.y:.2f},{mx.z:.2f}) "
+        f"size=({mx.x-mn.x:.2f},{mx.y-mn.y:.2f},{mx.z-mn.z:.2f})"
+    )
 
 
 def save_outputs(output_blend, export_glb=""):
@@ -240,6 +276,7 @@ def save_outputs(output_blend, export_glb=""):
             use_selection=False,
             export_cameras=False,
             export_lights=False,
+            export_draco_mesh_compression_enable=False,
         )
 
 
@@ -248,28 +285,45 @@ def main():
     clean_scene()
 
     with tempfile.TemporaryDirectory(prefix="main_city_merge_") as temp_dir:
-        city1_path = resolve_blend(args.city1, temp_dir, "CITY_1")
-        city2_path = resolve_blend(args.city2, temp_dir, "CITY_2")
-        city3_path = resolve_blend(args.city3, temp_dir, "CITY_3")
+        c1_path = resolve_blend(args.city1, temp_dir, "CITY_1")
+        c2_path = resolve_blend(args.city2, temp_dir, "CITY_2")
+        c3_path = resolve_blend(args.city3, temp_dir, "CITY_3")
 
-        city1 = append_city(city1_path, "CITY_1")
-        city2 = append_city(city2_path, "CITY_2")
-        city3 = append_city(city3_path, "CITY_3")
+        city1 = append_city(c1_path, "CITY_1")
+        city2 = append_city(c2_path, "CITY_2")
+        city3 = append_city(c3_path, "CITY_3")
         bpy.context.view_layer.update()
 
-        # CITY_1 nao e movida. CITY_2 e CITY_3 recebem apenas translacao.
-        method12, delta12 = align_next_city(city1, city2, args.road_gap)
-        method23, delta23 = align_next_city(city2, city3, args.road_gap)
+        print("MAIN CITY MERGE - BOUNDS ORIGINAIS")
+        print("CITY_1", bbox_text(city1))
+        print("CITY_2", bbox_text(city2))
+        print("CITY_3", bbox_text(city3))
 
-        print("MAIN CITY MERGE")
-        print("CITY_1 -> CITY_2:", method12, "delta", tuple(round(v, 4) for v in delta12))
-        print("CITY_2 -> CITY_3:", method23, "delta", tuple(round(v, 4) for v in delta23))
-        print("Escalas e rotacoes originais preservadas.")
+        d12 = place_side_by_side(city1, city2, args.city_gap)
+        method12, road_dy12 = safe_road_y_sync(city1, city2)
+
+        d23 = place_side_by_side(city2, city3, args.city_gap)
+        method23, road_dy23 = safe_road_y_sync(city2, city3)
+
+        print("MAIN CITY MERGE - POSICIONAMENTO")
+        print("CITY_1 -> CITY_2 base delta:", tuple(round(v, 4) for v in d12), method12, "road_dy", round(road_dy12, 4))
+        print("CITY_2 -> CITY_3 base delta:", tuple(round(v, 4) for v in d23), method23, "road_dy", round(road_dy23, 4))
+        print("MAIN CITY MERGE - BOUNDS FINAIS")
+        print("CITY_1", bbox_text(city1))
+        print("CITY_2", bbox_text(city2))
+        print("CITY_3", bbox_text(city3))
+        print("Escalas e rotacoes originais preservadas; somente translacao aplicada.")
 
         save_outputs(args.output, args.export_glb)
-        print("Blend salvo em:", os.path.abspath(args.output))
+
+        if not os.path.isfile(args.output) or os.path.getsize(args.output) <= 0:
+            raise RuntimeError("BLEND final nao foi criado corretamente")
+        if args.export_glb and (not os.path.isfile(args.export_glb) or os.path.getsize(args.export_glb) <= 0):
+            raise RuntimeError("GLB final nao foi criado corretamente")
+
+        print("BLEND_OK", os.path.abspath(args.output), os.path.getsize(args.output))
         if args.export_glb:
-            print("GLB salvo em:", os.path.abspath(args.export_glb))
+            print("GLB_OK", os.path.abspath(args.export_glb), os.path.getsize(args.export_glb))
 
 
 if __name__ == "__main__":
