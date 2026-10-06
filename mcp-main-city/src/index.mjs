@@ -3,6 +3,7 @@ import { serveStdio } from '@modelcontextprotocol/server/stdio';
 import * as z from 'zod/v4';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
@@ -17,13 +18,20 @@ const TEXT_EXTENSIONS = new Set([
   '.cs', '.shader', '.gdshader', '.ini', '.xml', '.csv', '.yml', '.yaml'
 ]);
 
+const WRITE_EXTENSIONS = new Set([
+  '.gd', '.tscn', '.tres', '.godot', '.cfg', '.json', '.md', '.txt',
+  '.cs', '.shader', '.gdshader', '.ini', '.xml', '.csv', '.yml', '.yaml'
+]);
+
 const SKIP_DIRS = new Set(['.git', '.godot', 'node_modules', '.import', '.mcp-backups']);
+const PROTECTED_WRITE_PREFIXES = ['.git/', '.godot/', '.mcp-backups/', 'node_modules/', 'mcp-main-city/', '.github/'];
 const MAX_READ_BYTES = 2 * 1024 * 1024;
+const MAX_WRITE_CHARS = 2 * 1024 * 1024;
 const MAX_SEARCH_FILES = 1200;
 
 function insideRoot(candidate) {
-  const rel = path.relative(PROJECT_ROOT, candidate);
-  return rel === '' || (!rel.startsWith('..') && !path.isAbsolute(rel));
+  const relPath = path.relative(PROJECT_ROOT, candidate);
+  return relPath === '' || (!relPath.startsWith('..') && !path.isAbsolute(relPath));
 }
 
 function resolveProjectPath(relativePath = '.') {
@@ -34,6 +42,47 @@ function resolveProjectPath(relativePath = '.') {
 
 function rel(candidate) {
   return path.relative(PROJECT_ROOT, candidate).replaceAll('\\', '/');
+}
+
+function assertWritableProjectFile(full) {
+  const relative = rel(full);
+  const lower = relative.toLowerCase();
+  if (!relative || relative === '.') throw new Error('Informe um arquivo do projeto.');
+  if (PROTECTED_WRITE_PREFIXES.some(prefix => lower.startsWith(prefix.toLowerCase()))) {
+    throw new Error(`Escrita bloqueada na área protegida: ${relative}`);
+  }
+  const ext = path.extname(full).toLowerCase();
+  if (!WRITE_EXTENSIONS.has(ext)) {
+    throw new Error(`Extensão não permitida para escrita: ${ext || '(sem extensão)'}`);
+  }
+}
+
+async function exists(full) {
+  try {
+    await fs.access(full);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function backupStamp() {
+  return new Date().toISOString().replace(/[-:TZ.]/g, '').slice(0, 17);
+}
+
+async function backupExistingFile(full) {
+  if (!(await exists(full))) return null;
+  const stat = await fs.stat(full);
+  if (!stat.isFile()) throw new Error('O caminho informado não é um arquivo.');
+  const relative = rel(full);
+  const backup = path.join(PROJECT_ROOT, '.mcp-backups', backupStamp(), relative);
+  await fs.mkdir(path.dirname(backup), { recursive: true });
+  await fs.copyFile(full, backup);
+  return rel(backup);
+}
+
+function sha256(text) {
+  return crypto.createHash('sha256').update(text, 'utf8').digest('hex');
 }
 
 async function walkFiles(startDir, maxFiles = 500) {
@@ -65,7 +114,7 @@ function textResult(text) {
 }
 
 function createServer() {
-  const server = new McpServer({ name: 'main-city-local', version: '0.1.0' });
+  const server = new McpServer({ name: 'main-city-local', version: '0.2.0' });
 
   server.registerTool(
     'project_info',
@@ -75,13 +124,14 @@ function createServer() {
     },
     async () => {
       const projectFile = path.join(PROJECT_ROOT, 'project.godot');
-      let exists = false;
-      try { await fs.access(projectFile); exists = true; } catch {}
+      let projectGodotExists = false;
+      try { await fs.access(projectFile); projectGodotExists = true; } catch {}
       return textResult(JSON.stringify({
         project_root: PROJECT_ROOT,
-        project_godot_found: exists,
-        mode: 'read-only',
-        note: 'Este primeiro MCP não altera arquivos.'
+        project_godot_found: projectGodotExists,
+        mode: 'controlled-write',
+        backup_directory: '.mcp-backups',
+        note: 'Leitura liberada. Escrita somente em arquivos de texto permitidos, com backup automático antes de alterar arquivos existentes.'
       }, null, 2));
     }
   );
@@ -89,7 +139,7 @@ function createServer() {
   server.registerTool(
     'list_project_files',
     {
-      description: 'Lista arquivos do projeto a partir de uma pasta relativa, ignorando .git, .godot e node_modules.',
+      description: 'Lista arquivos do projeto a partir de uma pasta relativa, ignorando .git, .godot, backups e node_modules.',
       inputSchema: z.object({
         directory: z.string().default('.'),
         limit: z.number().int().min(1).max(1000).default(300)
@@ -118,7 +168,7 @@ function createServer() {
       }
       const stat = await fs.stat(full);
       if (!stat.isFile()) throw new Error('O caminho informado não é um arquivo.');
-      if (stat.size > MAX_READ_BYTES) throw new Error('Arquivo maior que 2 MB; leitura bloqueada neste MCP inicial.');
+      if (stat.size > MAX_READ_BYTES) throw new Error('Arquivo maior que 2 MB; leitura bloqueada.');
       const content = await fs.readFile(full, 'utf8');
       return textResult(content);
     }
@@ -159,9 +209,72 @@ function createServer() {
   );
 
   server.registerTool(
+    'write_project_file',
+    {
+      description: 'Cria ou substitui um arquivo textual permitido do Main City. Se o arquivo já existir, cria backup automático em .mcp-backups antes da alteração.',
+      inputSchema: z.object({
+        file: z.string().min(1),
+        content: z.string().max(MAX_WRITE_CHARS)
+      })
+    },
+    async ({ file, content }) => {
+      const full = resolveProjectPath(file);
+      assertWritableProjectFile(full);
+      const alreadyExists = await exists(full);
+      const before = alreadyExists ? await fs.readFile(full, 'utf8') : null;
+      const backup = await backupExistingFile(full);
+      await fs.mkdir(path.dirname(full), { recursive: true });
+      await fs.writeFile(full, content, 'utf8');
+      return textResult(JSON.stringify({
+        action: alreadyExists ? 'updated' : 'created',
+        file: rel(full),
+        backup,
+        bytes_written: Buffer.byteLength(content, 'utf8'),
+        sha256_before: before === null ? null : sha256(before),
+        sha256_after: sha256(content)
+      }, null, 2));
+    }
+  );
+
+  server.registerTool(
+    'replace_project_text',
+    {
+      description: 'Faz uma substituição textual exata em arquivo permitido. Cria backup automático antes de salvar. Por padrão substitui apenas a primeira ocorrência.',
+      inputSchema: z.object({
+        file: z.string().min(1),
+        find: z.string().min(1),
+        replace: z.string(),
+        replace_all: z.boolean().default(false)
+      })
+    },
+    async ({ file, find, replace, replace_all }) => {
+      const full = resolveProjectPath(file);
+      assertWritableProjectFile(full);
+      const stat = await fs.stat(full);
+      if (!stat.isFile()) throw new Error('O caminho informado não é um arquivo.');
+      if (stat.size > MAX_READ_BYTES) throw new Error('Arquivo maior que 2 MB; alteração textual bloqueada.');
+      const before = await fs.readFile(full, 'utf8');
+      if (!before.includes(find)) throw new Error('Texto exato não encontrado; nenhuma alteração foi feita.');
+      const occurrences = before.split(find).length - 1;
+      const after = replace_all ? before.split(find).join(replace) : before.replace(find, replace);
+      if (after.length > MAX_WRITE_CHARS) throw new Error('Resultado maior que o limite de 2 MB; alteração bloqueada.');
+      const backup = await backupExistingFile(full);
+      await fs.writeFile(full, after, 'utf8');
+      return textResult(JSON.stringify({
+        action: 'replaced',
+        file: rel(full),
+        replacements: replace_all ? occurrences : 1,
+        backup,
+        sha256_before: sha256(before),
+        sha256_after: sha256(after)
+      }, null, 2));
+    }
+  );
+
+  server.registerTool(
     'git_status',
     {
-      description: 'Mostra git status --short do repositório Main City. Não executa commit, pull, push nem altera arquivos.',
+      description: 'Mostra git status --short do repositório Main City. Não executa commit, pull nem push.',
       inputSchema: z.object({})
     },
     async () => {
@@ -178,8 +291,35 @@ function createServer() {
     }
   );
 
+  server.registerTool(
+    'git_diff',
+    {
+      description: 'Mostra o diff local do projeto inteiro ou de um único arquivo, sem alterar o repositório.',
+      inputSchema: z.object({
+        file: z.string().optional()
+      })
+    },
+    async ({ file }) => {
+      try {
+        const args = ['diff'];
+        if (file) {
+          const full = resolveProjectPath(file);
+          args.push('--', rel(full));
+        }
+        const { stdout, stderr } = await execFileAsync('git', args, {
+          cwd: PROJECT_ROOT,
+          windowsHide: true,
+          maxBuffer: 4 * 1024 * 1024
+        });
+        return textResult((stdout || stderr || '(sem diferenças rastreadas)').trim());
+      } catch (error) {
+        return textResult(`Não foi possível executar git diff: ${error.message}`);
+      }
+    }
+  );
+
   return server;
 }
 
 void serveStdio(createServer);
-console.error(`Main City MCP iniciado em modo somente leitura. Projeto: ${PROJECT_ROOT}`);
+console.error(`Main City MCP iniciado em modo de escrita controlada. Projeto: ${PROJECT_ROOT}`);
