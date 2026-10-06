@@ -58,9 +58,11 @@ def main():
         with bpy.data.libraries.load(path, link=False) as (src, dst):
             dst.materials = list(src.materials)
             dst.images = list(src.images)
+            dst.textures = list(src.textures)
 
         materials = [m for m in dst.materials if m is not None]
         images = [im for im in dst.images if im is not None]
+        textures = [t for t in dst.textures if t is not None]
         tex_nodes = []
         group_nodes = 0
         principled = 0
@@ -86,6 +88,7 @@ def main():
         print("SOURCE_BLEND", path)
         print("MATERIAL_COUNT", len(materials))
         print("SOURCE_IMAGE_DATABLOCKS", len(images))
+        print("SOURCE_TEXTURE_DATABLOCKS", len(textures))
         print("MATERIALS_WITH_TEX_IMAGE", mats_with_tex)
         print("TEX_IMAGE_NODES", len(tex_nodes))
         print("TEX_IMAGE_WITH_IMAGE", len(with_image))
@@ -94,12 +97,20 @@ def main():
         print("PRINCIPLED_NODES", principled)
         print("MATERIALS_WITHOUT_NODES", mats_without_nodes)
 
+        for im in images[:300]:
+            print("IMAGE_DB", im.name, "|", im.filepath, "|", im.filepath_raw, "|", im.source)
+
+        for tex in textures[:300]:
+            image = getattr(tex, "image", None)
+            print("LEGACY_TEXTURE", tex.name, "|", getattr(tex, "type", ""), "|", image.name if image else "NO_IMAGE", "|", image.filepath if image else "")
+
         for m, n in with_image[:120]:
             im = n.image
             print("MAT_TEX", m.name, "|", n.name, "|", im.name, "|", im.filepath)
         for m, n in without_image[:120]:
             print("MAT_TEX_MISSING_IMAGE", m.name, "|", n.name)
-        for m in materials[:150]:
+        for m in materials[:300]:
+            print("MAT_DB", m.name, "| diffuse", tuple(round(v, 4) for v in m.diffuse_color))
             if not m.use_nodes or m.node_tree is None:
                 print("MAT_NO_NODES", m.name)
             elif not any(n.type == "TEX_IMAGE" for n in walk_nodes(m.node_tree)):
