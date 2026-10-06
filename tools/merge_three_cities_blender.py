@@ -10,6 +10,7 @@ Regras:
 - Estradas sao usadas somente para um ajuste Y seguro entre as bordas.
 - Camera e luz dos mapas importados sao descartadas.
 - Cada cidade fica em sua propria Collection e ROOT.
+- Texturas externas sao relinkadas por nome e empacotadas antes do GLB.
 """
 
 import argparse
@@ -30,6 +31,7 @@ ROAD_EXCLUDES = (
     "lamp", "light", "pole", "sign", "signage", "traffic", "signal",
     "antenna", "tree", "guardrail", "barrier", "fence", "post"
 )
+IMAGE_EXTS = {".png", ".jpg", ".jpeg", ".tga", ".bmp", ".tif", ".tiff", ".webp", ".exr", ".hdr"}
 
 
 def _argv_after_double_dash():
@@ -167,8 +169,6 @@ def road_candidates(city):
         footprint_short = min(size.x, size.y)
         z_size = max(size.z, 0.0)
 
-        # Uma estrada precisa ter uma superficie relevante. Isso elimina postes,
-        # placas e pequenos props mesmo quando seus nomes contem "street/highway".
         if footprint_long < max(8.0, min(city_x, city_y) * 0.015):
             continue
         if footprint_short < 1.5:
@@ -206,13 +206,8 @@ def translate_city(city, delta):
 
 
 def place_side_by_side(left_city, right_city, city_gap):
-    """Posicionamento deterministico. Nao depende de nomes de estrada."""
     lmin, lmax = city_bbox(left_city)
     rmin, rmax = city_bbox(right_city)
-
-    # 1) Encosta a proxima cidade a direita.
-    # 2) Alinha o centro Y das duas cidades.
-    # 3) Alinha o piso/base Z, nunca o centro Z de uma estrada.
     delta = Vector((
         (lmax.x + city_gap) - rmin.x,
         ((lmin.y + lmax.y) * 0.5) - ((rmin.y + rmax.y) * 0.5),
@@ -223,10 +218,6 @@ def place_side_by_side(left_city, right_city, city_gap):
 
 
 def safe_road_y_sync(left_city, right_city):
-    """Ajusta somente Y, escolhendo o par de estradas de borda mais proximo.
-
-    Nunca altera X/Z e nunca permite um salto grande que desalinhe as cidades.
-    """
     left = edge_roads(left_city, "right")
     right = edge_roads(right_city, "left")
     if not left or not right:
@@ -260,6 +251,95 @@ def bbox_text(city):
         f"max=({mx.x:.2f},{mx.y:.2f},{mx.z:.2f}) "
         f"size=({mx.x-mn.x:.2f},{mx.y-mn.y:.2f},{mx.z-mn.z:.2f})"
     )
+
+
+def build_texture_index(roots):
+    index = {}
+    scanned = 0
+    for root in roots:
+        if not root or not os.path.isdir(root):
+            continue
+        for folder, _, files in os.walk(root):
+            for filename in files:
+                ext = os.path.splitext(filename)[1].lower()
+                if ext not in IMAGE_EXTS:
+                    continue
+                scanned += 1
+                # Primeiro arquivo com o mesmo basename tem prioridade.
+                index.setdefault(filename.lower(), os.path.join(folder, filename))
+    print("TEXTURE_INDEX", "files", scanned, "unique", len(index))
+    return index
+
+
+def repair_and_pack_images(texture_roots):
+    """Relinka imagens externas quebradas e empacota tudo que for possivel.
+
+    O merge por biblioteca preserva materiais, mas caminhos absolutos de Windows
+    podem nao existir no runner Linux. Por isso procuramos o mesmo basename nas
+    pastas de texturas que vieram junto com as cidades e no ZIP da City 3.
+    """
+    index = build_texture_index(texture_roots)
+    total = 0
+    relinked = 0
+    packed = 0
+    missing = []
+
+    for image in bpy.data.images:
+        if image.source != "FILE":
+            continue
+        total += 1
+
+        if image.packed_file is not None:
+            packed += 1
+            continue
+
+        raw_path = image.filepath or image.filepath_raw or ""
+        normalized = raw_path.replace("\\", "/")
+        basename = os.path.basename(normalized)
+        resolved = ""
+
+        try:
+            candidate = bpy.path.abspath(raw_path) if raw_path else ""
+            if candidate and os.path.isfile(candidate):
+                resolved = candidate
+        except Exception:
+            pass
+
+        if not resolved and basename:
+            resolved = index.get(basename.lower(), "")
+            if resolved:
+                image.filepath = resolved
+                image.filepath_raw = resolved
+                try:
+                    image.reload()
+                except Exception as exc:
+                    print("TEXTURE_RELOAD_WARNING", image.name, str(exc))
+                relinked += 1
+                print("TEXTURE_RELINK", image.name, "->", resolved)
+
+        if resolved and os.path.isfile(resolved):
+            try:
+                if image.has_data is False:
+                    image.reload()
+                image.pack()
+                packed += 1
+            except Exception as exc:
+                missing.append((image.name, raw_path, f"pack_failed: {exc}"))
+        else:
+            missing.append((image.name, raw_path, "not_found"))
+
+    print("TEXTURE_RESULT", "total", total, "relinked", relinked, "packed", packed, "missing", len(missing))
+    for name, path, reason in missing[:100]:
+        print("TEXTURE_MISSING", name, "|", path, "|", reason)
+
+    # Nao falha por imagens decorativas ausentes, mas garante que as encontradas
+    # fiquem dentro do .blend e disponiveis para o exportador GLB.
+    try:
+        bpy.ops.file.pack_all()
+    except Exception as exc:
+        print("PACK_ALL_WARNING", str(exc))
+
+    return {"total": total, "relinked": relinked, "packed": packed, "missing": len(missing)}
 
 
 def save_outputs(output_blend, export_glb=""):
@@ -301,7 +381,6 @@ def main():
 
         d12 = place_side_by_side(city1, city2, args.city_gap)
         method12, road_dy12 = safe_road_y_sync(city1, city2)
-
         d23 = place_side_by_side(city2, city3, args.city_gap)
         method23, road_dy23 = safe_road_y_sync(city2, city3)
 
@@ -313,6 +392,19 @@ def main():
         print("CITY_2", bbox_text(city2))
         print("CITY_3", bbox_text(city3))
         print("Escalas e rotacoes originais preservadas; somente translacao aplicada.")
+
+        # Procura texturas ao lado dos .blend, em source_cities/textures e dentro
+        # do ZIP extraido da City 3. Assim caminhos absolutos antigos nao quebram.
+        source_dir = os.path.dirname(os.path.abspath(args.city1))
+        texture_roots = [
+            source_dir,
+            os.path.join(source_dir, "textures"),
+            os.path.dirname(c1_path),
+            os.path.dirname(c2_path),
+            os.path.dirname(c3_path),
+        ]
+        texture_stats = repair_and_pack_images(texture_roots)
+        print("TEXTURE_STATS_FINAL", texture_stats)
 
         save_outputs(args.output, args.export_glb)
 
