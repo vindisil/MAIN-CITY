@@ -1,0 +1,45 @@
+name: Test Main City MCP
+
+on:
+  push:
+    paths:
+      - 'mcp-main-city/**'
+      - '.github/workflows/test-main-city-mcp.yml'
+  workflow_dispatch:
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        working-directory: mcp-main-city
+        run: npm install
+
+      - name: Syntax check
+        working-directory: mcp-main-city
+        run: node --check src/index.mjs
+
+      - name: Start MCP smoke test
+        working-directory: mcp-main-city
+        shell: bash
+        run: |
+          set +e
+          timeout 3s npm start >mcp.out 2>mcp.err
+          code=$?
+          cat mcp.err
+          if [ "$code" -ne 124 ]; then
+            echo "MCP encerrou antes do timeout. Codigo: $code"
+            cat mcp.out
+            exit 1
+          fi
+          grep -q "Main City MCP iniciado" mcp.err
+          echo "MCP permaneceu ativo e aguardando cliente stdio."
