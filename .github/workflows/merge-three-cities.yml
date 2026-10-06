@@ -1,0 +1,45 @@
+name: Merge 3 Cities
+
+on:
+  workflow_dispatch:
+
+jobs:
+  merge-cities:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Blender
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y blender
+          blender --version
+
+      - name: Validate source files
+        run: |
+          test -f "source_cities/City 1.blend"
+          test -f "source_cities/City 2(2).blend"
+          test -f "source_cities/city cyles.zip"
+          mkdir -p build
+
+      - name: Merge and align roads
+        run: |
+          blender --background --python tools/merge_three_cities_blender.py -- \
+            --city1 "source_cities/City 1.blend" \
+            --city2 "source_cities/City 2(2).blend" \
+            --city3 "source_cities/city cyles.zip" \
+            --output "build/MAIN_CITY_3_CIDADES.blend" \
+            --export-glb "build/MAIN_CITY_3_CIDADES.glb" \
+            --road-gap 0.20
+
+      - name: Upload merged maps
+        uses: actions/upload-artifact@v4
+        with:
+          name: MAIN_CITY_3_CIDADES
+          path: |
+            build/MAIN_CITY_3_CIDADES.blend
+            build/MAIN_CITY_3_CIDADES.glb
+          if-no-files-found: error
+          retention-days: 30
