@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" path="res://scenes/third_person_player.tscn" id="third_person_player"]
 [ext_resource type="Script" path="res://scripts/city1_services_disabled.gd" id="services"]
 [ext_resource type="Script" path="res://scripts/vehicle_edit_store.gd" id="vehicle_edit_store"]
-[ext_resource type="PackedScene" path="res://assets/City1/City 1_MAIN_CITY_TEXTURED_MOBILE_GLB_FIX.glb" id="city1"]
+[ext_resource type="PackedScene" path="res://assets/City1/MAIN_CITY_3_CIDADES.glb" id="city1"]
 [ext_resource type="PackedScene" path="res://scenes/city1_vehicle_yard.tscn" id="vehicle_yard"]
 
 [sub_resource type="ProceduralSkyMaterial" id="city_sky_material"]

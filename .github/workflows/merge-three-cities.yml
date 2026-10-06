@@ -5,9 +5,10 @@ on:
   push:
     paths:
       - "source_cities/City 1.blend"
-      - "source_cities/City 2(2).blend"
+      - "source_cities/City 2.blend"
       - "source_cities/city cyles.zip"
       - "tools/merge_three_cities_blender.py"
+      - ".github/workflows/merge-three-cities.yml"
 
 jobs:
   merge-cities:
@@ -17,33 +18,42 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Blender
+      - name: Install Blender and GLB dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y blender
+          sudo apt-get install -y blender python3-numpy
           blender --version
+          python3 -c "import numpy; print('numpy', numpy.__version__)"
 
       - name: Validate source files
         run: |
-          test -f "source_cities/City 1.blend"
-          test -f "source_cities/City 2(2).blend"
-          test -f "source_cities/city cyles.zip"
+          test -s "source_cities/City 1.blend"
+          test -s "source_cities/City 2.blend"
+          test -s "source_cities/city cyles.zip"
           mkdir -p build
+          ls -lh "source_cities/City 1.blend" "source_cities/City 2.blend" "source_cities/city cyles.zip"
 
-      - name: Merge and align roads
+      - name: Merge 3 cities side by side
         run: |
           blender --background --python tools/merge_three_cities_blender.py -- \
             --city1 "source_cities/City 1.blend" \
-            --city2 "source_cities/City 2(2).blend" \
+            --city2 "source_cities/City 2.blend" \
             --city3 "source_cities/city cyles.zip" \
             --output "build/MAIN_CITY_3_CIDADES.blend" \
             --export-glb "build/MAIN_CITY_3_CIDADES.glb" \
+            --city-gap 12.0 \
             --road-gap 0.20
+
+      - name: Validate generated files
+        run: |
+          test -s "build/MAIN_CITY_3_CIDADES.blend"
+          test -s "build/MAIN_CITY_3_CIDADES.glb"
+          ls -lh "build/MAIN_CITY_3_CIDADES.blend" "build/MAIN_CITY_3_CIDADES.glb"
 
       - name: Upload merged maps
         uses: actions/upload-artifact@v4
         with:
-          name: MAIN_CITY_3_CIDADES
+          name: MAIN_CITY_3_CIDADES_FIXED
           path: |
             build/MAIN_CITY_3_CIDADES.blend
             build/MAIN_CITY_3_CIDADES.glb
