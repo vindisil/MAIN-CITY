@@ -4,15 +4,27 @@ Servidor MCP local para trabalhar com o projeto Godot Main City de forma control
 
 ## Estado atual
 
-Versão inicial em modo **somente leitura**. Ferramentas disponíveis:
+Versão **0.2.0** com leitura e escrita controlada.
+
+Ferramentas disponíveis:
 
 - `project_info`
 - `list_project_files`
 - `read_project_file`
 - `search_project_text`
+- `write_project_file`
+- `replace_project_text`
 - `git_status`
+- `git_diff`
 
-Ele bloqueia acesso fora da pasta do projeto e não altera arquivos.
+## Proteções
+
+- acesso fora da pasta `MAIN-CITY` é bloqueado;
+- escrita só é permitida em arquivos textuais do projeto;
+- antes de alterar um arquivo existente, é criado backup automático em `.mcp-backups`;
+- escrita em `.git`, `.godot`, `.github`, `node_modules`, `.mcp-backups` e na própria pasta `mcp-main-city` é bloqueada;
+- não existe ferramenta de shell genérico;
+- o MCP não executa `commit`, `pull` ou `push` automaticamente.
 
 ## Requisitos
 
@@ -31,31 +43,35 @@ npm install
 
 ## Testar localmente
 
-Execute:
-
 ```powershell
-npm start
+npm run test:mcp
 ```
 
-O servidor ficará aguardando um cliente MCP pelo transporte stdio. Para testar com o MCP Inspector:
+Resultado esperado:
+
+```text
+MCP_SMOKE_OK tools=8 controlled_write=ok
+```
+
+## Abrir no MCP Inspector
 
 ```powershell
 npx @modelcontextprotocol/inspector node src/index.mjs
 ```
 
-No Inspector, teste primeiro `project_info` e depois `git_status`.
+Depois conecte e abra `Tools`.
 
 ## Caminho do projeto
 
 Por padrão o servidor considera como raiz a pasta `MAIN-CITY`, porque `mcp-main-city` fica dentro dela.
 
-Se precisar apontar para outra cópia do projeto:
+Para apontar para outra cópia:
 
 ```powershell
 $env:MAIN_CITY_ROOT='C:\\Projetos\\MAIN-CITY'
 npm start
 ```
 
-## Próxima etapa
+## Próximas etapas
 
-Depois de validar a conexão, adicionar ferramentas de escrita controlada com backup automático e comandos específicos para Godot/Blender. Não adicionar execução arbitrária de shell.
+Adicionar validações específicas do Godot e Blender sem liberar execução arbitrária de comandos do sistema.
