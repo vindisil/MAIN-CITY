@@ -8,6 +8,7 @@ on:
       - "source_cities/City 2.blend"
       - "source_cities/city cyles.zip"
       - "tools/merge_three_cities_blender.py"
+      - "tools/diagnose_city_materials.py"
       - ".github/workflows/merge-three-cities.yml"
 
 jobs:
@@ -32,6 +33,12 @@ jobs:
           test -s "source_cities/city cyles.zip"
           mkdir -p build
           ls -lh "source_cities/City 1.blend" "source_cities/City 2.blend" "source_cities/city cyles.zip"
+
+      - name: Diagnose source materials and textures
+        run: |
+          blender --background --python tools/diagnose_city_materials.py -- --source "source_cities/City 1.blend" --label CITY_1
+          blender --background --python tools/diagnose_city_materials.py -- --source "source_cities/City 2.blend" --label CITY_2
+          blender --background --python tools/diagnose_city_materials.py -- --source "source_cities/city cyles.zip" --label CITY_3
 
       - name: Merge 3 cities side by side
         run: |
