@@ -186,16 +186,16 @@ func _create_node(request: Dictionary) -> Dictionary:
 	var parent := _find_node(String(request.get("parent", ".")))
 	if parent == null:
 		return {"ok": false, "error": "Pai nao encontrado"}
-	var class_name := String(request.get("class_name", "Node3D"))
-	if not ClassDB.class_exists(class_name) or not ClassDB.is_parent_class(class_name, "Node"):
-		return {"ok": false, "error": "Classe de Node invalida: %s" % class_name}
-	var node := ClassDB.instantiate(class_name)
+	var node_class := String(request.get("class_name", "Node3D"))
+	if not ClassDB.class_exists(node_class) or not ClassDB.is_parent_class(node_class, "Node"):
+		return {"ok": false, "error": "Classe de Node invalida: %s" % node_class}
+	var node := ClassDB.instantiate(node_class)
 	if not (node is Node):
-		return {"ok": false, "error": "Nao foi possivel instanciar %s" % class_name}
-	node.name = String(request.get("name", class_name))
+		return {"ok": false, "error": "Nao foi possivel instanciar %s" % node_class}
+	node.name = String(request.get("name", node_class))
 	parent.add_child(node)
 	node.owner = root
-	return {"ok": true, "result": {"path": _node_path(node), "class": class_name}}
+	return {"ok": true, "result": {"path": _node_path(node), "class": node_class}}
 
 func _create_primitive(request: Dictionary) -> Dictionary:
 	var root := _root()
