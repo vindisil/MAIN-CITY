@@ -1,11 +1,13 @@
 {
   "name": "main-city-mcp",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
     "start": "node src/index.mjs",
-    "test:mcp": "node src/smoke-client.mjs"
+    "start:godot": "node src/godot-server.mjs",
+    "test:mcp": "node src/smoke-client.mjs",
+    "check:godot-server": "node --check src/godot-server.mjs && node --check src/godot-control-tools.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/client": "^2.0.0",
