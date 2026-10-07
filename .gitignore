@@ -1,3 +1,8 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+
+# Main City MCP local/runtime files
+.mcp-backups/
+mcp-test/
+mcp-main-city/node_modules/
