@@ -81,7 +81,7 @@ func _dispatch(request: Dictionary) -> Dictionary:
 	var command := String(request.get("command", ""))
 	match command:
 		"ping":
-			return {"ok": true, "result": {"bridge": "main-city", "version": "1.0.0", "port": _port}}
+			return {"ok": true, "result": {"bridge": "main-city", "version": "1.0.1", "port": _port}}
 		"editor_info":
 			return _editor_info()
 		"scene_tree":
@@ -172,8 +172,8 @@ func _collect_tree(node: Node, depth: int, max_depth: int, max_nodes: int, out: 
 func _open_scene(scene: String) -> Dictionary:
 	if not scene.begins_with("res://"):
 		return {"ok": false, "error": "A cena precisa usar res://"}
-	var err := get_editor_interface().open_scene_from_path(scene)
-	return {"ok": err == OK, "result": {"scene": scene, "error_code": err}}
+	get_editor_interface().open_scene_from_path(scene)
+	return {"ok": true, "result": {"scene": scene}}
 
 func _save_scene() -> Dictionary:
 	var err := get_editor_interface().save_scene()
