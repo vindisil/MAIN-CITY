@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "main-city-files": {
+      "command": "node",
+      "args": ["mcp-main-city/src/index.mjs"],
+      "cwd": "."
+    },
+    "main-city-godot": {
+      "command": "node",
+      "args": ["mcp-main-city/src/godot-server.mjs"],
+      "cwd": "."
+    }
+  }
+}
