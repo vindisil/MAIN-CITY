@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - 'mcp-main-city/**'
+      - 'addons/main_city_mcp_bridge/**'
+      - '.agents/mcp_config.json'
       - '.github/workflows/test-main-city-mcp.yml'
   workflow_dispatch:
 
@@ -29,6 +31,7 @@ jobs:
         run: |
           node --check src/index.mjs
           node --check src/smoke-client.mjs
+          npm run check:godot-server
 
       - name: MCP protocol smoke test
         working-directory: mcp-main-city
